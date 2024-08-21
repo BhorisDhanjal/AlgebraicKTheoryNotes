@@ -168,7 +168,7 @@
 		Use the fact that projective modules over local rings are free.
 	\end{proof}
 	\begin{theorem}[Horrocks' theorem]
-	If $(A, \mathfrak{m})$ is a local ring then for any arbitrary unimodular row $v(x)$ in $A[x]^n$ such that one of its component elements has leading coefficient 1 implies that $v$ has the unimodular extension property.
+	If $(A, \mathfrak{m})$ is a local ring then for any arbitrary unimodular row $v(x)$ in $A[x]^n$ such that one of its component elements has leading coefficient 1 implies that $v$ has the unimodular extension property. Furthermore, any such $v$ is equivalent to $v(0)$.
 	\end{theorem}
 	\begin{proof}
 	Recall that for a local ring $x \not \in \mathfrak m \iff x  $ is a unit.
@@ -192,7 +192,23 @@
 	Since $I$ has a unit which means it generates $A$. And consequently implies that there was some choice of polynomial $y_1v_1+y_2v_2$ of degree $<d$ with leading coefficient $1$.
 	
 	The the appropriate row actions we can obtain this in some component of $v$. Repeating this process until we get $d=0$ finishes the proof.
+	
+	Now because of $\sum_{i=1}^n w_i v_i =1 $ there must be some constant term not in $\mathrm m $ and unital as such. So $v(0) \sim (1,0,\cdots ,0 ) \sim v$ as seen above.
 	\end{proof}
+	
+
+	
+	\begin{definition}
+		Stably free
+	\end{definition}
+	
+	\begin{theorem}[Hilbert-Serre]
+		 Every f.g. module over $k[x_1,\cdots x_n]$ is stably free.
+	\end{theorem}
+	
+	\begin{theorem}[Quillen-Suslin]
+		content...
+	\end{theorem}
 	\subsection{$K_2$}
 	
 	\section{Higher K theory}
