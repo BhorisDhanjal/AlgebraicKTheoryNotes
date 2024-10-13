@@ -30,125 +30,134 @@
 \newcommand{\Hom}{{\mathrm{Hom}}}
 \newcommand{\image}{{\mathrm{Im}}}
 \newcommand{\kernel}{{\mathrm{Ker}}}
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem{definition}{Definition}[section]
-\newtheorem{corollary}{Corollary}[theorem]
-\newtheorem{lemma}[theorem]{Lemma}
-
-\newtheorem{proposition}{Proposition}[section]
+% \newtheorem{dummy}{Dummy}[section]
+\newcounter{dummy} \numberwithin{dummy}{section}
+\newtheorem{theorem}[dummy]{Theorem}
+\newtheorem{definition}[dummy]{Definition}
+\newtheorem{corollary}[dummy]{Corollary}
+\newtheorem{lemma}[dummy]{Lemma}
+\newtheorem{proposition}[dummy]{Proposition}
+\newtheorem{example}[dummy]{Example}
 %opening
 \title{Algebraic K-Theory}
 \author{Bhoris Dhanjal}
 \begin{document}
 	\tableofcontents
 	\maketitle
-	\section{Small K groups}
-	The category of finitely generated projective modules is the main object of study in algebraic K-theory. This is largely motivated by the following theorem due to Swan \cite{Swan1962} which relates algebraic K-theory to topological K-theory.
+	\section{Classical K-Theory}
+	The category of f.g. projective modules is the main object of study in algebraic K-theory. This is largely motivated by the following theorem due to Swan \cite{Swan1962} which relates algebraic K-theory to topological K-theory.
 	\begin{theorem}[Swan's theorem]
-		There exists an equivalence of categories between $\mathrm{Vect}(X)$ the category of vector bundles over a compact, Hausdorff space $X$ and finitely generated projective $C(X)$ modules. With the cross section functor.
+		There exists an equivalence of categories between $\mathrm{Vect}(X)$ the category of vector bundles over a compact, Hausdorff space $X$ and f.g. projective $C(X)$ modules. With the cross section functor.
 	\end{theorem}
-	\begin{proof}
-		The functor we use is sending a vector bundle to its set of sections which takes on a natural module structure over $C(X)$. To show that it infact goes to f.g. proj modules 
-	\end{proof}
+%	\begin{proof}
+%		The functor we use is sending a vector bundle to its set of sections which takes on a natural module structure over $C(X)$. To show that it infact goes to f.g. proj modules 
+%	\end{proof}
 	
 	\subsection{Grothendieck group $K_0$}
-	The big picture idea that Grothendieck had was that of a free completion of a commutative monoid. Commutative monoids occurred in nature very often as finitely generated projective modules/vector bundles. 
+	The big picture idea that Grothendieck had was that of a free completion of a commutative monoid. Commutative monoids occurred in nature very often as f.g. projective modules/vector bundles. 
 	
-	This is a fairly natural approach which results in a Free-Forgetful adjoint pair between $\mathrm{CMon}$ and $\mathrm{Ab}$. We will refer to Weibel for most of the definitions \cite{weibel2013k}
+	This is a fairly natural approach which results in a Free-Forgetful adjoint pair between $\mathrm{CMon}$ and $\mathrm{Ab}$. 
 		
-	\begin{proposition}[Group completion functor]
+	\begin{proposition}[$K_0$ of a monoid (Group completion functor)]
 		Assign $(A,+) \in \mathrm{CMon} $ to \[K_0(A) \in \mathrm{Grp}\] by taking the free group on symbols $[a]$ for $a \in A$ and quotienting the monoidal relations $[m+n]-[m]-[n]$.
 	\end{proposition}
 	
 	The mapping is an injection iff the monoid is cancellative.
+	\begin{definition}[Reduced $K_0$ groups]
+	There is a canonical homomorphism $i: \Z \to K_0(A)$ given by $z \mapsto z[m]$ the reduced $K$ group is defined as $\tilde{K}_0(A):=K_0(A)/\image i $
+	\end{definition}
 	
-	\begin{proposition}[Mayer-Vietoris for group completions]
-		content...
-	\end{proposition}
+%	\begin{proposition}[Mayer-Vietoris for group completions]
+%		content...
+%	\end{proposition}
 	
 	\begin{definition}[$K_0$ for a ring $A$]
-		Consider the isomorphism classes of finitely generated projective modules over $A$. This forms a commutative monoid so consider its group completion $K_0(A)$
+		Consider the isomorphism classes of f.g. projective modules over $A$. This forms a commutative monoid so consider its group completion $K_0(A)$
+	\end{definition}
+	\begin{definition}[$G_0$ for a ring $A$]
+	The group completion of $M(A) $ the monoid of all f.g. modules over $A$ is denoted as $G_0(A)$
+	\end{definition}
+	There is a canonical inclusion map $K_0(A) \to G_0(A)$.
+	
+	\begin{definition}[$G_0$ for a noetherian scheme]
+		content (relevance?)
 	\end{definition}
 	
 	\begin{proposition}[Eilenberg Swindle]
-		$K_0$ for many abelian categories are trivial. If we consider $R^\infty$ as a infinitely generated free module over a ring $R$ if $P \oplus Q \equiv R^n$ then \[ P \oplus R^\infty \cong P \oplus (Q \oplus P) \oplus (Q \oplus P) \oplus \dots \equiv (P \oplus Q) \oplus (P \oplus Q) \oplus \dots \equiv R^\infty \] but this relation would imply $[P]=0 $ for all projectives. 
+		$K_0$ for many abelian categories are trivial. If we consider $R^\infty$ as a inf.g. free module over a ring $R$ if $P \oplus Q \equiv R^n$ then \[ P \oplus R^\infty \cong P \oplus (Q \oplus P) \oplus (Q \oplus P) \oplus \dots \equiv (P \oplus Q) \oplus (P \oplus Q) \oplus \dots \equiv R^\infty \] but this relation would imply $[P]=0 $ for all projectives. 
 	\end{proposition}
-	This extends to higher K groups with an analogue that demostrates the Quillen K space contracts, see V.1.9 in \cite{weibel2013k}.
+	This extends to higher K groups with an analogue that demonstrates the Quillen K space contracts, see V.1.9 in \cite{weibel2013k}.
 	
-	\begin{definition}[Morita equivalence for rings and ]
-		content...
-	\end{definition}
-	
+%	\begin{definition}[Morita equivalence for rings and ]
+%		content...
+%	\end{definition}
+%	
 	\begin{proposition}\label{k0pidisZ}
-	If $A$ is a Field/local ring/PID then $K_0(A)=\Z$
+	If $A$ is a Field/local ring/PID then $K_0(A)\cong\Z$
 	\end{proposition}
 	\begin{proof}
-		For fields and division rings its just due to all f.g. modules being equal to some $A^n$. Similarly as seen in \ref{a2} f.g. proj. modules in a local ring are free. And finally using the structure theorem for a PID and the fact that f.g. proj. modules are direct summands of a f.g. free module which being a submodule of a free module is free (refer to \ref{submodoffreemodisfreepid}).
+		For fields and division rings its just due to all f.g. modules being equal to some $A^n$. Similarly as seen in \ref{a2} and \ref{submodoffreemodisfreepid} f.g. projective modules in a local ring/PID are free.
 		
 		So in each case $\mathrm{Proj}(A) \cong \N$ so its group completion is $\Z.$
 		\end{proof}
 		
-	\begin{lemma}
+	\begin{lemma} For commutative ring $A$, 
 		$K_0(A) \cong \Z \implies $ projective modules over $A$ are stably free.
 	\end{lemma}
+	\begin{proof}
+		For a commutative ring $A$, $K_0(A) \cong \Z \implies \mathrm{Spec}(A)$ is connected. For if not then there exists a non trivial idempotent in $A$ which results in a splitting of $A$ as a product which would imply $K_0(A)$ would contain an element of the form $\Z \oplus \Z $. 
+		
+		In light of Def. \ref{def:rankproj} we know that the rank of the projective modules must be constant due to the connectedness of $\mathrm{Spec}(A)$ and the fact that the only connected components in $\Z $ are singletons. 
+		
+		So the rank map $\phi:K_0(A) \to \Z $ defined as $P \mapsto \mathrm{Rank}(P)$ is well defined and trivially surjective mapping $A$ to $1$. But by our assumption this is an isomorphism so since $\phi(A)$ generates $\Z $ we have $\phi(P)=n\cdot \phi(A)=\phi(A^n)$.
+	\end{proof}
+	
+	\begin{theorem}[Devissage for $K_0$ in abelian categories]
+		Let $\mathcal B \subset \mathcal A$ be abelian categories which are small (i.e. $\mathrm{Ob}$ finite) then $K_0(\mathcal A) \cong K_0(\mathcal B)$ if the following conditions are met
+		\begin{enumerate}
+			\item $\mathcal B$ is a abelian exact subcategory of $B$ \footnote{It is important to mention $B$ is abelian again. Since a subcategory of an abelian category need not be abelian. Consider the category of torsion free abelian groups. }
+		\end{enumerate}
+	\end{theorem}
+	
+	\begin{theorem}[Localization theorem for $G_0$]
+		 
+	\end{theorem}
+	
+	\begin{theorem}[Grothendieck]
+		$G_0[A] \cong G_0(A[t]) \cong G_0(A[t,t^{-1}])$
+	\end{theorem}
+	\begin{proof}
+		pg 134
+	\end{proof}
+	
+	
+	\begin{definition}[Regular ring] A ring is called regular if
+	\end{definition}
+	\begin{example}
+		content...
+	\end{example}
 	\begin{theorem}\label{extensionk0iscong}
-		For a ring $A$ the map $A \to A[x]$ induces an isomorphism $K_0(A) \cong K_0(A[x])$ 
-	\end{theorem}
-	
-	\begin{definition}[$K_0$ for abelian category $\mathcal{A}$]
-		$K_(\mathcal A)$ is generated by $[A]$ for each $A \in \mathcal{A}$ and a relation of $[A]=[A']+[A'']$ for all \[ 0 \to A' \to A \to A'' \to 0 \]
-		short exact
-	\end{definition}
-	\begin{definition}[Relative $K_0$ groups]
-	\end{definition}
-	\subsection{Whitehead group $K_1$}
-	\begin{definition}[Whitehead group for a ring]
-		$K_1= \frac{GL(A)}{[GL(A):GL(A)]}$
-		Where $GL(A)$ denotes the colimit of $GL_n(A)$ with $GL_{n}$ realized as a subgroup of $GL_{n+1}$ by placing the matrix in the top left corner. 
-	\end{definition}
-	
-	\begin{lemma}[Whitehead]
-		content...
-	\end{lemma}
-	\begin{proposition}
-		\[ [GL(A):GL(A)]=E[A] \]
-	\end{proposition}
-	\begin{proof}
-		content...
-	\end{proof}	
-	
-	\begin{definition}
-		$SK_1(A):= \ker \det$
-		
-		Where, $\det : K_1(A) \to A^*$. We have a split exact sequence
-		\[ 0 \to SK_1(A) \to K_1(A) \to A^* \to 0 \]
-	\end{definition}
-	
-	
-	\begin{lemma}
-		For E.D. $A$ we have $SL_n(A)=EL_n(A)$ for all $n.$
-	\end{lemma}
-	\begin{proof}
-		With elementary row and column operations arrange the matrix so that the element with the smallest norm is in the top right position. And using elementary row operations reduce it to a matrix with a unit in the top left and 0s in the rest of the first column and first row. Proceeding similarly for the remaining $n-1 \times n-1 $ matrix left we reduce it down to a matrix of the form.
-		
-		\[ \begin{bmatrix}
-			u_1 & 0 & \dots & 0 \\
-			0 & u_2 & \dots & 0 \\
-			\vdots & 0 & \ddots & 0\\
-			0 & 0 & \dots & u_n 
-		\end{bmatrix} \]
-		
-	Now apply Whiteheads lemma 
-	\end{proof}
-	
-	\begin{theorem}[Suslin]
-		$E_n(A)$ normal in $GL_n(A)$ for $n \geq 3$. 
+		For a regular ring $A$ the map $A \to A[x]$ induces an isomorphism $K_0(A) \cong K_0(A[x])$ 
 	\end{theorem}
 	\begin{proof}
-		content...
+		pg 149
 	\end{proof}
 	
-	We will know move towards Horrock's theorem. We follow Lang's book for the first few results which recounts Vaserstein's proof of Quillen-Suslin \cite{lang02}.
+	$K_0$ being the prototypical K group is easier to generalize. We will refer to Weibel for most of the definitions of $K_0$ leading upwards to its definition for a Waldhausen category \cite{weibel2013k}. The benefit of this approach will mainly be for building up an understanding for Higher K theory. Also this machinery allows for easier computations.
+	
+	\begin{definition}[$K_0$ for an exact category $\mathcal{E}$]
+		$K_(\mathcal E)$ is generated by $[A]$ for each $A \in \mathrm{Ob}(\mathcal{E})$ and a relation of $[A]=[A']+[A'']$ for all short exact sequences \[ 0 \to A' \to A \to A'' \to 0 \]
+		Naturally since every abelian category is exact this applies for abelian categories in particular.
+	\end{definition}
+	
+	\begin{definition}[$K_0$ for Waldhausen categories]
+		
+	\end{definition}
+	
+	
+	
+	\subsection{Quillen-Suslin Theorem}
+	We will know move towards Horrock's theorem which will enable a short proof of the famous Quillen-Suslin theorem. We follow Lang's book for the first few results which recounts Vaserstein's proof of Quillen-Suslin \cite{lang02}.
 	
 	\begin{definition}
 	An $A$ module $M$ is stably free if there exists a f.g. free module $F$ such that $M \oplus F$ is free.
@@ -156,15 +165,25 @@
 	\begin{lemma}
 	A proj. module is stably free iff if has a finite free resolution.
 	\end{lemma}
-	\begin{theorem}[Hilbert-Serre (try to avoid writing this will work with Th \ref{k0pidisZ} and Th \ref{extensionk0iscong})]
-	Every f.g. module over $k[x_1,\dots x_n]$ is stably free.
+	\begin{theorem}[Hilbert-Serre]
+	Every f.g. module over $k[x_1,\dots x_n]$ is stably free where $k$ is a PID.
 	\end{theorem}
-	
+	\begin{proof}
+		Apply Th \ref{k0pidisZ} and Th \ref{extensionk0iscong}
+	\end{proof}
+	\begin{example}[Stably free module that is not free]
+		Consider $S^2$ described as the ring $R=\mathbb{R}[x,y,z]/\langle x^2+y^2+z^2-1 \rangle $. Then the tangent space $T=\{ (a,b,c) \mid ax+by+cz=0  \}$ is stably free since $T \oplus R \equiv R^3 $ but $T \neq R^2$
+	\end{example}
+	\begin{proof}
+		content...
+	\end{proof}
 	
 	\begin{definition}[Unimodular row]
-		For a ring $A$, an element of $A^n$ is said to be a unimodular row if its components generate	$A$. 
+		For a ring $A$, an element of $A^n$ is said to be a unimodular row if its components generate	$A$. We denote the set of all unimodular rows as $U_n(A)$
 	\end{definition}
-	
+	\begin{definition}[Unimodular matrix]
+		In general we say an arbitrary matrix over $A$ not nessecarily square is unimodular if it is right invertible.
+	\end{definition}
 	Alternatively it can be useful to view a unimodular row as as element of $M_{1 \times n} (A) $ as such it represents a surjective linear map $A^n \to A$, or even an element in $M_{n \times 1}$ in which case it represents a injection from $A \to A^n$.
 	
 	\begin{definition}[Equivalence of unimodular rows]
@@ -175,6 +194,8 @@
 		Given a unimodular row $v=(v_1,\dots v_n) \in A^n$ if we can construct a invertible $n \times n $  matrix with $v$ in the first column we say $v$ has the unimodular extension property.
 	\end{definition}
 	
+
+	
 	We don't use the above terminology in the light of the following fact.
 	
 	\begin{lemma}
@@ -184,6 +205,9 @@
 		If $v$ can be extended to a invertible matrix $M \in GL_n(A)$ then \[ M{^-1} = (1,0,\dots, 0) \].
 		Conversely if $M' \in GL_n(A) $ s.t. $M'v=(1,0,\dots,0)$ then $M'{^-1}$ has $v$ in the first column.
 	\end{proof}
+		\begin{corollary}\label{row-of-inv-mat-unimod}
+		Based on the above lemma we can see that trivially any row of a invertible matrix (and column realized as a row of its transpose) is a unimodular row. 
+	\end{corollary}
 	
 	\begin{proposition}\label{inductionbaseforprequillensuslin}
 		Over a PID $A$ any two unimodular rows in $A^n$ are equivalent.
@@ -240,7 +264,7 @@
 	\end{proof}
 	
 	\begin{lemma}\label{horrocksbuteverything}
-		For a ring $A$ and $v(x)$ unimodular row in $A[x]^n$ with at least one component having leading coefficient one implies $v(x) \sim v(0)$.
+		For an ID $A$ and $v(x)$ unimodular row in $A[x]^n$ with at least one component having leading coefficient one implies $v(x) \sim v(0)$.
 	\end{lemma}
 	\begin{proof}
 		Consider the set $I$ containing all $c \in A$ such that $v(x+cy)\sim v(x)$ as rows in $A[x,y]$ if the ideal contains $1$ then sending $x \to 0$ would give us $v(y)\sim v(0) $ in $A[y].$
@@ -273,7 +297,7 @@
 	
 	
 	\begin{theorem}[Quillen-Suslin]
-		F.g. proj. modules over $A=k[x_1,\dots,x_n]$ where $k$ is a PID are free.
+		Finitely generated projective modules over $A=k[x_1,\dots,x_n]$ where $k$ is a PID are free.
 	\end{theorem}
 	\begin{proof}
 		We know such f.g. proj. modules are stably free. And from above we know any unimodular row in $A$ is equivalent to $(1,0,\dots,0)$.
@@ -288,15 +312,186 @@
 		
 		When $m_1 \neq 1$ just take $(P \oplus A^{m_1-1}) \oplus A$.
 	\end{proof}
-	\subsection{$K_2$}
+	\subsection{Mennicke symbols}
+	\begin{definition}[Mennicke symbol]
+		A Mennicke symbol is a map $\phi : \mathrm{Un}_{n}(A) \to G $ where $G$ is a group such that,
+		\begin{enumerate}
+			\item $\phi(1,0,\dots, 0)=1, \phi(v)=\phi(v M)$ for $M \in E_n(A)$
+			\item $\phi(a,a_2,\dots,a_n)\cdot \phi(b,a_2, \dots a_n)=\phi(ab,a_2,\dots, a_n)$ if $(a,a_2,\dots,a_n), (b,a_2,\dots,b_n) \in \mathrm{Um}_n(A)$.
+		\end{enumerate}
+	\end{definition}
+
+	
+	\subsection{Whitehead group $K_1$}
+	\begin{definition}[Whitehead group for a ring] $K_1$ for a ring $A$ is defined as the abelianization of its infinite general linear group.
+		$$K_1:= \frac{GL(A)}{[GL(A):GL(A)]}$$
+		Where $GL(A)$ the infinite general linear group is the colimit of $GL_n(A)$ with $GL_{n}$ realized as a subgroup of $GL_{n+1}$ by placing the matrix in the top left corner. 
+	\end{definition}
+	\begin{proposition}
+		\[ [GL(A):GL(A)]=E[A] \]
+	\end{proposition}
+	\begin{proof}
+		Using Lemma \ref{whiteheadmain} we can see that \[ \begin{bmatrix}
+			a^{-1}b^{-1} & 0 \\ 0 & I_n
+		\end{bmatrix} \equiv \begin{bmatrix}
+			b^{-1} a^{-1 } & 0 \\
+			0 & 1_n
+		\end{bmatrix} \mod E_{2n}(A)\]
+		So the derived subgroup of $GL_n(A)$ is contained in $E_{2n}(A)$. 
+	\end{proof}	
+	
+	
+	\begin{definition}[Relative $K_1$]
+		$SK_1(A):= \ker \det$
+		
+		Where, $\det : K_1(A) \to A^\times$. We have a split exact sequence
+		\[ 0 \to SK_1(A) \to K_1(A) \to A^\times \to 0 \]
+	\end{definition}
+	
+	
+	\subsection{Some results on linear groups}
+	\begin{definition}[Elementary matrices]
+		We denote the elementary matrices as $E_n(A)$ generated by standard elementary matrices of the form $I_{n}+ \lambda E_{ij} $ where $E_{ij}$ is the matrix with $1$ in the $(i,j)$ entry and zero elsewhere. In shorthand notation we will write it as $e_{ij}(\lambda)$. 
+	\end{definition}
+	
+	\begin{lemma}\label{diag1andprodelementary}
+		A nonsingular triangular matrix with $1$'s in the diagonal is a product of standard elementary matrices.
+	\end{lemma}
+	\begin{proof}
+		Let $A \in GL_n(A)$ then consider the following inductive procedure.
+		\begin{align*}
+			A&= \begin{bmatrix}
+				1 & a_{12} &\cdots &a_{1n}\\
+				0& 1 & \cdots &a_{2n}\\
+				\vdots & \vdots  & \ddots  & \vdots \\
+				0 & 0 & \dots & 1
+			\end{bmatrix}
+			= \begin{bmatrix}
+				1 & a_{12} &\cdots &a_{1n}\\
+				0&  &   &\\
+				\vdots &  & A_{n-1}  &  \\
+				0 &  & & 
+			\end{bmatrix}\\
+			&=\begin{bmatrix}
+				1 & 0 &\cdots &0\\
+				0&  &   &\\
+				\vdots &  & A_{n-1}  &  \\
+				0 &  & & 
+			\end{bmatrix} e_{12}(a_{12}) e_{13}(a_{13}) \cdots e_{1n}(a_{1n})\\
+			\intertext{Repeat the procedure for $A_{n-1}$ to obtain}
+			&= \begin{bmatrix}
+				1 & 0 & 0 & \cdots & 0 \\
+				0 & 1 & 0 & \cdots & 0\\
+				0 & 0 &   &  &\\
+				\vdots & 0 &   &A_{n-2}  &\\
+				0 & 0 &   &  &
+			\end{bmatrix}\prod_{j=2}^n e_{2j}(a_{2j}) \prod_{i=1}^n e_{1i} (a_{1i})
+		\end{align*}
+	\end{proof}
+
+	\begin{proposition}\label{whiteheadsimple}
+		Let $A$ be a ring and $u \in A^\times$
+		\[ {\displaystyle {\begin{bmatrix}u&0\\0&u^{-1}\end{bmatrix}}} \equiv I_2 \mod E_2(A)\]
+	\end{proposition}
+	\begin{proof}
+		${\displaystyle {\begin{bmatrix}u&0\\0&u^{-1}\end{bmatrix}}=e_{21}(u^{-1})e_{12}(1-u)e_{21}(-1)e_{12}(1-u^{-1}).}$
+	\end{proof}
+\begin{lemma}[Whitehead]\label{whiteheadmain}
+	For $a,b \in GL_n(A)$ \[ \begin{bmatrix}
+		ab & 0 \\ 0 & I_n
+	\end{bmatrix} \equiv \begin{bmatrix} a & 0 \\ 0 & b
+	\end{bmatrix} \equiv \begin{bmatrix}
+		ba & 0 \\ 0 & I_n 
+	\end{bmatrix} \mod E_{2n} (A)\]
+\end{lemma}
+\begin{proof}
+	Let $A=M_n(A)$ and note $E_2(M_n(A) ) \subset E_{2n}(A)$ in Prop. \ref{whiteheadsimple}.
+\end{proof}
+	
+	
+	\begin{lemma}
+		For E.D. $A$ we have $SL_n(A)=EL_n(A)$ for all $n.$
+	\end{lemma}
+	\begin{proof}
+		With elementary row and column operations arrange the matrix so that the element with the smallest norm is in the top right position. And using elementary row operations reduce it to a matrix with a unit in the top left and 0s in the rest of the first column and first row. Proceeding similarly for the remaining $n-1 \times n-1 $ matrix left we reduce it down to a matrix of the form.
+		
+		\[ \begin{bmatrix}
+			u_1 & 0 & \dots & 0 \\
+			0 & u_2 & \dots & 0 \\
+			\vdots & 0 & \ddots & 0\\
+			0 & 0 & \dots & u_n 
+		\end{bmatrix} \]
+		
+		Now apply Whiteheads lemma 
+	\end{proof}
+%	\subsubsection{Suslin's Normality theorem}
+	We now consider a result due to Suslin about the normality of $E_n(A) $ in $GL_n(A)$. The following Lemma due to Vaserstein will be useful.
+	\begin{lemma}[Vaserstein]
+		Let $a \in M_{m,n} (A)$ and $b \in M_{n,m}(A)$ then if $I_m+ab \in GL_m(A)	\implies $ $I_n+ba \in GL_n(A)$ and \[ \begin{bmatrix}
+			I_m+ab & 0 \\ 0 & (I_n+ba)^{-1}
+		\end{bmatrix} \in E_{m+n} (A)\] 
+	\end{lemma}
+	\begin{proof}
+		Note that $(I_n+ba)^{-1}=I_n-b(I_m+ab)^{-1}a$. Lem. \ref{whiteheadsimple} cannot be applied in this case since $n\neq m$ in general. But the idea is nearly the same. 
+		\( \begin{bmatrix}
+			I_m+ab & 0 \\ 0 & (I_n+ba)^{-1}
+		\end{bmatrix} 
+		\)
+		
+		
+		\(=\begin{bmatrix}
+		I_m & 0 \\
+		(I_n+ba)^-1b I_n
+		\end{bmatrix}\begin{bmatrix}
+		I_m & -a\\
+		0 & I_n
+		\end{bmatrix} \begin{bmatrix}
+		I_m & 0\\
+		-b & I_n
+		\end{bmatrix} \begin{bmatrix}
+		I_m & (I_n+ab)^{-1}a\\
+		0 & I_n
+		\end{bmatrix}\in E_{m+n} (A)\) 
+		We implicitly use Prop. \ref{diag1andprodelementary} to justify that the triangular matrices there are indeed elementary.
+	\end{proof}
+	
+	\begin{theorem}[Suslin's Normality theorem]
+		For $A$ a commutative ring with unity, $E_n(A)$ normal in $GL_n(A)$ for $n \geq 3$. 
+	\end{theorem}
+	\begin{proof}
+		Let $a \in GL_n(A)$ consider $e_{ij}(\lambda) \in E_n(A)$ arbitrary. Recall from \ref{row-of-inv-mat-unimod} that the columns of $a$ and the rows of $a^{-1}$ are unimodular.
+		\[ ae_{ij} (\lambda ) a^{-1}= I_n +\lambda c_i r_j\]
+		Where $c_i$ is the $i^\mathrm{th}$ column of $a$ and $r_j$ is the $j^{\mathrm{th}}$ row of $a^{-1}$.
+		
+		Furthermore since $a^{-1}a=I_n \implies b_ja_i=\delta_{ij} \implies $ using Prop. that $ae_{ij}(\lambda) a^{-1} = I_n + \lambda c_i r_j \in E_n(A)$ and since $E_n(A)$ is generated by matrices of the form $e_{ij}(\lambda )$ we are done.
+	\end{proof}
+	
+	\begin{proposition}[Cohn] If $n=2$ $E_2(A)$ need not be normal in $SL_2(A)$
+		content
+	\end{proposition}
+	
+	\begin{theorem}[Suslin]
+		Given $(x_1,\dots,x_n) \in U_n(A)$ then $(x_1^{m_1}, \dots, x_n^{m_n}) \in U_n(A)$ iff $(n-1)! | m_1\dot m_2 \cdots m_n$
+	\end{theorem}
+	
+	\subsection{Relationship between $K_0$ and $K_1$}
+	\begin{theorem}[Mayer-Vietoris]
+	\end{theorem}
+	\begin{theorem}
+		Let $A$ be a ring and $S$ denote a multiplicatively closed set of central elements in $A$. We obtain the following exact sequence
+		\[ K_1(A)  \to K_1(S^{-1}A ) \to K_0(A \text{ on } S) \to K_0(A) \to K_0(S^{-1} A)\]
+	\end{theorem}
 	
 	\section{Higher K theory}
+	\subsection{Quillen + Construction}
 	\subsection{Quillen Q construction}
+	\subsection{$+=Q$}
 	\subsection{Waldhausen construction}
 	
 	
 	\begin{appendices}
-	\section{Projective modules}
+	\section{Homological algebra}
+	\subsection{Projective modules}
 	Recall a\textbf{ free module} of rank $n$ is one that is isomorphic to $n$ direct sums of its underlying ring. And homomorphisms from free modules to other modules are determined by the image of their generators, i.e. free objects are left adjoints to forgetful functors. \footnote{This holds in free monoids $\mathrm{Hom}_\mathbf{Mon}(F(X), M) \cong \mathrm{Hom}_\mathbf{Sets} (X, U(M))$ where $F(X)$ denotes the free monoid generated by elements from the set $X$ and $U(M)$ is the underlying set of a monoid $M$, refer to \cite[p. ~208]{Awodey} }
 	
 	A module $P$ is said to be \textbf{projective} if it satisfies the following lifting property, every morphism from $P$ to $N$ factors through an epi into $N$. Note that the lift need not be unique this is \textit{not} an UMP
@@ -308,6 +503,8 @@
 		\arrow[from=3-1, to=3-3]
 		\arrow[dashed, from=3-1, to=1-3]
 	\end{tikzcd}\]
+	
+
 	\begin{lemma}[Free modules are projective]
 	\end{lemma}
 	\begin{proof}
@@ -355,8 +552,18 @@
 		
 		Finally we get $M/\mathfrak{m}M \cong M/\mathfrak{m}M \oplus K/\mathfrak{m}K\implies K=\mathfrak{m}K \implies K=0$ by Nakayama
 	\end{proof}
-	This holds for not necessarily finitely generated modules too refer to \cite[Th.~2.5]{matsumura_1987}	.
+	This holds for not necessarily f.g. modules too refer to \cite[Th.~2.5]{matsumura_1987}	.
+	
+		Using the convention of \cite{lam1999lectures} we define the rank of a projective module as such.
+	\begin{definition}[Rank of a f.g. projective module]\label{def:rankproj}
+		For any f.g. projective module $P$ over commutative ring $A$ the localization $P_\mathfrak{p} =P \otimes_A A_\mathfrak{p}$ is also a f.g. $A_\mathfrak{p}$ module. But $P_\mathfrak{p}$ being local is free by Th. \ref{a2}. So the local rank of $P$ is defined as the rank of the free $P_\mathfrak{p} $ module.
+		
+		This induces a map $\phi: \mathrm{Spec}(A) \to \Z $ sending each $\mathfrak{p}$ to the local rank of $P$. If $\phi $ is constant and the rank of $P$ is the same for all localizations then we refer to that as the rank of $P$.
+	\end{definition}
+	
 	\begin{proposition} If $M$ is a finitely presented module over a Noetherian ring $R$ (prime ideals fin gen) then TFAE
+		
+		
 		\begin{enumerate}
 			\item $M$ is projective.
 			\item $M$ localized at maximal ideals is free.
@@ -364,34 +571,66 @@
 		\end{enumerate}		
 	\end{proposition}
 	This proceeds just from the previous result.
-	
+	\begin{lemma}\label{suboffgisfgnoet}
+		$A$ is Noetherian iff all submodules of f.g. $A$ modules are f.g..
+	\end{lemma}
 	\begin{proposition}\label{submodoffreemodisfreepid}
-		For a PID $A$ a submodule of a free module over $A$ is free.
+		For a PID $A$ a submodule of a free module of finite rank is free.
 	\end{proposition}
-	\begin{proof}
-		Let $F \cong \oplus_{i \in I} A_i$ be a free module over $A$. And suppose there exists a well ordering on the indexing $I$.
-		
-		Now consider $f_j : \oplus_{i< j} (A_i) \oplus A_j \cap M \to \R $ defined by sending elements $(a,b) \to b$ where $a \in \oplus_{i<j}A_i, b \in A_j$.
-	\end{proof}
+
 	%		Note If $R$ is local and $M$ is fin-gen projective module then $M$ is free, this is a consequence of Nakayama. As $M \oplus Q = R$ so if $R$ has maximal ideal $\mathfrak{m}$ then $M/\mathfrak{m}M$ is a vector space	over the field $R/\mathfrak{m}R$ and its basis lifts to minimal set of generators of $M$, consider $N=M/\sum R m_i$ and so $ N/ IN=M/(IM+\sum_i R m_i)=M/M=0\implies N=IN$ then apply typical Nakayama to get $N=0
 	%		\implies M= \sum_i R m_i$, for $I$ an ideal inside the Jacobson radical of $R$
 	%		
 	%		So now to prove $1 \iff 2 $ consider a finitely presented module localized over 
 	%		
 	%		If $M,N$ finitely presented over $R$ and their localizations are isomorphic then theres some element of $f\in R-P$ such that $M[f^{-1}] \cong N[f^{-1}]$
-	\section{Resolutions}
+	
+	
+	
+	\subsection{Resolutions}
 	Given a module $M$ its \textbf{left resolution} is given by the data of a exact sequence $(A_\bullet, \varphi_\bullet)$ into $M$ as such,
 	\[ 	\dots \to A_1	\to A_0 \xrightarrow{\epsilon} M \to 0 \]
 	where $\epsilon $ is called the \textbf{augmentation map}, if the exact sequence is free its a free resolution and such for projective. 
 	
 	If we have a cochain complex instead it forms a \textbf{right resolution} and if its elements are injective we call them injective resolutions.
 	
+	\begin{proposition}[Horseshoe lemma]
+		If there is a short exact sequence of modules,
+		\[ 0 \to M \to N \to P \to 0 \]
+		and both $M,P$ have a projective resolutions $A, C$ 
+		\[\begin{tikzcd}
+			&&& 0 \\
+			\cdots & {A_1} & {A_0} & M & 0 \\
+			&&& N \\
+			\cdots & {C_1} & {C_0} & P & 0 \\
+			&&& 0
+			\arrow[from=2-4, to=2-5]
+			\arrow[from=1-4, to=2-4]
+			\arrow[from=2-4, to=3-4]
+			\arrow[from=3-4, to=4-4]
+			\arrow[from=4-4, to=4-5]
+			\arrow[from=4-4, to=5-4]
+			\arrow[ from=4-3, to=4-4]
+			\arrow[ from=2-3, to=2-4]
+			\arrow[from=2-1, to=2-2]
+			\arrow[from=2-2, to=2-3]
+			\arrow[from=4-1, to=4-2]
+			\arrow[from=4-2, to=4-3]
+		\end{tikzcd}\]
+		as below then $N$ also has a projective resolution $B$ which forms a short exact sequence. Also the sequence splits due to $C_i$ being projective so $B_i=A_i \oplus C_i$.
+	\end{proposition}
+	\begin{proof}
+		First note $\epsilon_P: C_0 \to P$ lifts due to projectivity to $C_0 \to N$ also $A_0\to N$ via composition so simply define $B_0 = A_0 \oplus C_0$. This is an epi evidently via diagram chase. Also is projective as direct sum of projectives is projective. Now consider direct sum of kernel of $A_0 \to M, B_0 \to N, C_0 \to P$ and construct the direct sum again to get $F_1$.	Now we get a $3\times 3$. Exactness is due to the Snake lemma
+	\end{proof}
+	\subsection{Puppe/Homotopy cofiber sequence}
+	
+	
 %	\textbf{TO DO: KOSZKUL COMPLEX AND HILBERT SYZYGY}
 %	We previously saw the definition of a bilinear map when discussing tensor products. Now consider $n$- linear maps for some map between $R$-Modules $M,P$. Repeated application of the tensor product still provides us with universal such module, $M^n \to \otimes_{i=1}^n M$.
 %	
 %	Also a map is called $n$-alternating if it vanishes when two of the arguments are the same. This also implies that sign changes when the arguments are interchanged. Also for a permutation the sign change changes to the sign of the permutation. Now when we require a notion of a universal $n$-linear alternating map we arrive to the definition of a wedge product.
 %	
-%	In particular for a specific $n$. There is a universal alternating $n$-linear map sending $M \to \Lambda^n M$. If $M$ is finitely generated by $r$ elements then $\Lambda M^n$ is a free module of rank $\binom{r}{n}$.
+%	In particular for a specific $n$. There is a universal alternating $n$-linear map sending $M \to \Lambda^n M$. If $M$ is f.g. by $r$ elements then $\Lambda M^n$ is a free module of rank $\binom{r}{n}$.
 %	
 %	\begin{definition}[Tensor algebra]
 %		For a $R$-Module $M$ and $T^n M = \otimes^n M$ the tensor algebra is defined to be \[ T(M)=\oplus_{n=0}^\infty T^n M \]
@@ -569,7 +808,7 @@
 	
 	
 	\begin{definition}[Abelian category]
-		Pre-additive categories for which each mono is a kernel and each epic is a cokernel.
+		Pre-abelian categories for which each mono is a kernel and each epic is a cokernel.
 	\end{definition}
 	Largely the purpose of abelian categories were motivated by wanting to generalize homological methods and to unify various (co)homology theories. It was defined in the modern formulation by Grothendieck in his Tohuku paper \cite{grothendieck1957quelques}. We never directly reference this paper for its mathematical content but it is interesting from a historical perspective.
 	\subsubsection{Examples}
@@ -583,7 +822,7 @@
 			For a category $C$ a presheaf is any functor $F: \mathbf{C}^{\mathrm{op}}\to \mathbf{Sets}$.
 		\end{definition}
 		In particular in the case for a topological space $X$ a presheaf of groups (or any algebraic object) on $X$ (in truth the set of the lattice of open sets of $X$ ordered by inclusion) is a some contravariant functor $F$ which sends open sets $U \subseteq X$ to some $F(U)$, it respects inclusions (i.e. there for open sets $V \subseteq V $ is a natural transformation $\rho_{UV}: F(U)\to F(V)$ in the form of a restriction). Furthermore, function composition, unitals and empty sets going to empty sets hold (to make it a category). Note that all these notions of presheaves are really just a special case of the categorical definition where the sheaf of groups is really just a group object in the categorical presheaf.
-		\begin{definition}[Sheaf of sets on a topology]
+		\begin{definition}[Sheaf of sets on a topology]\label{def:scheaf}
 			A sheaf of a topology $X$ is a presheaf which satisfies two additional properties, for open sets $U \in X$ and open covers ${U_i}$ of $U$
 			\begin{enumerate}
 				\item (Locality)  \textbf{A section}, i.e. an element $s \in F(U)$ goes to zero restricted at $U_i$ for all $i$ implies $s=0$.
@@ -605,21 +844,48 @@
 %	There are a few concepts and definitions relevant in the conversation of abelian categories which we will list out here for completeness. Firstly is the notion of \textbf{exact functors} the typical notion of a functor carrying forward exact sequences. With the prefix of left/right added to determine it carrying forward only left or right sides of the exact sequence.
 	
 	
-	\begin{proposition}\label{adjointinjective}
-		Given a pair of adjoint functors $F \dashv U$ between abelian categories $F:\mathbf{C} \rightleftarrows \mathbf{D}:U$ if the left adjoint $F$ is exact, faithful and if $ \mathbf{D}$ has enough injectives also $\mathbf{C}$ has enough injectives.
-	\end{proposition}
-	\begin{proof}
-		content...
-	\end{proof}
+%	\begin{proposition}\label{adjointinjective}
+%		Given a pair of adjoint functors $F \dashv U$ between abelian categories $F:\mathbf{C} \rightleftarrows \mathbf{D}:U$ if the left adjoint $F$ is exact, faithful and if $ \mathbf{D}$ has enough injectives also $\mathbf{C}$ has enough injectives.
+%	\end{proposition}
+%	\begin{proof}
+%		content...
+%	\end{proof}
 	\subsection{Derived categories}
 	\subsection{Exact categories}
+	An exact category (sometimes referred to as a Quillen exact category) is a pair $(C,E)$ for $C$ an additive category which is a full subcategory of some abelian category $\mathcal{A}$. Along with a family of sequences $E$ of the form \[ 0 \to X \to Y \to Z \to 0 \] which are short exact sequences in $\mathcal{A}$ and if in a sequence of the above form $X, Z \in C$ then $Y \cong Y_C \in \mathrm{Ob}(C)$
+	\begin{example}
+		Every abelian category is trivially exact over itself.
+	\end{example}
+	\begin{example}
+		The vector bundles on a scheme $X$ form a exact category.
+	\end{example}
+	\subsection{Factorization systems, Model categories}
 	\subsection{Triangulated categories}
 	Add examples from Puppe sequence discussion from homological alg notes they form the triangulation in the case of the stable homotopy category.
 	
 	Also include quillen model cats somewhere in between.
+	
+	\subsection{Waldhausen categories}
+	Every exact category has a Waldhausen structure.
+	\section{Stable homotopy and Spectra (relevant or not? in top k yes in alg k ?) }
+	The definitions in this section are mainly using the convention in Adam's blue book \cite{adams1974stable}.
+	\begin{definition}[CW-Spectrum]
+		A sequence of based CW-complexes $\{E_n\}_{n \in \mathbb{Z}}$ with structure maps $\sum E_n \to E_{n+1}$
+	\end{definition}
+	The suggestive notation is pointing in the direction of the canonical spectrum known as the suspension spectrum when the structure maps are indeed suspensions.
 	\end{appendices}
+
+	A natural question to ask is why can we not simply define the morphism as an obvious map translating between spectra (up to a degree shift) that respects the suspension functors through a obvious commuting square. Such a construction would fail due to the existence of nontrivial maps such as the Hopf fibration.
 	
+	Consider the suspension spectra of spheres denoted as $\mathbf{S}$ the sphere spectrum.
 	
+	\begin{theorem}[Brown representability]
+		Some nice contravariant functors on homotopy category are representable.
+	\end{theorem}
+	\begin{theorem}
+		Extraordinary (co)homology theories are representable by a spectrum.
+	\end{theorem}
+	K theory spectrum
 	\appendix
 	
 	

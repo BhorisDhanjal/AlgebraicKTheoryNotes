@@ -1,0 +1,50 @@
+\begin{thebibliography}{{Sta}23}
+
+\bibitem[Ada74]{adams1974stable}
+J.F. Adams.
+\newblock {\em Stable Homotopy and Generalised Homology}.
+\newblock Chicago Lectures in Mathematics. University of Chicago Press, 1974.
+
+\bibitem[Awo10]{Awodey}
+Steve Awodey.
+\newblock {\em Category Theory, 2nd Edition}.
+\newblock Oxford University Press, Oxford, England, 2010.
+
+\bibitem[Lam99]{lam1999lectures}
+T.Y. Lam.
+\newblock {\em Lectures on Modules and Rings}.
+\newblock Graduate Texts in Mathematics. Springer New York, 1999.
+
+\bibitem[Lan02]{lang02}
+Serge Lang.
+\newblock {\em Algebra}.
+\newblock Springer, New York, NY, 2002.
+
+\bibitem[Mat87]{matsumura_1987}
+H.~Matsumura.
+\newblock {\em Commutative Ring Theory}.
+\newblock Cambridge Studies in Advanced Mathematics. Cambridge University
+  Press, 1987.
+
+\bibitem[MS74]{milnor1974characteristic}
+J.W. Milnor and J.D. Stasheff.
+\newblock {\em Characteristic Classes}.
+\newblock Annals of mathematics studies. Princeton University Press, 1974.
+
+\bibitem[{Sta}23]{stacks1}
+The {Stacks project authors}.
+\newblock The stacks project.
+\newblock \url{https://stacks.math.columbia.edu}, 2023.
+
+\bibitem[Swa62]{Swan1962}
+Richard~G. Swan.
+\newblock Vector bundles and projective modules.
+\newblock {\em Transactions of the American Mathematical Society},
+  105(2):264–277, 1962.
+
+\bibitem[WS13]{weibel2013k}
+C.A. Weibel and American~Mathematical Society.
+\newblock {\em The K-book: An Introduction to Algebraic K-theory}.
+\newblock Graduate Studies in Mathematics. American Mathematical Society, 2013.
+
+\end{thebibliography}
