@@ -3,46 +3,50 @@ Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: algebraicktheorynotes.aux
 The style file: alpha.bst
 Database file #1: references.bib
-Warning--I didn't find a database entry for "grothendieck1957quelques"
-You've used 9 entries,
+I was expecting a `,' or a `}'---line 191 of file references.bib
+ :  
+ :  urldate     = {\today},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You've used 16 entries,
             2543 wiz_defined-function locations,
-            615 strings with 5555 characters,
-and the built_in function-call counts, 2722 in all, are:
-= -- 257
-> -- 94
-< -- 7
-+ -- 28
-- -- 26
-* -- 151
-:= -- 471
-add.period$ -- 32
-call.type$ -- 9
-change.case$ -- 40
-chr.to.int$ -- 9
-cite$ -- 9
-duplicate$ -- 136
-empty$ -- 233
-format.name$ -- 42
-if$ -- 562
+            648 strings with 6287 characters,
+and the built_in function-call counts, 4822 in all, are:
+= -- 463
+> -- 161
+< -- 13
++ -- 48
+- -- 44
+* -- 268
+:= -- 829
+add.period$ -- 59
+call.type$ -- 16
+change.case$ -- 70
+chr.to.int$ -- 16
+cite$ -- 16
+duplicate$ -- 246
+empty$ -- 413
+format.name$ -- 73
+if$ -- 999
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 15
-newline$ -- 48
-num.names$ -- 27
-pop$ -- 63
+missing$ -- 28
+newline$ -- 83
+num.names$ -- 48
+pop$ -- 108
 preamble$ -- 1
-purify$ -- 56
+purify$ -- 99
 quote$ -- 0
-skip$ -- 95
+skip$ -- 167
 stack$ -- 0
-substring$ -- 92
-swap$ -- 9
-text.length$ -- 7
-text.prefix$ -- 7
+substring$ -- 168
+swap$ -- 16
+text.length$ -- 13
+text.prefix$ -- 13
 top$ -- 0
-type$ -- 44
+type$ -- 76
 warning$ -- 0
-while$ -- 21
-width$ -- 12
-write$ -- 118
-(There was 1 warning)
+while$ -- 38
+width$ -- 20
+write$ -- 209
+(There was 1 error message)

@@ -1,4 +1,4 @@
-\begin{thebibliography}{{Sta}23}
+\begin{thebibliography}{{Sta}ay}
 
 \bibitem[Ada74]{adams1974stable}
 J.F. Adams.
@@ -10,10 +10,37 @@ Steve Awodey.
 \newblock {\em Category Theory, 2nd Edition}.
 \newblock Oxford University Press, Oxford, England, 2010.
 
+\bibitem[Eis13]{eisenbud2013commutative}
+D.~Eisenbud.
+\newblock {\em Commutative Algebra: with a View Toward Algebraic Geometry}.
+\newblock Graduate Texts in Mathematics. Springer New York, 2013.
+
+\bibitem[Gro57]{grothendieck1957quelques}
+Alexandre Grothendieck.
+\newblock Sur quelques points d'alg{\`e}bre homologique.
+\newblock {\em Tohoku Mathematical Journal, Second Series}, 9(2):119--183,
+  1957.
+
+\bibitem[GZ67]{gabriel1967calculus}
+P.~Gabriel and M.~Zisman.
+\newblock {\em Calculus of Fractions and Homotopy Theory}.
+\newblock Ergebnisse der Mathematik und ihrer Grenzgebiete. 3Island Press,
+  1967.
+
 \bibitem[Lam99]{lam1999lectures}
 T.Y. Lam.
 \newblock {\em Lectures on Modules and Rings}.
 \newblock Graduate Texts in Mathematics. Springer New York, 1999.
+
+\bibitem[Lam01]{lam2001first}
+T.Y. Lam.
+\newblock {\em A First Course in Noncommutative Rings}.
+\newblock Graduate Texts in Mathematics. Springer, 2001.
+
+\bibitem[Lan98]{lane1998categories}
+S.M. Lane.
+\newblock {\em Categories for the Working Mathematician}.
+\newblock Graduate Texts in Mathematics. Springer, 1998.
 
 \bibitem[Lan02]{lang02}
 Serge Lang.
@@ -31,16 +58,27 @@ J.W. Milnor and J.D. Stasheff.
 \newblock {\em Characteristic Classes}.
 \newblock Annals of mathematics studies. Princeton University Press, 1974.
 
-\bibitem[{Sta}23]{stacks1}
+\bibitem[Rie17]{riehl2017category}
+E.~Riehl.
+\newblock {\em Category Theory in Context}.
+\newblock Aurora: Dover Modern Math Originals. Dover Publications, 2017.
+
+\bibitem[{Sta}ay]{stacks1}
 The {Stacks project authors}.
 \newblock The stacks project.
-\newblock \url{https://stacks.math.columbia.edu}, 2023.
+\newblock \url{https://stacks.math.columbia.edu}, (Last Accessed \today).
 
 \bibitem[Swa62]{Swan1962}
 Richard~G. Swan.
 \newblock Vector bundles and projective modules.
 \newblock {\em Transactions of the American Mathematical Society},
   105(2):264–277, 1962.
+
+\bibitem[Wei94]{weibel_1994}
+Charles~A. Weibel.
+\newblock {\em An Introduction to Homological Algebra}.
+\newblock Cambridge Studies in Advanced Mathematics. Cambridge University
+  Press, 1994.
 
 \bibitem[WS13]{weibel2013k}
 C.A. Weibel and American~Mathematical Society.
