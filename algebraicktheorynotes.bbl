@@ -1,19 +1,26 @@
 \begin{thebibliography}{{Sta}ay}
 
-\bibitem[Ada74]{adams1974stable}
-J.F. Adams.
-\newblock {\em Stable Homotopy and Generalised Homology}.
-\newblock Chicago Lectures in Mathematics. University of Chicago Press, 1974.
-
 \bibitem[Awo10]{Awodey}
 Steve Awodey.
 \newblock {\em Category Theory, 2nd Edition}.
 \newblock Oxford University Press, Oxford, England, 2010.
 
+\bibitem[Bue]{47762}
+Theo. (https://mathoverflow.net/users/11081/theo-buehler) Buehler.
+\newblock Freyd-mitchell's embedding theorem.
+\newblock MathOverflow.
+\newblock URL:https://mathoverflow.net/q/47762 (version: 2012-12-26), Last
+  Accessed \today.
+
 \bibitem[Eis13]{eisenbud2013commutative}
 D.~Eisenbud.
 \newblock {\em Commutative Algebra: with a View Toward Algebraic Geometry}.
 \newblock Graduate Texts in Mathematics. Springer New York, 2013.
+
+\bibitem[FF64]{freyd1964abelian}
+P.~Freyd and P.J. Freyd.
+\newblock {\em Abelian Categories: An Introduction to the Theory of Functors}.
+\newblock A harper international edition. Harper \& Row, 1964.
 
 \bibitem[Gro57]{grothendieck1957quelques}
 Alexandre Grothendieck.

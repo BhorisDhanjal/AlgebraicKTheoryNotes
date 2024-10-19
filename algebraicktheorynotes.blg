@@ -8,45 +8,45 @@ I was expecting a `,' or a `}'---line 191 of file references.bib
  :  urldate     = {\today},
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
-You've used 16 entries,
+You've used 17 entries,
             2543 wiz_defined-function locations,
-            648 strings with 6287 characters,
-and the built_in function-call counts, 4822 in all, are:
-= -- 463
-> -- 161
+            654 strings with 6508 characters,
+and the built_in function-call counts, 5152 in all, are:
+= -- 496
+> -- 180
 < -- 13
-+ -- 48
-- -- 44
-* -- 268
-:= -- 829
-add.period$ -- 59
-call.type$ -- 16
-change.case$ -- 70
-chr.to.int$ -- 16
-cite$ -- 16
-duplicate$ -- 246
-empty$ -- 413
-format.name$ -- 73
-if$ -- 999
++ -- 54
+- -- 50
+* -- 284
+:= -- 884
+add.period$ -- 63
+call.type$ -- 17
+change.case$ -- 76
+chr.to.int$ -- 17
+cite$ -- 17
+duplicate$ -- 256
+empty$ -- 438
+format.name$ -- 80
+if$ -- 1068
 int.to.chr$ -- 1
 int.to.str$ -- 0
 missing$ -- 28
-newline$ -- 83
-num.names$ -- 48
-pop$ -- 108
+newline$ -- 89
+num.names$ -- 51
+pop$ -- 121
 preamble$ -- 1
-purify$ -- 99
+purify$ -- 106
 quote$ -- 0
-skip$ -- 167
+skip$ -- 176
 stack$ -- 0
-substring$ -- 168
-swap$ -- 16
+substring$ -- 175
+swap$ -- 17
 text.length$ -- 13
 text.prefix$ -- 13
 top$ -- 0
-type$ -- 76
+type$ -- 84
 warning$ -- 0
-while$ -- 38
-width$ -- 20
-write$ -- 209
+while$ -- 41
+width$ -- 21
+write$ -- 222
 (There was 1 error message)
