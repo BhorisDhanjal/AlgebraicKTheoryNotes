@@ -4,6 +4,7 @@
 \usepackage{fontawesome5}
 \usepackage{booktabs}
 \usepackage{amssymb}
+\usepackage{mathrsfs}
 \usepackage{amsthm}
 \usepackage{lmodern}
 \usepackage[english]{babel}
@@ -40,25 +41,30 @@
 \newtheorem{proposition}[dummy]{Proposition}
 \newtheorem{example}[dummy]{Example}
 %opening
-\title{Lower Algebraic K theory with a view towards Higher K theory}
+\title{Lower Algebraic $K$ theory with a view towards Higher $K$ theory}
 \author{Bhoris Dhanjal}
 \begin{document}
 	\tableofcontents
 	\maketitle
-	
-	We begin with a foundation review of the basic prerequisites of abelian categories and homological algebra, which will be extensively used throughout the report. The extent of the report will cover a modern approach towards lower K theory exhibiting the important theorems and building the essential theory needed to introduce higher K theory. This will be done in the next report.
+	 This project focuses on a modern approach to lower \( K \)-theory, highlighting key theorems in classical \( K \)-theory while developing the essential theoretical foundations required to approach higher \( K \)-theory in the subsequent project. 
+	 
+	 Unless otherwise specified, all rings considered are assumed to be commutative with unity.
+	 
 	\section{Abelian categories and homological algebra}
+	
+	We begin with some basic prerequisites of abelian categories and homological algebra, which provide a foundational framework. These concepts will be used extensively and implicitly throughout both the projects, forming an assumed background for the discussions. So for completeness sake we will begin by examining it in detail.
 	\subsection{Abelian Categories}
 	Abelian categories are essential to the understanding of homological algebra. It is motivated by the fact that it allows for using homological methods in a wide variety of applications and helps unify various (co)homology theories. They were first introduced by Grothendieck in his seminal Tohuku paper \cite{grothendieck1957quelques}.
 	
-	There is a chain of conditions regarding `abelian'-ness of categories which is roughly understood as follows,
+	There is a chain of conditions regarding `abelian'-ness of categories which is roughly understood as follows.
 	\[ \textbf{Abelian} \subseteq \textbf{Pre-Abelian} \subseteq \textbf{Additive} \subseteq \textbf{Ab-Enriched}\]
-	The motivation behind them is to have categories which resemble algebras.
 	
-	Ab-Enriched categories are categories such that for objects $A,B \in \mathcal{C}$ the external hom set $\Hom(A,B)$ has the structure of an abelian group, furthermore it has a well defined notion of composition (which is bilinear due to the monoidal product in Ab), $\Hom(A,B)\otimes \Hom(B,C) =\Hom(A,C)$. 
+	Ab-Enriched categories (sometimes referred to as pre-additive categories) are categories such that for $A,B \in \mathcal{C}$ the external hom set $\Hom(A,B)$ has the structure of an abelian group, furthermore it has a well defined notion of composition (which is bilinear due to the monoidal product in Ab), $\Hom(A,B)\otimes \Hom(B,C) =\Hom(A,C)$. 
 	
 	We have chosen to omit the precise definitions of the coherence conditions for monoidal and monoidally enriched categories to make this section easier to read. Since we refrain from explicitly using them for computations anywhere, the basic background described above will suffice. For a more detailed overview of the definitions for monoidal and monoidally enriched categories refer to \cite{lane1998categories} for a classical treatment or \cite{riehl2017category} for an excellent modern exposition. 
-	
+	\begin{example}
+		A ring is a single object $\mathrm{Ab}$-Enriched category (In the same sense how a group is realized as a single object category with all arrows invertible).
+	\end{example}
 	We cover a few basic results.
 	
 	\begin{proposition}
@@ -123,14 +129,17 @@
 	
 	
 	\begin{definition}[Additive category]
-		An Ab-Enriched category which has all finite coproducts.
+		An Ab-Enriched category which has all finite (co)products (i.e. biproducts since they coincide).
 	\end{definition}
 	
+	\begin{example}
+		The category of vector bundles over a topology $X$ is a additive category (but not an abelian category). We will see this in more detail in the following section.
+	\end{example}
 	Functors between additive categories are called \textit{additive functors}. And can be realized as functors which preserve additivity of homomorphisms between modules, $F(f+g)=F(f)+F(g).$
 	
 	Before proceeding further it is important to think about kernels and cokernels in the categorical sense.
 	\begin{definition}[Kernel]
-		A kernel is a pullback of a morphism $f:A \to B$ and the unique morphism from $0 \to B$. Provided initials and pullbacks exist.
+		A kernel of a morphism $f:A \to B$ is the pullback along the unique morphism from $0 \to B$, i.e. it is $p: \ker f \to A$. Provided initials and pullbacks exist.
 		
 		\[\begin{tikzcd}
 			{\ker f} && 0 \\
@@ -139,7 +148,8 @@
 			\arrow["f", from=3-1, to=3-3]
 			\arrow[from=1-3, to=3-3]
 			\arrow[from=1-1, to=1-3]
-			\arrow[from=1-1, to=3-1]
+			\arrow["p"',from=1-1, to=3-1]
+			\arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=1-1, to=3-3]
 		\end{tikzcd}\]
 	\end{definition}
 	The intuition behind this definition is that alternatively it is seen as an equalizer of a function $f:A \to B$ and the unique zero morphism $0_{A,B}$. The kernel object is the part of the domain that is 'going to zero'. \footnote{A minor point to note is that in the case of Ab-Enrichments the `zero' in the Hom-sets isn't a terminal, its Hom-set specific. When you assume a Ab-Enriched category has a initial 0 however this matches up with our intuition.}
@@ -155,8 +165,57 @@
 	
 	
 	\begin{definition}[Abelian category]
-		Pre-abelian categories for which each mono is a kernel and each epic is a cokernel.
+		Pre-abelian categories for which each monomorphism is a kernel and each epimorphism is a cokernel.
 	\end{definition}
+	Equivalently a category is abelian if its pre-abelian and $\bar{f}$ is an isomorphism in the canonical decomposition of $f:A\to B$ as $$A \twoheadrightarrow \coker \ker f \xrightarrow{\bar{f}} \ker \coker f  \hookrightarrow B.$$
+	\begin{example}\label{expreabnotab}
+		
+		\begin{enumerate}Some non examples are:
+			\item The category of hausdorff topological abelian groups is pre-abelian but not abelian. Since not every morphism which is a mono+epi is necessarily a isomorphism. 
+			
+			Consider a Hausdorff abelian topological group $G$ with a non discrete topology and consider $G'$ it's discretization. The inclusion map $G' \to G$ is a mono+epi but not isomorphic. 
+			\item The category of torsion free abelian groups ($\mathrm{TFAb}$) is pre-abelian but not abelian as the mono $f: \Z \xrightarrow{z\mapsto 2z} \Z $ is not a kernel of some morphism. Say it were and there exists $ A \in \mathrm{TFAb}$ such that $f$ is the kernel to $ g: \Z \to A$, i.e.
+			\[\begin{tikzcd}
+				Z & 0 \\
+				Z & A
+				\arrow[from=1-1, to=1-2]
+				\arrow["{f(z)=2z}"', from=1-1, to=2-1]
+				\arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=1-1, to=2-2]
+				\arrow[from=1-2, to=2-2]
+				\arrow["g", from=2-1, to=2-2]
+			\end{tikzcd}\]
+			But this implies $1_\Z$ factors through $f$ i.e. $1_\Z =f\circ h$ for some unique $h:\Z \to \Z $ which implies $h(1)=1/2$ which is absurd.
+		\end{enumerate}
+		
+	\end{example}
+	\begin{example}Some examples of abelian categories:
+		\begin{enumerate}
+			\item The category of modules.
+			\item Category of representations of a group
+			\item Category of sheaves of abelian groups on some topological space.
+			
+			%		\begin{definition}[Presheaf]
+				%			For a category $\mathcal C$ a presheaf is any functor $F: \mathcal{C}^{\mathrm{op}}\to \mathbf{Sets}$.
+				%		\end{definition}
+			%		In particular in the case for a topological space $X$ a presheaf of groups (or any algebraic object) on $X$ (in particular the set of the lattice of open sets of $X$ ordered by inclusion) is a some contravariant functor $F$ which sends open sets $U \subseteq X$ to some $F(U)$, it respects inclusions (i.e. there for open sets $V \subseteq V $ is a natural transformation $\rho_{UV}: F(U)\to F(V)$ in the form of a restriction). Furthermore, function composition, unitals and empty sets going to empty sets hold (to make it a category). Note that all these notions of presheaves are really just a special case of the categorical definition where the sheaf of groups is really just a group object in the categorical presheaf.
+			%		\begin{definition}[Sheaf of sets on a topology]\label{def:scheaf}
+				%			A sheaf of a topology $X$ is a presheaf which satisfies two additional properties, for open sets $U \in X$ and open covers ${U_i}$ of $U$
+				%			\begin{enumerate}
+					%				\item (Locality) A section, i.e. an element $s \in F(U)$ goes to zero restricted at $U_i$ for all $i$ implies $s=0$.
+					%				\item (Gluing) If there is a collection of sections $s_i \in F(U_i)$ such that $s_i|_{U_i \cap U_j}=s_j|_{U_i \cap U_j}$ for all $i,j$ then there is some $s \in F(U)$ such that $s|_{U_i}=s_i$ for all $i$.
+					%			\end{enumerate}
+				%			
+				%			These two conditions can be written is short as just saying we require $F(U)$ to be the equalizer for the following diagram
+				%			\[\begin{tikzcd}
+					%				{\prod_{i \in I} F(U_i)} && {\prod_{i,j}F(U_i \cap U_j)}
+					%				\arrow[shift right=2, from=1-1, to=1-3]
+					%				\arrow[shift left=2, from=1-1, to=1-3]
+					%			\end{tikzcd}\]
+				%		\end{definition}
+			%		
+			%		The category of sheaves of abelian groups on a topological space form a abelian category. Additivity is natural due to the functorial nature of $F$. A quick proof is due to `sheafification', i.e. the left adjoint to the inclusion functor from sheaves into presheaves. Presheves of abelian groups can be understood to have all the required properties to be an Abelian category due the functorial representation. Now due to the following result \cite[Sec. 6.17]{stacks1} we can extend this notion to the sheaves via sheafification.
+		\end{enumerate}
+	\end{example}
 	
 	With this definition in mind we will now define a few important constructions we will use often. These are not restricted to abelian categories but we will use them very often in the case of abelian categories, so it is good to see it in action directly with the notion of an abelian category at hand.
 	\begin{definition}[Subobject]
@@ -166,7 +225,7 @@
 	
 	With slight abuse of notation we refer to $Y \leq X$ as a subobject of $X$ where $Y$ is just a representative of the codomain of a isomorphism class of monomorphisms into $X$. In particular for$X, Z \rightrightarrows X$ monics $Z, X$ belong to the same subobject class if the morphisms are isomorphic, i.e. there exists an isomorphism between $Y \to Z$ making the triangle commute. 
 	
-	This is clearer when seen through the lens of a slice category. Note that arrows between subobjects of the same $X$ are arrows in the slice category of $X$. So collection of subobjects form a category with a preorder (with inclusion). The reasoning behind such an odd definition for subobjects is motivated by the fact that we think of generalized elements in $\mathcal{C} $ as being not $X \in \mathrm{Ob}(\mathcal{C}) $ but rather $\hom_\mathcal{C}(-,X)$.
+	This is clearer when seen through the lens of a slice category. Note that arrows between subobjects of the same $X$ are arrows in the slice category of $X$. So collection of subobjects form a category with a preorder (with inclusion). The reasoning behind such an definition for subobjects is motivated by the fact that we think of generalized elements in $\mathcal{C} $ as being not $X \in \mathrm{Ob}(\mathcal{C}) $ but rather $\Hom_\mathcal{C}(-,X)$.
 	
 	\begin{definition}[Quotients in abelian categories]
 		For $Y \leq X$ in an abelian category we can define $X/Y $ as the cokernel of the monomorphism $Y \to X$. 
@@ -177,33 +236,7 @@
 	\end{definition}
 	
 
-	Some examples of abelian categories are as follows,
-	\begin{enumerate}
-		\item The category of modules.
-		\item Category of representations of a group
-		\item Category of sheaves of abelian groups on some topological space.
-		
-		\begin{definition}[Presheaf]
-			For a category $\mathcal C$ a presheaf is any functor $F: \mathcal{C}^{\mathrm{op}}\to \mathbf{Sets}$.
-		\end{definition}
-		In particular in the case for a topological space $X$ a presheaf of groups (or any algebraic object) on $X$ (in particular the set of the lattice of open sets of $X$ ordered by inclusion) is a some contravariant functor $F$ which sends open sets $U \subseteq X$ to some $F(U)$, it respects inclusions (i.e. there for open sets $V \subseteq V $ is a natural transformation $\rho_{UV}: F(U)\to F(V)$ in the form of a restriction). Furthermore, function composition, unitals and empty sets going to empty sets hold (to make it a category). Note that all these notions of presheaves are really just a special case of the categorical definition where the sheaf of groups is really just a group object in the categorical presheaf.
-		\begin{definition}[Sheaf of sets on a topology]\label{def:scheaf}
-			A sheaf of a topology $X$ is a presheaf which satisfies two additional properties, for open sets $U \in X$ and open covers ${U_i}$ of $U$
-			\begin{enumerate}
-				\item (Locality) A section, i.e. an element $s \in F(U)$ goes to zero restricted at $U_i$ for all $i$ implies $s=0$.
-				\item (Gluing) If there is a collection of sections $s_i \in F(U_i)$ such that $s_i|_{U_i \cap U_j}=s_j|_{U_i \cap U_j}$ for all $i,j$ then there is some $s \in F(U)$ such that $s|_{U_i}=s_i$ for all $i$.
-			\end{enumerate}
-			
-			These two conditions can be written is short as just saying we require $F(U)$ to be the equalizer for the following diagram
-			\[\begin{tikzcd}
-				{\prod_{i \in I} F(U_i)} && {\prod_{i,j}F(U_i \cap U_j)}
-				\arrow[shift right=2, from=1-1, to=1-3]
-				\arrow[shift left=2, from=1-1, to=1-3]
-			\end{tikzcd}\]
-		\end{definition}
-		
-		The category of sheaves of abelian groups on a topological space form a abelian category. Additivity is natural due to the functorial nature of $F$. A quick proof is due to `sheafification', i.e. the left adjoint to the inclusion functor from sheaves into presheaves. Presheves of abelian groups can be understood to have all the required properties to be an Abelian category due the functorial representation. Now due to the following result \cite[Sec. 6.17]{stacks1} we can extend this notion to the sheaves via sheafification.
-	\end{enumerate}
+
 	
 	A deep result on abelian categories is the Freyd-Mitchel embedding theorem which helps characterize all small abelian categories in terms of modules.
 	
@@ -213,7 +246,7 @@
 	The proof for the theorem is very extensive and as such is omitted. The canonical reference is Freyd's own book \cite{freyd1964abelian}. A proof sketch summarising Freyd's proof is given in an excellent MathOverflow post by the user Theo Buehler \cite{47762}.
 	
 	\subsection{Chain complexes}
-	In this section we define and prove the essential homological algebra results that we require. For further details refer to \cite{eisenbud2013commutative, weibel_1994}. All of the results below apply for abelian categories the proofs performed via diagram chases are well defined under the Freyd-Mitchel embedding on the full subcategory of the given diagram only.
+	In this section we define and prove the essential homological algebra results that we require. For further details refer to \cite{eisenbud2013commutative, weibel_1994}. All of the results below stated for modules over rings apply for abelian categories. The proofs performed via diagram chases are well defined under the Freyd-Mitchel embedding on the full subcategory of the given diagram only.
 	
 	\begin{definition}[Chain complex]
 		A {chain complex} $(A_\bullet, \varphi_\bullet)$ is a collection of modules over a commutative ring and homomorphisms $\varphi_i: A_i \to A_{i-1}$ such that $\varphi_i \varphi_{i+1}=0$,
@@ -232,7 +265,7 @@
 	\end{definition}
 	
 	
-	The homomorphisms are often called \textbf{`boundary operators'} or \textbf{`differentials'}. This nomenclature is motivated by de Rahm cohomology. Furthermore elements of $\ker \varphi_i$ are called `\textbf{cycles}' and elements of $\mathrm{im} \varphi_{i+1}$ are called \textbf{boundaries}, this echoes the aphorism `cycles modulo boundaries' often encountered in singular homology.
+	The homomorphisms are often called {`boundary operators'} or {`differentials'}. This nomenclature is motivated by de Rahm cohomology. Furthermore elements of $\ker \varphi_i$ are called `{cycles}' and elements of $\mathrm{im} \varphi_{i+1}$ are called {boundaries}, this echoes the aphorism `cycles modulo boundaries' often encountered in singular homology.
 	\begin{definition}[Exact sequence]
 		A chain complex is said to be {exact} if all its homologies are zero. In particular it is exact at one object if its homology there is zero.
 	\end{definition}
@@ -264,28 +297,30 @@
 	\end{definition}
 	The reason for `quasi' is that the relation is reflexive and transitive but not symmetric. 
 	\begin{definition}[Homotopy category of chain complexes]
-		For a given category of chain complexes $\mathrm{Ch}(\mathcal{A})$ we can define $\mathcal{K}(\mathcal{A})$ to be the homotopy category of chain complexes with objects as objects of $\mathrm{Ch}(\mathcal{A})$ and arrows as chain homotopic maps as introduced in Def.\ref{chainhomotopy}.
+		For a given category of chain complexes $\mathrm{Ch}(\mathcal{A})$ we can define $\mathcal{K}(\mathcal{A})$ to be the homotopy category of chain complexes with objects as objects of $\mathrm{Ch}(\mathcal{A})$ and arrows as chain homotopic maps as in Def.\ref{chainhomotopy}.
 	\end{definition}
 	
 	\subsection{Projective modules}	
-	The category of finitely generated projective modules is the main object of study in algebraic K-theory. This is largely motivated by the following theorem due to Swan \cite{Swan1962} which relates algebraic K-theory to topological K-theory.
-	\begin{theorem}[Swan's theorem]
-		There exists an equivalence of categories between $\mathrm{Vect}(X)$ the category of vector bundles over a compact, Hausdorff space $X$ and f.g. projective $C(X)$ modules. With the cross section functor.
-	\end{theorem}
+	The category of finitely generated projective modules is the main object of study in algebraic K-theory. This is largely motivated by a theorem due to Swan's which we will prove in the next section.
 	
-	Recall a\textbf{ free module } of rank $n$ is one that is isomorphic to $n$ direct sums of its underlying ring. In particular this means that there exists a linearly independent spanning set of the module with $n$ elements.
+	Recall a the definition of a free module.
+	\begin{definition}[Free module of rank $n$]
+		A free module of of rank $n$ is some is isomorphic to $n$ direct sums of its underlying ring. 
+	\end{definition}In particular this means that there exists a linearly independent spanning set of the module with $n$ elements.
 	
 	And homomorphisms from free modules to other modules are determined by the image of their generators, i.e. free objects are left adjoints to forgetful functors. \footnote{This holds in free monoids $\mathrm{Hom}_\mathbf{Mon}(F(X), M) \cong \mathrm{Hom}_\mathbf{Sets} (X, U(M))$ where $F(X)$ denotes the free monoid generated by elements from the set $X$ and $U(M)$ is the underlying set of a monoid $M$, refer to \cite[p. ~208]{Awodey} }
+	\begin{definition}[Projective module]
+		A module $P$ is said to be \textbf{projective} if it satisfies the following lifting property, every morphism from $P$ to $N$ factors through an epi into $N$. Note that the lift need not be unique this is \textit{not} an UMP
+		\[\begin{tikzcd}
+			&& M \\
+			\\
+			P && N
+			\arrow[two heads, from=1-3, to=3-3]
+			\arrow[from=3-1, to=3-3]
+			\arrow[dashed, from=3-1, to=1-3]
+		\end{tikzcd}\]
+	\end{definition}
 	
-	A module $P$ is said to be \textbf{projective} if it satisfies the following lifting property, every morphism from $P$ to $N$ factors through an epi into $N$. Note that the lift need not be unique this is \textit{not} an UMP
-	\[\begin{tikzcd}
-		&& M \\
-		\\
-		P && N
-		\arrow[two heads, from=1-3, to=3-3]
-		\arrow[from=3-1, to=3-3]
-		\arrow[dashed, from=3-1, to=1-3]
-	\end{tikzcd}\]
 	
 	
 	
@@ -317,7 +352,7 @@
 		\end{tikzcd}\]
 		Now we have a short exact sequence $0 \to \ker g \to F \to P \to 0$, and also $f\circ g $ is idempotent so it naturally admits a decomposition $F = \image(f \circ g) \oplus \kernel (f \circ g)$\footnote{For some idempotent $e$, $1-e$ is also an idempotent and images under these two mappings decompose any module, furthermore image of $1-e$ is just kernel of $e$}=$\image (g) \oplus \kernel (g)$ the first by the 1st isomorphism theorem and the second by $f $ being a mono.
 		
-		$4 \implies 2$ simply as $\hom (P \oplus Q,-) = \hom(P,-) \oplus \hom(Q,-)$
+		$4 \implies 2$ simply as $\Hom (P \oplus Q,-) = \Hom(P,-) \oplus \Hom(Q,-)$
 		
 		$1 \iff 5$ To show that $0\to A \to B \xrightarrow{\varphi} P$ splits we need to show that there exists a $\psi: P \to B$ such that $\varphi \circ \psi = 1_P$. But this is just obtained by the definition of $P$ being projective.
 		\[\begin{tikzcd}
@@ -391,9 +426,13 @@
 		Every f.g. projective module $P$ is a direct summand of a free module $F$ meaning it is a submodule of $F$ and by Prop. \ref{submodoffreemodisfreepid} it is free.
 	\end{proof}
 	
-	\begin{definition}[Stably free module]\label{stabfree}
-		An $A$ module $M$ is stably free if there exists a f.g. free module $F$ such that $M \oplus F$ is free.
+	\begin{definition}[Stably isomorphic]\label{stabiso}
+		Two $A-$modules $M,N$ are said to be stably isomorphic if there exists $r$ such that $M \oplus A^r \cong M \oplus A^r$.
 	\end{definition}
+	\begin{definition}[Stably free module]\label{stabfree}
+		An $A$ module $M$ is stably free if there exists a finitely generated free module $F$ such that $M \oplus F$ is free, i.e. if $M$ is stably isomorphic to a finitely generated free $A$ module.
+	\end{definition}
+
 	We shall see an example of a stably free module that is not free in the later section. As we shall use the terminology of a unimodular row.
 	
 	%		Note If $R$ is local and $M$ is fin-gen projective module then $M$ is free, this is a consequence of Nakayama. As $M \oplus Q = R$ so if $R$ has maximal ideal $\mathfrak{m}$ then $M/\mathfrak{m}M$ is a vector space	over the field $R/\mathfrak{m}R$ and its basis lifts to minimal set of generators of $M$, consider $N=M/\sum R m_i$ and so $ N/ IN=M/(IM+\sum_i R m_i)=M/M=0\implies N=IN$ then apply typical Nakayama to get $N=0
@@ -404,7 +443,7 @@
 	%		If $M,N$ finitely presented over $R$ and their localizations are isomorphic then theres some element of $f\in R-P$ such that $M[f^{-1}] \cong N[f^{-1}]$
 	
 	
-	\subsection{Long exact sequence of homologies, Snake and 5-lemma}
+	\subsection{Long exact sequence of homologies}
 	
 	Consider $(A,\varphi),(B,\psi),(C,\chi)$ to be chain complexes we can define a short exact sequence of complexes as \[ 0 \to A \xrightarrow{\alpha} B \xrightarrow{\beta} C \to 0 \]
 	For $\alpha, \beta $ maps of complexes as discussed above, and $\beta \alpha=0$, if for all $i$ the underlying sequence of modules is exact\[ 0 \to A_i \xrightarrow{\alpha_i } B_i \xrightarrow{\beta_i } C_i \to 0\]
@@ -523,11 +562,18 @@
 	\end{lemma}
 	
 	\subsection{Resolutions}
-	Given a module $M$ its \textbf{left resolution} is given by the data of a exact sequence $(A_\bullet, \varphi_\bullet)$ into $M$ as such,
-	\[ 	\dots \to A_1	\to A_0 \xrightarrow{\epsilon} M \to 0 \]
-	where $\epsilon $ is called the \textbf{augmentation map}, if the exact sequence is free its a free resolution and such for projective. 
 	
-	If we have a cochain complex instead it forms a \textbf{right resolution} and if its elements are injective we call them injective resolutions.
+	\begin{definition}\label{defresolution}[Left resolution]
+		Given a module $M$ its {left resolution} is given by the data of a exact sequence $(A_\bullet, \varphi_\bullet)$ into $M$ as such,
+		\[ 	\dots \to A_1	\to A_0 \xrightarrow{\epsilon} M \to 0 \]
+		where $\epsilon $ is called the {augmentation map}, if the exact sequence is free its a free resolution and such for projective. 
+	\end{definition}
+	
+	
+	If we have a cochain complex instead it forms a {right resolution} and if its elements are injective we call them injective resolutions.
+		\begin{example}
+		A useful example of a resolution is that of the Koszul complex for a module. This will be defined and used in the proof of the Suslin factorial theorem at the end of this project.
+	\end{example}
 	
 	\begin{proposition}[Horseshoe lemma]
 		If there is a short exact sequence of modules,
@@ -557,6 +603,8 @@
 	\begin{proof}
 		First note $\epsilon_P: C_0 \to P$ lifts due to projectivity to $C_0 \to N$ also $A_0\to N$ via composition so simply define $B_0 = A_0 \oplus C_0$. This is an epi evidently via diagram chase. Also is projective as direct sum of projectives is projective. Now consider direct sum of kernel of $A_0 \to M, B_0 \to N, C_0 \to P$ and construct the direct sum again to get $F_1$.	Now we get a $3\times 3$. Exactness is due to the Snake lemma
 	\end{proof}
+
+	
 %	\subsection{Puppe/Homotopy cofiber sequence}
 %	The discussion in this section follows \cite{weibel_1994}.
 	
@@ -601,19 +649,363 @@
 		%	\end{proof}
 	
 
+		\section{Vector bundles}
+	 In this section, we introduce the foundational concepts required to prove Swan's theorem, which demonstrates a key connection between projective modules and vector bundles over certain topological spaces. The purpose of proving Swan's theorem is to highlight why projective modules play a central role in algebraic $K$-theory, serving as essentially algebraic counterparts to vector bundles.
+	
+	All results presented hold for both real and complex vector bundles. For simplicity, we use $k$ to denote the underlying field. 
+	
+	More detailed exposition can be found in \cite{milnor1974characteristic, karoubi2008k}.
+	
+	\begin{definition}[Vector bundle]
+		A $n$ dimensional vector bundle over $k$ is a triple $(E,p, X)$. Which consists of a continuous map $p:E \to X$ from the total space $E$ to the base space $X$. Such that for all $x \in X$, $E_x=p^{-1}(x)$ the fibre of $x$ has a $k$ vector space structure. Along with the following property of local trivialization
+		\begin{enumerate}
+			\item For any $x \in X$ there exists a open open $U \subset X$ along with a homeomorphism \[ h: X \times k^n	\to p^{-1}(U) \] such that for all $c \in U$ the map through $h$ defines an isomorphism between $E_c$ and $k^n$.
+		\end{enumerate}
+	\end{definition}
+	\begin{example}[Trivial vector bundle]
+		A trivial vector bundle is one in which the total space $E=X \times k^n$ with $p$ just the trivial projection mapping.
+	\end{example}
+	The local trivialization condition can now be understood as saying there exists an open neighbourhood for each point $x \in X$ such that $E|_U$ is a trivial vector bundle
+	\begin{definition}[Quasi-vector bundle]
+		A fibre bundle defined as above without the property of local trivialisation is called a quasi-vector bundle.
+	\end{definition}
+	\begin{definition}[Rank of vector bundle]
+		If each $E_x$ has the same dimension $n$ then $n$ is referred to as the rank of the vector bundle.
+	\end{definition}
+	
+	\begin{example}[Tangent bundle on $S^2$]
+		Let $S^2$ be the unit sphere in $\R^3$ associate to each point $x \in S^2$ the plane tangent to $S^2$ at $x$, label this $T_xS^2$ (this is the tangent space at point $x$) then the disjoint union of all the tangent spaces form a vector bundle $T S^2 = \sqcup_{x \in S^2} T_x S^2.$ 
+	\end{example}
+	We don't use the concept of a tangent bundle proper so we refrain from defining it in its entirety.
+	\begin{definition}[Vector bundle morphisms]
+		Two vector bundles $(E_1,p, X)$ and $(E_2,p_2, X) $ are considered isomorphic if there exists a continuous map between their total spaces $g$ such that the below diagram commutes
+		\[\begin{tikzcd}
+			{E_1} && {E_2} \\
+			& X
+			\arrow["{p_1}"', from=1-1, to=2-2]
+			\arrow["{p_2}", from=1-3, to=2-2]
+			\arrow["g", from=1-1, to=1-3]
+		\end{tikzcd}\]
+		
+		and $g$ induces a vector space homomorphism for each fibre.
+	\end{definition}
+	If $g$ is a homeomorphism and fibrewise isomorphism then it is a vector bundle isomorphism.
+	
+	\begin{definition}[Category of vector bundles]
+		For a fixed base space $B$ the collection of vector bundles over $X$ with arrows as vector bundle homomorphisms forms a category which we denote as $\mathrm{VB}(X)$.
+	\end{definition}
+	\begin{definition}[Whitney sums]
+		For $(E_1,p_1, X), (E_2,p_2,X)$ their Whitney sum denoted as $E_1 \oplus E_2$ consists of total space as $E_1 \oplus E_2$ with fibrewise direct sums of vector spaces.
+	\end{definition}
+	A Whitney sum is a biproduct of vector bundles in $\mathrm{VB}(X)$. Which makes the category of vector bundles into an additive category, but not abelian. Since the kernel of a morphism of vector bundles need not be a vector bundle. 
+	
+	Along with a Whitney sum there also exists the expected notion of a tensor product of vector bundles this in turn allows us to view $\mathrm{VB}(X)$ as a symmetric monoidal category in the natural way.
+	
+	In the particular case when $E_1=X \times k^n, E_2=X \times k^m$ are both trivial vector bundles over $X$. We can describe the vector bundle morphisms between them explicitly. This is a result we will use very often in the process of proving Swans theorem. 
+	
+	We have associated to the vector bundle morphism $g: E_1 \to E_2$ a natural linear map $g_x: k^n \to k^m$. Consider $\widetilde{g}: X \to \Hom_k(k^n, k^m)$ defined as $\widetilde{g}(x)=g_x.$
+	\begin{theorem}[Characterization of trivial bundle morphisms]\label{thtrivialbundlemorphisms}
+		The map $\tilde{g}: X \to \text{Hom}_k(k^n, k^m)$ is continuous\footnote{Relative to the natural topology on $\text{Hom}_k(k^n, k^m)$. The unique topological vector space topology making any $k^t \cong L(k^n,k^m)$ into a homeomorphism}, and for ${h}: X \to \text{Hom}_k(k^n, k^m)$ continuous, let $\tilde{h}: E \to E'$ be the map which induces $\tilde{h}(x)$ on each fiber. Then $\tilde{h}$ is a morphism of vector bundles.
+	\end{theorem}
+	\begin{proof}
+		Let $\{e_1, \dots, e_n\}$ be a choice of basis for $k^n$ and $\{e'_1, \dots, e'_m\}$ for $k^m$.  
+		
+		Now ${g}_x \in \text{Hom}_k(k^n, k^m)$ is naturally representable by a $m\times n$ matrix $(a_{ij}(x))$.
+		
+		The function $x \mapsto a_{ij}(x)$ is obtained by composing the continuous maps:
+		\[ X \xrightarrow{\beta_j} X \times k^n \xrightarrow{g} X \times k^m \xrightarrow{\gamma} k^m \xrightarrow{p_i} k \]
+		where $\beta_j(x) = (x, e_j)$, $\gamma(x, v) = v$, and $p_i$ is the $i$-th projection onto $k$. Since each $a_{ij}(x)$ is continuous $\tilde{g}$ is continuous.
+		
+		Now consider ${h}: X \to \text{Hom}_k(k^n, k^m)$, continuous. By composing a sequence of continuous maps we obtain the required morphism of vector bundles.
+		\[ X \times k^n \xrightarrow{\delta} X \times \text{Hom}_k(k^n, k^m) \times k^n \xrightarrow{\epsilon} X \times k^m \]
+		where $\delta(x, v) = (x, {h}(x), v)$ and $\epsilon(x, u, v) = (x, u(v))$.
+	\end{proof}
+
+	\begin{proposition}[Sufficient condition for vector bundle isomorphism]\label{propsciso}
+	Let $E$ and $F$ be two vector bundles over $X$, and let $g: E \to F$ be a morphism of vector bundles such that $g_x: E_x \to F_x$ is bijective for each point $x \in X$. Then $g$ is an isomorphism of vector bundles.
+	\end{proposition}
+	
+	\begin{proof}
+		Let $h: F\to E$ be the map defined by $h(v) = g_x^{-1}(v)$ for $v \in F_x$. We need to prove $h$ is continuous and so indeed a map in $\mathrm{VB}(X)$. The other conditions for isomorphisms are clearly met. If we prove continuity locally for every neighbourhood then we have the required continuity globally.
+		
+		 Consider a neighbourhood $U$ of $x$ and the local trivialization isomorphisms $\beta: E|_U \to U \times M$ and $\gamma: F|_U \to U \times N$. Let $g_1 = \gamma g_U \beta^{-1}$. 
+		 
+		 Then $h_U = \beta^{-1} h_1^{-1} \gamma$, where $h_1$ is defined as $\widetilde{h_1}(x) = (\widetilde{g_1}(x))^{-1}$ (as in the above result Th. \ref{thtrivialbundlemorphisms}), $h_1$ is continuous.  Therefore, $h$ is continuous on a neighbourhood of each point of $F$, implying $h$ is continuous on all of $F$.
+	\end{proof}
+	
+	\subsection{Sections of a vector bundle}
+	
+	\begin{definition}[Sections of a vector bundle]
+		For a vector bundle $(E,p,X)$ a section refers to a continuous map	$s: X \to E$ such that $p \circ s= 1_X$, where $1_X$ denotes the identity map on $X$.
+		
+		These sections equivalently are a homomorphism of vector bundles from the trivial line bundle $(X \times \R, \pi_X, X) \to (E,p,X)$
+	\end{definition}
+	We assume all sections to be continuous without necessarily specifying it.
+	
+	\begin{definition}[Linear independence of sections]\label{deflinindsections}
+		A sequence $s_1, \cdots, s_n$ of sections on a vector bundle $E$ is said to linearly independent if they are linearly independent for each point $x$.
+		
+		Furthermore the morphism $f: X \times k^n \to E$ given by $(x,c_1, \cdots, c_n) \mapsto \sum_{i=1}^n c_i s_i(x)$ induces an isomorphism of fibres if $E$ has rank $n$ due to Prop. \ref{propsciso}.
+		
+	\end{definition}
+	
+	\begin{example}[Zero section]
+		The map $s:X \to E $ sending every point $x$ to the $0$ vector in $E_x$.	
+	\end{example}
+	\begin{definition}[Vector space of sections]
+		For a vector bundle $p:E \to X $ the set of continuous sections of $E$ is denoted as $\Gamma (X ,E)$. It is a vector space with vector addition defined as $(s+t)(x)=s(x)+t(x)$ and scalar multiplication as $\lambda s (x) = (\lambda s)(x)$ for $\lambda \in k$.	
+	\end{definition}
+	
+	\begin{proposition}[Section functor]\label{sectionfunctor}
+		 $\Gamma(X,E)$ can be realized as a $C(X)$ module where $C(X)$ denotes the ring of continuous functions from $X$ to $k$. With scalar multiplication defined as $(c \cdot s)(x)=c(x) s(x)$ for $s\in \Gamma(X,E), c \in C(X)$.
+		 
+		 For a trivial vector bundle $E=X \times k^n$ we have $\Gamma(X,E)$ corresponds to a free module $ C(X)^n$. If $E$ is a arbitrary vector bundle which is a direct summand of a trivial vector bundle then $\Gamma(X,E) $ corresponds to a projective $C(X)$ module.
+		 
+		 In particular If $E \oplus E' \cong X \times k^n$ we have $\Gamma(X, E) \oplus \Gamma(X,E') \cong \Gamma(X, E \oplus E') \cong C(X)^n$, i.e. $\Gamma: \mathrm{VB}(X) \to \mathrm{Proj}(C(X))$ is an additive functor.
+	\end{proposition}
+	
+	In fact this `stably trivial' property of a vector bundle is always true when $X$ is compact. This is an essential result in the proof of Swans theorem. In order to prove it we need a lemma for paracompact spaces first.
+	\begin{definition}[Paracompact space]
+		A  Hausdorff topological space $X$ is said to be paracompact if every open cover of $X$ has a locally finite open refinement.
+		
+		(An open cover is locally finite if there exists a neighbourhood for every $x \in X$ which intersects only finitely many elements of the cover.
+		A refinement of an open cover $\{U_i\}$ consists of a open cover $\{V_j\}$ such that for each $j, V_j	\subset U_i$ ).
+	\end{definition}
+	
+	\begin{lemma}
+		Let \( X \) be a paracompact space, and let \( E \) and \( F \) be vector bundles over \( X \). Suppose \( \alpha: E \to F \) is a morphism such that \( \alpha_x: E_x \to F_x \) is surjective for each point \( x \in X \). Then there exists a morphism \( \beta: F \to E \) such that \( \alpha \circ \beta = \mathrm{id}_F \).
+	\end{lemma}
+	\begin{proof}
+		In this proof we very liberally use the various morphisms as seen in Th. \ref{thtrivialbundlemorphisms}.
+		
+		Fix a point $x \in X$ by local trivialization we pick a neighborhood $U$ of $x$ such that $E_U$ and $F_U$ are trivial bundles. That is, $E|_U \cong M \times V$ and $F|_U \cong U \times N$.
+		
+		Now with this representation we have $\alpha|_U: U \times M \to U \times N$, can be expressed as $\tilde{\theta}$ (as in \ref{thtrivialbundlemorphisms}) for the associated continuous map:
+		\(
+		\theta: U \to \mathrm{Hom}_{\mathrm{VB}}(V, W).
+		\)
+		
+		Decomposing $M$ as $N\oplus \ker (\theta (x))$ (which we can do thanks to surjectivity of $\alpha_x$) allows us to choose a matrix representation for $\theta(y):M\to N$ i.e. $\theta(y):N \oplus \ker (\theta( x)) \to N$ as
+		\[
+		\theta(y) = 
+		\begin{bmatrix} 
+			\theta_1(y) & \theta_2(y) 
+		\end{bmatrix},
+		\]
+		the first component goes to 1 and the second to 0 continuously, i.e. an endomorphism of $N$. Realized as a topological vector space $\mathrm{Aut}(N)$ is an open subset (i.e. vector subspace) of $\mathrm{End}(N)$. 
+		
+		Therefore we can pick a neighbourhood of $x$ say $V_x$ such that $\theta_1(y)$ is an isomorphism for $y \in U_x$. Consider associated to this the map $\theta': V_x \to \Hom_{\mathrm{VB}}(N,M)$ represented now by the matrix,
+		\[ \theta'_x(y)=\begin{bmatrix}
+			\theta_1(y)^{-1}\\0
+		\end{bmatrix} \]
+			
+		This now induces the morphism $\tilde{\theta}'_x: F_|{V_x} \to E_|{V_x}$ so that $\alpha_{V_x} \tilde{\theta}'_x = 1$. 
+		
+		Varying the point $x$ enables us to construct a locally finite open cover $\{V_i\}$ of $X$ obeying the following properties, all morphisms $\beta_i: F_{V_i} \to E_{V_i}$ are right inverses of $\alpha_{V_i}$ as seen.
+		
+		Now consider a `partition of unity' $\{ \eta_i\}$ associated with the cover \footnote{A sequence of non negative real valued functions $\{\eta_i \}$ whose sum evaluated for every point $x \in X$ is $1$. And such that every point $x\in X$ has an open neighbourhood not intersecting the support of $\eta_i $ for all but finitely many $i$. Which implies the sums are finite and therefore well defined.} and $\beta:F \to E$ is defined using it as $\sum_{i} \eta_i(x)\beta_i(e)$ for $e\in E_x$. Continuity is maintained due to the fact that these sums are necessarily finite (see footnote). This gives us \[ \alpha \beta (e)= \sum_i \eta_i(x) (\alpha \beta_i) (e) = (\sum_i \eta_i(x)) (\alpha \beta_i (e)) = e \]
+		Which completes the proof.
+	\end{proof}
+	
+	\begin{theorem}\label{stablytrivialcompact}
+		If $E$ is a vector bundle over a compact base space $X$ then there exists a vector bundle $E'$ such that $E \oplus E' \cong X \times k^n$
+	\end{theorem}
+	\begin{proof}
+		Pick a finite open cover \( \{ U_i \}_{i=1}^r \). By local trivialisation we know that \( E|_{U_i} \cong U_i \times k^{n_i} \). 
+		
+		Let \( \{\eta_i\} \) be a `partition of unity' associated to the cover similarly as before. So there exist \( n_i \) linearly independent sections \( s_i^1, s_i^2, \dots, s_i^{n_i} \) of \( E|_{U_i} \) (as seen in Def. \ref{deflinindsections}). By extending these local sections to zero outside \( U_i \), we obtain globally defined sections \( \eta_i s_i^1, \eta_i s_i^2, \dots, \eta_i s_i^{n_i} \), which are linearly independent sections of \( E|_{V_i} \), where \( V_i = \eta_i^{-1}((0,1]) \).
+		
+		Let \( \sigma_i^j \) denote the sections \( \eta_i s_i^j \) for \( 1 \leq j \leq n_i \). These sections \( \sigma_i^j(x) \) generate \( E_x \) as a vector space for each \( x \in X \). As constructed in $Def. \ref{deflinindsections}$, there exists a morphism
+		\[
+		\alpha: T = X \times k^n \to E,
+		\]
+		where \( n = \sum_{i=1}^r n_i \), such that \( \alpha_x: T_x \to E_x \) is surjective for every \( x \in X \).
+		
+		Now by the above Lemma for paracompact spaces, there exists a morphism \( \beta: E \to T \) such that \( \alpha \circ \beta = 1_E \). Let \( E' \) be the kernel of the idempotent morphism \( p = \beta \circ \alpha \). 
+		
+		Define a morphism from \( E \oplus E' \) to \( T \) by taking the sum of $\beta: E\to T $ and the inclusion $i: E' \to T$. This morphism induces a fibrewise isomorphism since \( E'_x \cong \ker(p_x) \) and \( E_x \cong \ker(1-p_x) \). Thus, the morphism is an isomorphism by Prop. \ref{propsciso}	
+	\end{proof}
+	
+	\subsection{Karoubian categories and some results on vector bundles}
+	In this section we cover an essential theorem which is applied in order to prove Swan's theorem. We follow the results as proven in Karoubi's book \cite{karoubi2008k}.
+	
+	\begin{definition}[Karoubian category]
+		A Karoubi category is an Ab-Enriched category such that every idempotent endomorphism (a morphism of the form $e:A \to A$ such that $e^2=e$) has a kernel.
+	\end{definition}
+	These are sometimes referred to as pseudo-abelian categories (note that in an abelian category proper all morphisms have kernels and cokernels in this case its only the idempotents).
+	\begin{example}
+		The category of vector bundles is Karoubian. We already know it is additive and so Ab-Enriched. In the conclusion of Th. \ref{stablytrivialcompact} we have implicitly shown that the idempotent $p \in \mathrm{VB}(X)$ has a kernel.
+	\end{example}
+	\begin{example}
+		Hinting towards Swans theorem we can see that also $\mathrm{Proj}(A)$ for a ring $A$ is Karoubian. We will see the relation between projective modules and idempotents in more detail in Sec. \ref{k0withidempotent}
+	\end{example}
+	Idempotent elements occur ubiquitously in $K-$theory we will see another useful application of idempotents in computations of $K_0$.
+	
+	The first theorem we cover in this section is well known by various different names. It involves showing the existence of a Karoubi envelope for an additive category. But this is often referred to as the Cauchy completion or idempotent completion.
+	\begin{theorem}\label{thm:pseudoabelian}[Existence of Karoubi envelope]
+		Let $\mathcal{C}$ be an additive category. Then there exists a Karoubian category $\widetilde{\mathcal{C}}$ and a fully faithful additive functor $\varphi:\mathcal{C} \to \widetilde{\mathcal{C}}$ universal in the sense that for any other additive functor $\psi: \mathcal{C} \to \mathcal{D}$ where $\mathcal{D}$ is Karoubian there exists a unique additive functor ${\psi'}: \widetilde{\mathcal{C}} \to \mathcal{D} $ such that the below diagram commutes.
+		\[\begin{tikzcd}
+			{\widetilde{\mathcal{C}}} \\
+			\\
+			{\mathcal{C}} && {\mathcal{D}}
+			\arrow["{\psi'}",dashed, from=1-1, to=3-3]
+			\arrow["\varphi", from=3-1, to=1-1]
+			\arrow["\psi"',from=3-1, to=3-3]
+		\end{tikzcd}\]
+	\end{theorem}
+	\begin{proof}
+		We directly construct $\widetilde{\mathcal{C}}$ and $\varphi.$ The objects of $\widetilde{\mathcal{C}}$ are of the form $(E,p)$ for $E \in \mathrm{Ob}(\mathcal{C})$ and $p$ idempotent endomorphism over $E$. 
+		
+		Arrows between two such objects $(E,p) $ and $(F,q)$ comprise of the arrows $(f: E \to F) \in \mathcal{C}$ such that $fp=qf=f$. Composition of morphisms is inherited from $\mathcal{C}$. The identity morphism comprises of $1_{(E,p)}=p$, and te sum of two objects $(E,p) \oplus (F,q) $ is defined naturally as $(E \oplus F, p \oplus q)$. This demonstrates that $\widetilde{\mathcal{C}}$ is indeed an additive category. 
+		
+		It remains to be verified that it is indeed Karoubian which is the main concern. Let $f$ be an idempotent endomorphism of the object $(E,p) $ in $\widetilde{\mathcal{C}}$ we wish to show that $f$ indeed has a kernel. 
+		
+		Examining the below commutative diagram will help us conclude. The elements $F, g, q, h$ are defined directly as seen below. Note that the condition $fp=pf=f$ is present in the righthand square
+		
+	\[\begin{tikzcd}
+		& F \\
+		E && E & E \\
+		E && E & E \\
+		& F
+		\arrow["h"', dashed, from=1-2, to=2-1]
+		\arrow["g", from=1-2, to=2-3]
+		\arrow["q"{description}, curve={height=-12pt}, from=1-2, to=4-2]
+		\arrow["{p-f}", from=2-1, to=2-3]
+		\arrow["{(1-f)p}"', from=2-1, to=3-1]
+		\arrow["f", from=2-3, to=2-4]
+		\arrow["p"', from=2-3, to=3-3]
+		\arrow["p", from=2-4, to=3-4]
+		\arrow["{p-f}"', from=3-1, to=3-3]
+		\arrow["f"', from=3-3, to=3-4]
+		\arrow["h", dashed, from=4-2, to=3-1]
+		\arrow["g"', from=4-2, to=3-3]
+	\end{tikzcd}\]
+		Since $(1-f)p$ is itself an idempotent endomorphism on $E$ we have $(E,(1-f)p)$ is an object in $\widetilde{\mathcal{C}}$ and $p-f$ defines an arrow from this object to $(E,p)$. Since $(p-f)((1-f)p) = (p)(p-f)=p-f $ as expected.
+		
+			Now we claim that the object $ (E,(1-f)p)$ with the arrow ${p-f}$ is a kernel of $f: (E,p) \to (E,p) $. In particular it is a pullback of the below form. The diagram below drawn internally in $\widetilde{C}$ makes this image clearer.
+			\[\begin{tikzcd}
+				{(F,q)} \\
+				& {(E,(1-f)p)} && 0 \\
+				\\
+				& {(E,p)} && {(E,p)}
+				\arrow["h", dashed, from=1-1, to=2-2]
+				\arrow[curve={height=-18pt}, from=1-1, to=2-4]
+				\arrow["g"', curve={height=18pt}, from=1-1, to=4-2]
+				\arrow[from=2-2, to=2-4]
+				\arrow["{p-f}"', from=2-2, to=4-2]
+				\arrow[from=2-4, to=4-4]
+				\arrow["f", from=4-2, to=4-4]
+			\end{tikzcd}\]
+			
+			
+			Compare this to the first diagram.
+			$(F,q) \xrightarrow{g} (E,p)$ is picked such that $fg=0$. And we obtain uniqueness of $h$ is due to the fact that any such arrow $h$ must obey the expression $h=(1-f)ph=p(1-f)h=pg=g$. Conversely if $h=g$ the diagram commutes naturally.
+			
+			This shows that $\widetilde{\mathcal{C}}$ is Karoubian. Finally we construct $\varphi: \mathcal{C } \to \widetilde{\mathcal{C}}$ defined as sending $E \in \mathrm{Ob}(\mathcal{C})$ to $(E,1_E)$ and $\varphi(f) =f $. This is naturally a full faithful functor by construction.
+			
+			Also we can see that based on an analogous argument $(E,p)$ is the kernel of $1-p$ as an idempotent endomorphism over $\varphi(E)=(E,1_E)$. Meaning that $\varphi(E) \cong (E,p) \oplus (E,1-p), $ i.e. the functor is additive. 
+			
+			Finally to show that these constructions define $\psi'$.	
+			
+			If $\psi: \mathcal{C} \to \mathcal{D}$ (resp. $\psi': \widetilde{\mathcal{C}} \to \mathcal{D}$) is an additive functor from $\mathcal{C}$ (resp. $\widetilde{\mathcal{C}}$) to another Karoubian category $\mathcal{D}$, such that ${\psi'}\varphi \cong \psi$.
+			Then we have $\psi(\ker f) \cong \ker(\psi'(f))$ for every idempotent endomorphism $f$. Hence $\psi'(E, p) = \ker \psi(1-p): \psi(E) \to \psi(E)$ and $\psi'(f) = \psi(f)_{\ker \psi(1-p)}$ on the objects and morphisms respectively. Conversely, these formulas define $\psi'$ (up to isomorphism).
+	\end{proof}
+	
+	
+	Before proceeding for the last result in this section, recall the definition of equivalence of categories.
+	\begin{definition}[Equivalence of categories]
+		Two categories $\mathcal{C},\mathcal{D}$ are said to be equivalent if there exist functors $E:\mathcal{C}\rightleftarrows \mathcal{D}:F$ and a pair of natural \textit{isomorphisms} $\alpha: 1_\mathbf{C} \to F \circ E$ and $\beta: 1_\mathbf{D} \to E \circ F$. 
+		
+		This is a weaker condition than isomorphism of categories in which we have an actual equality instead of natural isomorphism.
+	\end{definition}
+	
+	A more useful form of the definition is as such, the proof may be seen in \cite{Awodey}[7.7.25]	
+	\begin{proposition}
+		A functor $F: \mathcal{C} \to \mathcal{D}$ induces an equivalence of categories iff $F$ has the following properties
+		\begin{enumerate}
+			\item $F$ is full (The map $F_{A,B}: \Hom_\mathcal{C}(A,B) \to \Hom_\mathcal{D}(FA, FB)$ defined as $f \mapsto F(f)$ is surjective for all $A,B \in \mathrm{Ob}(\mathcal{C})$).
+			\item $F$ is faithful (The map $F_{A,B} $ as defined above is injective for all pairs $A,B$).
+			\item $F$ is essentially surjective on objects (For every $D \in \mathrm{Ob}(\mathcal{D})$ there exists $C \in \mathrm{Ob}(\mathcal{C})$ such that $FC\cong D$).
+		\end{enumerate}
+	\end{proposition}
+	
+	\begin{corollary}\label{thm:equivpseudoabelian}
+		Let $\mathcal{C}$ be an additive category, $\mathcal{D}$ a Karoubian category, and $\psi: \mathcal{C} \to \mathcal{D}$ an additive functor which is fully faithful such that every object of $\mathcal{D}$ is a direct factor of an object in the image of $\psi$. Then the functor $\psi'$ as defined in Th. \ref{thm:pseudoabelian} forms an equivalence between the categories $\mathcal{C}$ and $\mathcal{D}$.
+	\end{corollary}
+	\begin{proof}
+		We will prove that $\psi'$ is essentially surjective and fully faithful. 
+		
+		Let $G \in \mathcal{D}$. We seek $X \in \widetilde{\mathcal{C}}$ such that $\psi'(X) \cong G$.
+		
+		By the hypothesis we have that for $G \in \mathcal{D}$, there exists $E \in \mathcal{C}$ and $G' \in \mathcal{D}$ with $\psi(E) \cong G \oplus G'$.
+		Due to this we can choose an idempotent endomorphism $q: \psi(E) \to \psi(E)$ such that $\text{Ker}(q) \cong G$ we are in a pseudo-abelian category.
+		
+		Now as $\psi$ is fully faithful, there's a idempotent $p: E \to E$ in $\mathcal{C}$ with $\psi(p) = q$. Then by the formulas in the end of Th. \ref{thm:pseudoabelian} we have $G \cong \varphi' (E,1-p).$ This proves essential surjectivity.
+		
+		Lastly to prove $\varphi'$ is fully faithful consider two objects $H, H' \in \widetilde{\mathcal{C}}$ direct factors of $\varphi(E), \varphi(E')$. Then the following diagram shows that $\psi'_{H,H'} $ is an isomorphic function,
+		\[\begin{tikzcd}
+			{\Hom_{\widetilde{\mathcal{C}}}( \varphi(E), \varphi(E'))} & {\Hom_{\mathcal{C} }(E,E')} & {\Hom_{\widetilde{\mathcal{C}}}(H,H')} \\
+			\\
+			& {\Hom_\mathcal{D} (\psi(E), \psi(E'))} & {\Hom_\mathcal{D}(\psi'(H), \psi'(H'))}
+			\arrow["{\cong }", from=1-1, to=1-2]
+			\arrow["{\psi'_{\varphi(E), \varphi(E')}}"', from=1-1, to=3-2]
+			\arrow[shift left=2, from=1-2, to=1-3]
+			\arrow["{\psi_{E,E'}}", from=1-2, to=3-2]
+			\arrow[shift left=2, from=1-3, to=1-2]
+			\arrow["{\psi'_{H,H'}}", from=1-3, to=3-3]
+			\arrow[shift right=2, from=3-2, to=3-3]
+			\arrow[shift right=2, from=3-3, to=3-2]
+		\end{tikzcd}\]
+		where the horizontal arrows are induced by the decompositions $\varphi(E)=H \oplus H_1$ and $\varphi(E')=H' \oplus H_1'$, since $\psi_{E,E'} $ is an isomorphism by hypothesis.
+	\end{proof}
+	
+	
+
+	\subsection{Swan's theorem}
+	
+	We can now prove the celebrated Swan's theorem with the results we've built up so far.
+	\begin{theorem}[Swan's theorem]\label{thm:serreswan}
+		Let $X$ be a compact Hausdorff space, and let $A = C(X)$. Then the section functor $\Gamma$ induces an equivalence of categories $\mathrm{VB}(X) \simeq \mathrm{Proj}(C(X))$.
+	\end{theorem}
+	
+	\begin{proof}
+		Since we assume that $X$ is compact the section map $\Gamma$ as seen in Prop. \ref{sectionfunctor} is indeed a functor $\Gamma: \mathrm{VB}(X) \to \mathrm{Proj}(C(X))$ due to Th. \ref{stablytrivialcompact}. Furthermore it induces a functor $\Gamma_T: \mathrm{VB}_{T}(X) \to \mathrm{Free}(C(X))$.
+		
+		Where $\mathrm{VB}_T(X)$ refers to the full subcategory of $\mathrm{VB}(X)$ consisting of the trivial bundles over $X$, and $\mathrm{Free}(C(X))$ refers to finitely generated free modules over $C(X)$.
+		
+		Since $C(X)^n \cong \Gamma_T(E)$ for $E=X\times k^n$, we have $\Gamma_T$ is essentially surjective.
+		
+		If $F:X \times k^p$ is some other trivial vector bundle and $f:E \to F$ is a morphism of vector bundles then as seen in Th. \ref{thtrivialbundlemorphisms} we have full faithfullness of the functor $\Gamma_T$. Which shows that $\Gamma_T$ induces a equivalence of categories between $\mathrm{VB}_T(X) $ and $\mathrm{Free}(C(X))$.
+		
+		To extend this to our required case we make use of Th. \ref{thm:pseudoabelian} and Th. \ref{thm:equivpseudoabelian}.
+		
+		Comparing with Th. \ref{thm:pseudoabelian} since $\mathrm{VB}(X)$ being Karoubian itself is naturally the Karoubian envelope of its subcategory $\mathrm{VB}_T(X)$ and with the functor $\Gamma$ realized as $\psi'$ we see the below diagram commutes.
+		\[\begin{tikzcd}
+			{VB(X)} \\
+			\\
+			{\mathrm{VB}_T(X)} && {\mathrm{Proj}(C(X))}
+			\arrow["{\Gamma =\psi'}", from=1-1, to=3-3]
+			\arrow["i", from=3-1, to=1-1]
+			\arrow["\psi"', from=3-1, to=3-3]
+		\end{tikzcd}\]
+		Finally due to Th. \ref{thm:equivpseudoabelian} we are done.
+		
+%		using Theorem \ref{thm:equivtrivbundles} which ensures that the trivial bundles suffice in building up to the construction.  Theorems \ref{thm:pseudoabelian} and \ref{thm:equivpseudoabelian} combined guarantee that if a functor is fully faithful and satisfies the direct-factor property, then it’s an equivalence.  Since Theorem [reference needed for fully faithful proof] demonstrates that $\Gamma$ is fully faithful, $\Gamma$ is an equivalence of categories.  Therefore,  $\mathrm{VB}(X) \simeq \mathrm{Proj}(C(X))$.
+	\end{proof}
+
 	
 	\section{Grothendieck group $K_0$}
-	The big picture idea that Grothendieck had was that of a free completion of a commutative monoid. Commutative monoids occurred in nature very often as f.g. projective modules/vector bundles. 
+	The Grothendieck group $K_0$ arises from the natural idea of wanting to extending a commutative monoid (referred to as $\mathrm{CMon}$) to a group in a universal way. This concept finds its roots in many naturally occurring mathematical structures, such as finitely generated projective modules or vector bundles. 
 	
-	This is a fairly natural approach which results in a Free-Forgetful adjoint pair between $\mathrm{CMon}$ and $\mathrm{Ab}$. 
+%	This is a fairly natural approach which results in a Free-Forgetful adjoint pair between $\mathrm{CMon}$ and $\mathrm{Ab}$. 
 	
-	\subsection{Basic results}
+	\subsection{Definitions and basic results}
 		
 	\begin{proposition}[$K_0$ of a monoid (Group completion functor)]
 		Assign $(A,+) \in \mathrm{CMon} $ to \[K_0(A) \in \mathrm{Grp}\] by taking the free group on symbols $[a]$ for $a \in A$ and quotienting the monoidal relations $[m+n]-[m]-[n]$.
 	\end{proposition}
 	
-	The mapping is an injection iff the monoid is cancellative.
+	The mapping is an injection iff the monoid is cancellative, i.e. ($a+b=a+c \implies b=c$) for all $a,b,c$ in the monoid.
 	\begin{definition}[Reduced $K_0$ groups]
 	There is a canonical homomorphism $i: \Z \to K_0(A)$ given by $z \mapsto z[m]$ the reduced $K$ group is defined as $\tilde{K}_0(A):=K_0(A)/\image i $
 	\end{definition}
@@ -623,10 +1015,10 @@
 %	\end{proposition}
 	
 	\begin{definition}[$K_0$ for a ring $A$]
-		Consider the isomorphism classes of f.g. projective modules over $A$. This forms a commutative monoid so consider its group completion $K_0(A)$
+		Consider the stable isomorphism classes of finitely generated projective modules over $A$ denoted as $\mathrm{Proj}(A)$. This forms a commutative monoid so $K_0(A)$ is defined as $K_0(\mathrm{Proj}(A))$.
 	\end{definition}
 	\begin{definition}[$G_0$ for a ring $A$]
-	The group completion of $M(A) $ the monoid of all f.g. modules over $A$ is denoted as $G_0(A)$
+	The group completion of $M(A) $ the monoid of all finitely generated modules over $A$ is denoted as $G_0(A) $ 
 	\end{definition}
 	There is a canonical inclusion map $K_0(A) \to G_0(A)$.
 
@@ -638,14 +1030,47 @@
 %	\begin{definition}[Morita equivalence for rings and ]
 %		content...
 %	\end{definition}
-%	
-	\begin{proposition}\label{k0pidisZ}
-	If $A$ is a Field/local ring/PID then $K_0(A)\cong\Z$
+%	`
+
+	\subsection{Computing $K_0$ groups with idempotent matrices and Morita invariance}\label{k0withidempotent}
+	We now see a few examples of computations of $K_0$. We must first prove a result about the invariant basis property. Recall that a ring $A$ has the invariant basis property if $A^n \cong A^m \implies n = m$. A division ring (also called a skew field) is any nontrivial ring in which division by nonzero elements is defined. A commutative division ring is simply a field.
+	
+	\begin{proposition}\label{skewfieldsibp}
+		Any division ring $A$ has the invariant basis property.
 	\end{proposition}
 	\begin{proof}
-		For fields and division rings its just due to all f.g. modules being equal to some $A^n$. Similarly as seen in \ref{a2} and \ref{projfgpidfree} f.g. projective modules in a local ring/PID are free.
+		Consider a free $A$-module $M$ with two finite bases $B = \{b_1, \dots, b_n\}$ and $C = \{c_1, \dots, c_m\}$, then if we prove $n=m$ we are done. We prove with induction on $n$.
 		
-		So in each case $\mathrm{Proj}(A) \cong \N$ so its group completion is $\Z.$
+		If $n=1$, then $B = \{b_1\}$. If $C = \{c_1, \dots, c_m\}$ for some $m>1$, we can express the $c_i$ in terms of $b_1$: $c_1 = a_1 b_1$ and $c_2 = a_2 b_1$ where $a_1, a_2 \in A$ and $a_1, a_2 \neq 0$. Then $a_1^{-1}c_1 - a_2^{-1}c_2 = 0$, contradicting the linear independence of $C$. Therefore $m=1=n$.
+		
+		Proceeding inductively assume the statement holds for $n=k$. 
+		Let $M$ be a free $A$-module with a basis $B = \{b_1, \dots, b_{k+1}\}$, and let $C = \{c_1, \dots, c_m\}$ be another basis. 
+		
+		Since $B$ spans $M$, we can write $b_{k+1}$ as a linear combination of the $c_i$: $b_{k+1} = a_1 c_1 + \dots + a_m c_m$ for some $a_i \in A$. Because $b_{k+1} \neq 0$, at least one $a_i \neq 0$. Without loss of generality, assume $a_m \neq 0$.
+		
+		Consider the quotient module $M/(b_{k+1})$. The set $\{b_1, \dots, b_k\}$ forms a basis for $M/(b_{k+1})$. Similarly, $\{c_1, \dots, c_{m-1}\}$ is a basis for $M/(b_{k+1})$.  Applying the inductive hypothesis to $M/(b_{k+1})$, we have $k = m-1$.  Therefore $k+1 = m$.
+	\end{proof}
+	
+	\begin{corollary}\label{comringibp}
+		Nonzero commutative rings $A$ have invariant basis property.
+	\end{corollary}
+	\begin{proof}
+		For a free $A-$module $M $ with basis $B=\{b_1, \cdots, b_n\}$, under the canonical surjection $A \to A/\mathfrak{m}$, $M/\mathfrak{m}M$ is also a free module over $A/\mathfrak{m}$ with basis $\{b_1+\mathfrak{m} M, \cdots b_n + \mathfrak{m}M\}$. And since every basis for $M/\mathfrak{m}M$ has $n$ elements due to the fact that $A/\mathfrak{m}$ is a field and Prop. \ref{skewfieldsibp} shows it has invariant basis property. This implies any basis of $M$ also has only $n$ elements, i.e. $A$ itself has the invariant basis property.
+	\end{proof}
+	\begin{proposition}\label{k0pidisZ}
+	If $A$ is a Field/division ring/local ring/PID then $K_0(A)\cong\Z$
+	\end{proposition}
+	\begin{proof}
+		For fields and division rings this is true due to all finitely generated modules being free, i.e. having a basis. We prove this directly for division rings for simplicity.
+		
+		The similar linear algebraic proof extends to division rings for $M$ a module over division ring $A$. Pick a maximally linearly independent subset $B$ by Zorn's. To show \( B \) is a generating set, the argument uses \( B \)'s maximality. If \( m \in M \) then. If $m \in B$ we are done. If $m \not \in B$ then $B \cup {m}$ linearly dependent by maximality of $B$ therefore there exists $a\in A$ such that $av \in \mathrm{span}(B)$ for some $a \neq 0$ and since $a $ is invertible due to $F$ being a division ring we have $v \in \mathrm{span}(B)$.
+		Therefore, \( B \) must span \( M \), making it a basis and so $ M \cong F^n$
+		
+		Similarly as seen in Th. \ref{a2} and  Prop. \ref{projfgpidfree} f.g. projective modules in a local ring/PID are free.
+		
+		So in each case $\mathrm{Proj}(A) \cong \N$ so its group completion is $\Z.$ 
+		
+		Throughout the proof we have implicitly assumed $A$ has the invariant basis property which was proved above in Prop. \ref{skewfieldsibp} and Cor. \ref{comringibp}
 		\end{proof}
 		
 	\begin{lemma} For commutative ring $A$, 
@@ -656,53 +1081,126 @@
 		
 		In light of Def. \ref{def:rankproj} we know that the rank of the projective modules must be constant due to the connectedness of $\mathrm{Spec}(A)$ and the fact that the only connected components in $\Z $ are singletons. 
 		
-		So the rank map $\phi:K_0(A) \to \Z $ defined as $P \mapsto \mathrm{Rank}(P)$ is well defined and trivially surjective. $A$ with rank $1$ maps to $1$, i.e. the generator of $\Z$. But by our assumption this is an isomorphism.				
+		So the rank map $\phi:K_0(A) \to \Z $ defined as $P \mapsto \mathrm{Rank}(P)$ is well defined and surjective. $A$ with rank $1$ maps to $1$, i.e. the generator of $\Z$. But by our assumption this is an isomorphism.				
 		
 		So any $[P]=n=[A]^n=[A^n]$ i.e. there exists $Q$ such that $Q\oplus P \cong Q \oplus A^n$ if $Q$ is projective add what's needed to make it projective.
 	\end{proof}
 	
-%	\begin{example}[Stably free module that is not free]
-%	
-%	\end{example}
-%	\begin{proof}
-%			Consider the ring of real valued polynomial functions on $S^2$ described as the ring $R=\mathbb{R}[x,y,z]/\langle x^2+y^2+z^2-1 \rangle $. Then we claim that the tangent space $T=\{ (a,b,c) \mid ax+by+cz=0  \}$ is stably free since $T \oplus R \equiv R^3 $ but $T \neq R^2$.
-%			
-%			\textbf{Proof.} Since $R$ is a ring, on $R^3$ we can consider the dot product $R^3 \times R^3 \to R$. For example, 
-%			\[
-%			(x, y, z) \cdot (x, y, z) = x^2 + y^2 + z^2 = 1.
-%			\]
-%			For all $\mathbf{v} \in R^3$, let $r = \mathbf{v} \cdot (x, y, z) \in R$. Then
-%			\[
-%			(\mathbf{v} - r(x, y, z)) \cdot (x, y, z) = \mathbf{v} \cdot (x, y, z) - r(x, y, z) \cdot (x, y, z) = r - r = 0,
-%			\]
-%			so $\mathbf{v} - r(x, y, z) \in T$. That means $R^3 = R(x, y, z) + T$. This sum is direct since $R(x, y, z) \cap T = (0, 0, 0)$: if $r(x, y, z) \in T$ then dotting $r(x, y, z)$ with $(x, y, z)$ implies $r = 0$. So we have proved
-%			\[
-%			R^3 = R(x, y, z) \oplus T.
-%			\]
-%			Since $R \cong R(x, y, z)$ by $r \mapsto r(x, y, z)$, $R^3 \cong R \oplus T$. Thus $T$ is stably free.
-%			
-%			Now we will show by contradiction that $T \not\cong R^2$. Assume $T \cong R^2$, so $T$ has an $R$-basis of size 2, say $(f, g, h)$ and $(F, G, H)$. By (2.1) the three vectors $(x, y, z), (f, g, h), (F, G, H)$ in $R^3$ are an $R$-basis, so the matrix
-%			\[
-%			\begin{pmatrix}
-%				x & f & F \\
-%				y & g & G \\
-%				z & h & H
-%			\end{pmatrix}
-%			\]
-%			in $M_3(R)$ must be invertible: it is the change-of-basis matrix between the standard basis of $R^3$ and the basis $(x, y, z), (f, g, h), (F, G, H)$. Therefore the determinant of this matrix is a unit in $R$:
-%			\[
-%			\det \begin{pmatrix}
-%				x & f & F \\
-%				y & g & G \\
-%				z & h & H
-%			\end{pmatrix}
-%			\in R^\times.
-%			\]
-%			
-%			It makes sense to evaluate elements of $R$ at points $(x_0, y_0, z_0)$ on the unit sphere $S^2$: polynomials in $R[x, y, z]$ that are congruent modulo $x^2 + y^2 + z^2 - 1$ take the same value at all $(x_0, y_0, z_0) \in S^2$ since $x_0^2 + y_0^2 + z_0^2 = 1$. A unit in $R$ takes nonzero values everywhere on the sphere: if $a(x, y, z)b(x, y, z) = 1$ in $R$ then $a(x_0, y_0, z_0)b(x_0, y_0, z_0) = 1$ in $R$ when $(x_0, y_0, z_0) \in S^2$. In particular, at each point $\mathbf{v} \in S^2$ the determinant in (2.2) has a nonzero value, so $(f(\mathbf{v}), g(\mathbf{v}), h(\mathbf{v})) \in R^3 - \{0\}$. Thus $\mathbf{v} \mapsto (f(\mathbf{v}), g(\mathbf{v}), h(\mathbf{v}))$ is a nowhere vanishing vector field on $S^2$ with continuous components (polynomial functions are continuous). But this is impossible: the hairy ball theorem in topology says every continuous vector field on the sphere vanishes at least once.
-%			\hfill $\square$
-%			
-%	\end{proof}
+	We end this section with computing $K_0$ for semisimple rings. As it requires an instructive method of computing $K_0$ with idempotents. We first define what is means for a ring to be simple.
+	
+	\begin{definition}[Simple ring]
+		A simple ring is a non-zero ring which have no non-trivial two-sided ideals.
+	\end{definition}
+	\begin{example}
+		A commutative ring is simple iff it is a field.
+	\end{example}
+	\begin{example}
+		All division rings are simple rings.
+	\end{example}
+	\begin{example}
+		Not all division rings are simple consider $M_n(F)$ for some field $F$ not all elements need be invertible.
+	\end{example}
+	
+	There are various equivalent definitions of a semisimple ring.
+	\begin{definition}[Semisimple ring]
+		A ring $A$ is called semisimple if
+		\begin{itemize}
+			\item $A$ is Artinian with trivial Jacobson ideal.
+			\item $A$ is a finite product of simple Artinian rings
+			\item Every left/right $A-$module is projective
+		\end{itemize}
+	\end{definition}
+	
+	A useful characteristic of semisimple rings is the Wedderburn-Artin theorem (see \cite{lam2001first}[3.5] for a proof).
+
+	\begin{theorem}[Wedderburn-Artin]
+		A ring $A$ is semisimple iff it is isomorphic to a direct product of $n_i \times n_i$ matrix rings over division rings $D_i$, i.e. $A \cong \prod_{i=1}^r M_{n_i}(D_i)$ where $D_i =\Hom_A(V_i,V_i), \dim_{D_i}(V_i)=n_i$ for $V_i$ the simple $A$-modules components of $A$.
+	\end{theorem}
+	
+	We now discuss the role of idempotent matrices in computing $K_0$ following \cite{weibel2013k} this is presented in detail in \cite{rosenberg1995algebraic}.
+	Recall that for a ring $A$ and idempotent element $e$ is one such that $e^2=e.$  We claim that idempotent elements of $A$ are in a $1-1$ correspondence to decompositions of $A \cong P \oplus Q$. 
+	
+	If $e \in A$ then the ideal generated by $e$ is a projective module. Since $A = \langle e \rangle \oplus \rangle 1-e \rangle$. Conversely just pick $e \in P$ and $f \in Q$ such that $1=e+f$. Then $e, f=1-e$ are the required idempotents. 
+	
+	In general for a f.g. projective module $P$ over $A$, such that $P \oplus Q \cong A^n$ we can define a $R-$module homomorphism which is identity restricted to $P$ and zero else. This is clearly an idempotent element in $M_n(A)$. Furthermore any idempotent $e \in M_n(A)$ determines a projective.
+	
+	We must make a note of the fact that different idempotent matrices may induce projective modules in the same isomorphism class. This is made precise in the following result.
+	
+	\begin{proposition}
+		If $e, f $ are idempotent matrices over $A$ of possibly different sizes then the associated finitely generated projective modules are isomorphic iff $e,f $ are conjugate over a larger common matrix group of order $r$ (obtained by placing the matrices in the top left corner of a larger 0 matrix).
+	\end{proposition}
+	\begin{proof}
+		Begin with the backward direction. If $e$ and $f$ are conjugate in some $GL_r(A)$, this means there exists an invertible matrix $u$ such that $u e u^{-1} = f$.  Let $P = \text{Im}(e)$ and $Q = \text{Im}(f)$ be the projective $A$-modules associated with $e$ and $f$, respectively. 
+			
+		The map $\phi: Q \to P$ by $\phi(x) = (ueu^{-1})x$ for $x\in \image (f) =Q$ defines the required isomorphism.
+		
+		Now conversely, assume the projective modules corresponding to $e$ and $f$ are isomorphic.  Let $e \in M_n(A)$ and $f \in M_m(A)$.  This isomorphism $\image e \cong \image f$, i.e. $A^n e \cong A^m f$, extends to an $A$-module homomorphism $\alpha \colon A^n \to A^m$. Also $\alpha^{-1} $ to $\beta \colon A^m \to A^n$. 
+		
+		We can represent $\alpha$ and $\beta$ by right multiplication with matrices $\gamma \in M_{n,m}(A)$ and $\delta \in M_{m,n}(A)$. These obey the following relations $\gamma \delta = e, \delta \gamma =f, \gamma=e\gamma=\gamma$ and $\delta = f \delta=\delta e$.
+		
+		Choose $r = n + m$, claim that the following block matrix is invertible 
+		\[
+		\varphi = \begin{bmatrix}
+			1-e & \gamma  \\
+			\delta & 1-f
+		\end{bmatrix}
+		\]
+		and is conjugate to $\begin{bmatrix} e & 0 \\ 0 & 0 \end{bmatrix}$ and $\begin{bmatrix} 0 & 0 \\ 0 & f \end{bmatrix}$.  
+		This is true since $\varphi^2=I_{r}$. A computation then shows that \[ \varphi \begin{bmatrix}
+			e & 0 \\
+			0 & 0
+		\end{bmatrix} \varphi= \varphi  \begin{bmatrix}
+		0 & \gamma \\
+		0& 0
+		\end{bmatrix} = \begin{bmatrix}
+		0 & 0\\
+		0& f
+		\end{bmatrix}\]
+		
+		A permutation matrix then conjugates $\begin{bmatrix} 0 & 0 \\ 0 & f \end{bmatrix}$ to $\begin{bmatrix} f & 0 \\ 0 & 0 \end{bmatrix}$. Thus $e$ and $f$ are conjugate after appropriate embedding into $GL_r(A)$ and therefore represent isomorphic modules.
+	\end{proof}
+	
+	Consider $GL_n(A) \subset GL_{n+1}(A)$ by placing the $n\times n $ matrix in the top right. In this manner we have a filtered system and we can define $GL(A)= \lim_{\to} GL_i(A)$ as the colimit. Similarly define $M(A)$. Denote the set of idempotent matrices in $M(A)$ as $\mathrm{Idem}(A)$ so we have that the group $GL(A)$ acts on the set $\mathrm{Idem}(A)$ by conjugation.
+	
+	With the above discussion in mind we now have a alternate description for the monoid $\mathrm{Proj}(A)$ in terms of idempotent matrices. In particular $\mathrm{Proj}(A)$ corresponds to the conjugacy classes of the action of $GL(A)$ on $\mathrm{Idem}(A)$. The monoid operation $e +f$ is the block matrix $\begin{bmatrix}
+		e & 0 \\ 0 & f
+	\end{bmatrix}. $
+	
+	\begin{corollary}[Morita invariance of $K_0$]\label{morita}
+		Let $A$ be a ring and $n \in \N $ arbitrary then $K_0(A) \cong K_0(M_n(A))$
+	\end{corollary}
+	\begin{proof}
+		$\mathrm{Idem}(M_n(A)) = \mathrm{Idem}(A)$ and $GL(M_n(A)) = GL(A)$ so their monoid of f.g. protectives are the same meaning their group completions are isomorphic.
+	\end{proof}
+	
+	\begin{corollary}\label{propdirectproductofk0}
+		For commutative ring $A$ if $A \cong A_1 \times A_2$ for rings. Then	$K_0(A) \cong K_0(A_1) \times K_0(A_2)$
+	\end{corollary}
+	\begin{proof}
+	Using the fact that $GL(A) \cong GL(A_1 \times A_1) \cong GL(A_1) \times GL(A_2)$ and $\mathrm{Idem}(A) \cong \mathrm{Idem}(A_1 \times A_2) \cong \mathrm{Idem}(A_1) \times \mathrm{Idem}(A_2)$ we obtain the required result.
+	\end{proof}
+	\begin{corollary}\label{directsystem}
+		If $A$ is the direct limit of rings, i.e. $A\cong \lim_{\to i \in I} A_i $ then $K_0(A) \cong \lim_{\to i \in I} K_0(A_i)$.
+	\end{corollary}
+	
+	The below result is a generalization of Prop. \ref{k0pidisZ} (since every division ring is a simple ring)
+	\begin{lemma}
+		Let $A$ be a simple ring then $K_0(A) \cong \Z $.
+	\end{lemma}
+	\begin{proof}
+		By Morita invariance \ref{morita} we know that $K_0(A) \cong K_0(M_n(A)) \cong K_0(\mathrm{End}(A)) \cong K_0(D)$ for some division ring $D$. The last isomorphism is due to `Schur's lemma' (see \cite{lam2001first}[3.6]). Now applying Prop. \ref{k0pidisZ} we are done.
+	\end{proof}
+	\begin{theorem}
+		If $A$ is a semisimple ring then $K_0(A)\cong \Z^r$.
+	\end{theorem}
+	\begin{proof}
+		Applying the Wedderburn-Artin theorem we obtain, $A \cong \prod_{i=1}^r M_{n_i} (D_i)$ now applying Morita invariance \ref{morita}, Cor. \ref{propdirectproductofk0} (the result for $n$ direct sums is obtained via induction).
+		
+		We get, $K_0(A) \cong K_0(\prod_{i=1}^r M_{n_i} D_i) \cong K_0(\prod_{i=1}^r D_i) \cong \prod_{i=1}^r K_0(D_i) \cong \Z^r$.
+	\end{proof}
+	
+
+\subsection{$K_0$ for exact and abelian categories}
 	$K_0$ being the prototypical K group is easier to generalize. We will refer to Weibel for most of the definitions of $K_0$ \cite{weibel2013k}. The benefit of this approach will mainly be for building up an understanding for Higher K theory. Also this machinery allows for easier computations. In particular this will allow for a proof of Hilbert-Serre as a simple observation which we will use in the proof of Quillen-Suslin.
 	
 	We begin with the definition of an exact category and then define $K_0$ for an exact category. This will subsume the definition of $K_0$ for an abelian category. Since every abelian category is exact over itself.
@@ -713,268 +1211,285 @@
 	\begin{example}
 		Every abelian category is trivially exact over itself.
 	\end{example}
-	\begin{example}[Torsion free abelian groups over the category of abelian groups]
+	\begin{example}Torsion free abelian groups over the category of abelian groups is exact but not abelian. (Non abelian-ness was shown in Ex. \ref{expreabnotab}.2).
 	\end{example}
-	\begin{example}
-		The vector bundles on a scheme $X$ form a exact category.
-	\end{example}
+%	\begin{example}
+%		The vector bundles on a scheme $X$ form a exact category.
+%	\end{example}
 	
 	\begin{definition}[$K_0$ for an exact category $\mathcal{E}$]
 		$K(\mathcal E)$ is generated by $[B]$ for each $B \in \mathrm{Ob}(\mathcal{E})$ and a relation of $[B]=[A]+[C]$ for all short exact sequences \[ 0 \to A \to B \to C \to 0 \]
 		Naturally since every abelian category is exact this applies for abelian categories in particular.
 	\end{definition}
 	
+	\subsection{Fundamental theorems for $K_0,G_0$}
+	In this section we present here for reference the important 'fundamental' theorem for $K_0$ and $G_0$ of abelian categories. The proofs will be provided in the subsequent project. 
 	
-	\subsection{Devissage}
-	\begin{theorem}[Devissage for $K_0$ in abelian categories]\label{devissagek0}
-		Let $\mathcal B \subset \mathcal A$ be abelian categories which are small (i.e. proper set of objects) then $K_0(\mathcal A) \cong K_0(\mathcal B)$ and the inclusion functor $i:\mathcal{B} \to \mathcal{A}$ is exact if the following conditions are met
-		\begin{enumerate}
-			\item $\mathcal B$ is a abelian exact subcategory of $B$ closed under subobjects and quotients from $\mathcal{A}$.
-			\item Objects in $\mathcal{A}$ have finite filtrations \[ A_n=0 \subset A_{n-1} \subset \cdots \subset A_0 =A \] with each of the quotients $A_i/A_{i+1} \in \mathcal{B}$
-		\end{enumerate}
-	\end{theorem}
-	\begin{proof}
-		Since $i:\mathcal{B} \subseteq \mathcal{A} $ we denote by $ \tilde{i} : K_0(\mathcal{B}) \to K_0(\mathcal{A})$ the natural induced homomorphism. This is naturally injective so we need to prove surjectivity and additivity.
-		
-		Based on the hypothesis we can always find a finite filtration on $A \in \mathcal{A}$ of the form $\{A_i\}_{i=0}^n$ with the quotients in $\mathcal{B}$. We can then represent its consequent preimage in $K_0(\mathcal{B})$ as $[A] = \sum_i [A_i / A_{i+1}]$ in $ K_0(\mathcal{A} )$, i.e. $\phi^{-1}([A])=\sum_i A_i/A_{i+1}$.
-			
-		Note that such a preimage is also independent of the filtration due to the Schrier-Refinement theorem for abelian categories which states that we can always find a common refinement of filtrations. The proof is identical to the standard group theoretic proof.
-			
-		To verify this claim look at a single refinement, say changing $A_i \supset A_{i+1}$ to $A_i \supset A' \supset A_{i+1}$. 
-		\[
-		0 \to A' / A_{i+1} \to A_i / A_{i+1} \to A_i / A' \to 0,
-		\]
-		
-		we see that $[A_i / A_{i+1}] = [A_i / A'] + [A' / A_{i+1}]$ in $K_0(\mathcal{B})$, as claimed. This is essentially 
-		
-		For additivity and exactness, note that given a short exact sequence $0 \to A \to B \to C \to 0$, we can construct a filtration $\{B_i\}$ for $B$ by combining the filtration for $A$ along with pullback of a filtration of $C$ in $B$. For this filtration we have $\sum [A_i / A_{i+1}] = f(A') + f(A'')$. Therefore $f$ is an additive function and defines a map $K_0(\mathcal{A}) \to K_0(\mathcal{B})$. By inspection, $f$ is the inverse of the canonical map $i_*$.
-	\end{proof}
-	\begin{corollary}
-		For a nilpotent ideal $N$ in a noetherian ring $A$ we have $G_0(A/N) \cong G_0(A	)$
-	\end{corollary}
-	\begin{proof}
-		Every f.g. module has a natural filtration which goes to zero found by by multiplying a module with copies of $N$.
-	\end{proof}	
-	Nil ideals (ideals consisting of all nilpotent elements) are in general not nilpotent ideal. However, due to a theorem by Levitzky (see \cite[Th. 10.30]{lam2001first}) which states that nil ideals of right noetherian rings are indeed nilpotent we can say that this holds for nil ideals as well.
-	\subsection{Localization of categories, Serre quotient}
-		We take a short detour to define clearly the concepts used for localizing a category. Mainly for the purpose of defining a Serre quotient. 
-		
-		This is a very fundamental idea that we require to be well established. As it is also relevant in the definition of the Quillen Q construction of higher K theory. The primary reference for this section is the book due to Gabriel-Zisman \cite{gabriel1967calculus}. To avoid set theoretic complications wherever convenient we consider the categories involved to be locally small/skeletally small/small.
-		
-		The basic definition of a category $\mathcal{C}$ localized at any arbitrary subcollection $S$ of morphisms in $\mathcal{C}$ is just defined universally as a category $S^{-1}\mathcal{C}$ being the initial category such that the functor $L: \mathcal{C} \to S^{-1}\mathcal{C}$ takes every $s \in S$ to an isomorphism. But such a construction is not the most useful in a vacuum. The construction of $S^{-1}\mathcal{C}$ in the special case of $\mathcal{C}$ being abelian is relevant to the Localization theorem of $K_0$. So we shall only focus on that case.
-		
-		Motivated by commutative algebra it is useful to restrict the choice of $S$ to be of the following form.
-		
-		\begin{definition}[Left multiplicative system]
-			A collection of morphisms $S$ in a category $\mathcal{C}$ is said to be a left multiplicative system if,
-			\begin{itemize}
-				\item $S$ contains all identity maps of objects from $\mathcal{C}$.
-				\item $S$ is closed under compositions.
-				\item For $f: A \to B $ in $S$ and $g: A \to C$ arbitrary there exists an object $D$ and $i$ in $S$ and $h$ arbitrary as below making the diagram commute.
-				\[\begin{tikzcd}
-					& D \\
-					B & A & C
-					\arrow["h", dashed, from=2-1, to=1-2]
-					\arrow["f", from=2-2, to=2-1]
-					\arrow["g"', from=2-2, to=2-3]
-					\arrow["i"', dashed, from=2-3, to=1-2]
-				\end{tikzcd}\]
-				\item (Left cancelibility) Given $f,g: A\to B $ and $h: B \to C$ in $S$ such that $hf=hg$ there exist $i:X \to A$ in $S$ such that $fi=gi$
-				\[\begin{tikzcd}
-					X & A & B & C
-					\arrow["i", from=1-1, to=1-2]
-					\arrow["g"', shift right=2, from=1-2, to=1-3]
-					\arrow["f", shift left=2, from=1-2, to=1-3]
-					\arrow["h", from=1-3, to=1-4]
-				\end{tikzcd}\]
-			\end{itemize}
-		\end{definition}
-		A multiplicative system with both right and left cancelibility is called a multiplicative system.
-		\begin{example}
-			The collection of all isomorphism from $\mathcal{C}$ forms a left multiplicative system.
-		\end{example}
-		\begin{example}\label{ex-derived}
-			Collection of all quasi-isomorphisms in $ \mathcal{K}(\mathcal{A})$ the homotopy category of chain complexes over an abelian category $\mathcal{A}$ forms a multiplicative system. 
-		\end{example}
-		
-		The notion of adding a formal inverse in $S^{-1}\mathcal{C}$ is made precise by the notion of roofs.
-		\begin{definition}[Roofs]
-			A roof from an object $A$ to $B$ in a category $\mathcal{C}$ is a diagram of the form.
-			\[\begin{tikzcd}
-				& \bullet \\
-				A && B
-				\arrow[from=2-1, to=1-2]
-				\arrow[from=2-3, to=1-2]
-			\end{tikzcd}\]
-		\end{definition}
-		Two roofs are said to be equivalent if there is a larger common roof 
-		\[\begin{tikzcd}
-			&& \bullet \\
-			& \bullet && \bullet \\
-			A &&&& \bullet
-			\arrow[dashed, from=2-2, to=1-3]
-			\arrow[dashed, from=2-4, to=1-3]
-			\arrow[from=3-1, to=2-2]
-			\arrow[from=3-1, to=2-4]
-			\arrow[from=3-5, to=2-2]
-			\arrow[from=3-5, to=2-4]
-		\end{tikzcd}\]
-		such that the outer sides consist of a morphism of two arrows the composition of which belongs to $S$.
-		
-		\begin{definition}[Localization over a left multiplicative system in an abelian category]
-			We define $S^{-1} \mathcal{A}$ as such,
-			\begin{itemize}
-				\item The objects is $S^{-1} \mathcal{A}$ are the same as $\mathcal{A}$.
-				\item The morphisms in $S^{-1} \mathcal{A}$ are the roofs over $A, B$ whose left arrow is in $S$.
-			\end{itemize}
-			
-		\end{definition}
-		
-		\begin{example}
-			Localizing the quasi-isomorphisms in $\mathcal{K}(A)$ (Ex. \ref{ex-derived})gives us the derived category of $\mathcal{A}$.
-		\end{example}
-		For an abelian category $\mathcal{A}$ a Serre subcategory of $\mathcal{A}$ is a specific kind of subcateogry which allows us to create a `quotient' which we call a Serre quotient. In reality this is more akin to a localization than a quotient proper. 
+	The proofs are omitted here due to the need for a more in-depth discussion of concepts such as the localization of categories and multiplicative systems. Furthermore, the proofs for the $K_0$ case are readily extended to the higher $K$ groups, especially in the context of Quillen-Q constructions, which are based on the calculus of fractions of categories. As such, it is more fitting to address these in detail in the next project, which will build on the work presented here.
 	
-	\begin{definition}[Serre subcategory]
-		Let $\mathcal{A}$ be an abelian category, a full subcategory $\mathcal{B} \subset \mathcal{A}$ is called a Serre subcategory of $\mathcal{A}$ if \begin{itemize}
-			\item For exact sequence $0 \to A \to B \to C $ in $\mathcal{A}$, $B \in \mathcal{B} \iff A,C \in \mathcal{B}$
-			\item Equivalently this means that $\mathcal{B}$ is closed under quotients, subobjects and extensions.
-		\end{itemize}
-	\end{definition}
-	
-	\begin{definition}[Serre quotient]
-		Given $\mathcal{B} \subset \mathcal{A}$ a locally small Serre subcategory of an abelian category we can define its Serre question $\mathcal{A}/\mathcal{B}$ with the following construction. \begin{itemize}
-			\item $\mathrm{Ob}(\mathcal{A}/\mathcal{B})$ consists of objects from $\mathcal{A}$
-			\item Morphisms between $A\to B$ as $\hom_{\mathcal{A}/\mathcal{B}} (A,B) =  \lim_\to \hom_\mathcal{A} (\tilde A, Y/\tilde Y)$ where $\tilde A \leq A, \tilde Y \leq Y$ are subobjects.
-		\end{itemize}
-	\end{definition}
-	When $\mathcal{A}$ is small we can treat morphisms $A \to B $ as equivalence classes of diagrams of the form \[ A \xleftarrow{f} \bullet \xrightarrow{g} B \]
-	Where $\ker, \mathrm{coker}$ of $f$ are in $\mathcal{B}$. Equivalence with another diagram $A \leftarrow \circ \rightarrow B$ is defined with the existence of the below commuting diagram
-	\[\begin{tikzcd}
-		& \bullet \\
-		A & X & B \\
-		& \bullet
-		\arrow[from=1-2, to=2-1]
-		\arrow[from=1-2, to=2-3]
-		\arrow[from=2-2, to=1-2]
-		\arrow[from=2-2, to=2-1]
-		\arrow[from=2-2, to=2-3]
-		\arrow[from=2-2, to=3-2]
-		\arrow[from=3-2, to=2-1]
-		\arrow[from=3-2, to=2-3]
-	\end{tikzcd}\]
-	Where for $\bullet \leftarrow X \rightarrow \circ $ we have $\ker,\mathrm{coker}$ of both the arrows in $\mathcal{B}$, making the below diagram commute.
-	
-	
-	
-	\begin{theorem}
-		$\mathcal{A/B}$ is abelian and the inclusion functor $L:\mathcal{A} \to \mathcal{A/B}$ is exact
-	\end{theorem}
-	\begin{proposition}
-		The Serre quotient $\mathcal{A/B}$ universal in the following sense. Any exact functor $U: \mathcal{A} \to \mathcal{C}$ such that $U(B)\cong 0$ for $B \in \mathcal{B}$ will factor through $L$. i.e. the below diagram commutes	
-		\[\begin{tikzcd}
-			&& {\mathcal{A/B}} \\
-			\\
-			{\mathcal{A}} && {\mathcal{C}}
-			\arrow[dashed, from=1-3, to=3-3]
-			\arrow["L", from=3-1, to=1-3]
-			\arrow["U", from=3-1, to=3-3]
-		\end{tikzcd}\]
-	\end{proposition}
-	
-	This result is the reason why the Serre subcategory is defined the way it is. The conditions required in the definitions are precisely those such that the above proposition may hold.
-	
-	
+%%	\subsection{Devissage}
+%	\begin{theorem}[Devissage for $K_0$ in abelian categories]\label{devissagek0}
+%		Let $\mathcal B \subset \mathcal A$ be abelian categories which are small (i.e. proper set of objects) then $K_0(\mathcal A) \cong K_0(\mathcal B)$ and the inclusion functor $i:\mathcal{B} \to \mathcal{A}$ is exact if the following conditions are met
+%		\begin{enumerate}
+%			\item $\mathcal B$ is a abelian exact subcategory of $B$ closed under subobjects and quotients from $\mathcal{A}$.
+%			\item Objects in $\mathcal{A}$ have finite filtrations \[ A_n=0 \subset A_{n-1} \subset \cdots \subset A_0 =A \] with each of the quotients $A_i/A_{i+1} \in \mathcal{B}$
+%		\end{enumerate}
+%	\end{theorem}
+%%	\begin{proof}
+%		Since $i:\mathcal{B} \subseteq \mathcal{A} $ we denote by $ \tilde{i} : K_0(\mathcal{B}) \to K_0(\mathcal{A})$ the natural induced homomorphism. This is naturally injective so we need to prove surjectivity and additivity.
+%		
+%		Based on the hypothesis we can always find a finite filtration on $A \in \mathcal{A}$ of the form $\{A_i\}_{i=0}^n$ with the quotients in $\mathcal{B}$. We can then represent its consequent preimage in $K_0(\mathcal{B})$ as $[A] = \sum_i [A_i / A_{i+1}]$ in $ K_0(\mathcal{A} )$, i.e. $\phi^{-1}([A])=\sum_i A_i/A_{i+1}$.
+%			
+%		Note that such a preimage is also independent of the filtration due to the Schrier-Refinement theorem for abelian categories which states that we can always find a common refinement of filtrations. The proof is identical to the standard group theoretic proof.
+%			
+%		To verify this claim look at a single refinement, say changing $A_i \supset A_{i+1}$ to $A_i \supset A' \supset A_{i+1}$. 
+%		\[
+%		0 \to A' / A_{i+1} \to A_i / A_{i+1} \to A_i / A' \to 0,
+%		\]
+%		
+%		we see that $[A_i / A_{i+1}] = [A_i / A'] + [A' / A_{i+1}]$ in $K_0(\mathcal{B})$, as claimed. This is essentially 
+%		
+%		For additivity and exactness, note that given a short exact sequence $0 \to A \to B \to C \to 0$, we can construct a filtration $\{B_i\}$ for $B$ by combining the filtration for $A$ along with pullback of a filtration of $C$ in $B$. For this filtration we have $\sum [A_i / A_{i+1}] = f(A') + f(A'')$. Therefore $f$ is an additive function and defines a map $K_0(\mathcal{A}) \to K_0(\mathcal{B})$. By inspection, $f$ is the inverse of the canonical map $i_*$.
+%	\end{proof}
+%	\begin{corollary}
+%		For a nilpotent ideal $N$ in a noetherian ring $A$ we have $G_0(A/N) \cong G_0(A	)$
+%	\end{corollary}
+%	\begin{proof}
+%		Every f.g. module has a natural filtration which goes to zero found by by multiplying a module with copies of $N$.
+%	\end{proof}	
+%	Nil ideals (ideals consisting of all nilpotent elements) are in general not nilpotent ideal. However, due to a theorem by Levitzky (see \cite[Th. 10.30]{lam2001first}) which states that nil ideals of right noetherian rings are indeed nilpotent we can say that this holds for nil ideals as well.
+
+
+
+%	\subsection{Localization of categories, Serre quotient}
+%		We take a short detour to define clearly the concepts used for localizing a category. Mainly for the purpose of defining a Serre quotient. 
+%		
+%		This is a very fundamental idea that we require to be well established. As it is also relevant in the definition of the Quillen Q construction of higher K theory. The primary reference for this section is the book due to Gabriel-Zisman \cite{gabriel1967calculus}. To avoid set theoretic complications wherever convenient we consider the categories involved to be locally small/skeletally small/small.
+%		
+%		The basic definition of a category $\mathcal{C}$ localized at any arbitrary subcollection $S$ of morphisms in $\mathcal{C}$ is just defined universally as a category $S^{-1}\mathcal{C}$ being the initial category such that the functor $L: \mathcal{C} \to S^{-1}\mathcal{C}$ takes every $s \in S$ to an isomorphism. But such a construction is not the most useful in a vacuum. The construction of $S^{-1}\mathcal{C}$ in the special case of $\mathcal{C}$ being abelian is relevant to the Localization theorem of $K_0$. So we shall only focus on that case.
+%		
+%		Motivated by commutative algebra it is useful to restrict the choice of $S$ to be of the following form.
+%		
+%		\begin{definition}[Left multiplicative system]
+%			A collection of morphisms $S$ in a category $\mathcal{C}$ is said to be a left multiplicative system if,
+%			\begin{itemize}
+%				\item $S$ contains all identity maps of objects from $\mathcal{C}$.
+%				\item $S$ is closed under compositions.
+%				\item For $f: A \to B $ in $S$ and $g: A \to C$ arbitrary there exists an object $D$ and $i$ in $S$ and $h$ arbitrary as below making the diagram commute.
+%				\[\begin{tikzcd}
+%					& D \\
+%					B & A & C
+%					\arrow["h", dashed, from=2-1, to=1-2]
+%					\arrow["f", from=2-2, to=2-1]
+%					\arrow["g"', from=2-2, to=2-3]
+%					\arrow["i"', dashed, from=2-3, to=1-2]
+%				\end{tikzcd}\]
+%				\item (Left cancelibility) Given $f,g: A\to B $ and $h: B \to C$ in $S$ such that $hf=hg$ there exist $i:X \to A$ in $S$ such that $fi=gi$
+%				\[\begin{tikzcd}
+%					X & A & B & C
+%					\arrow["i", from=1-1, to=1-2]
+%					\arrow["g"', shift right=2, from=1-2, to=1-3]
+%					\arrow["f", shift left=2, from=1-2, to=1-3]
+%					\arrow["h", from=1-3, to=1-4]
+%				\end{tikzcd}\]
+%			\end{itemize}
+%		\end{definition}
+%		A multiplicative system with both right and left cancelibility is called a multiplicative system.
+%		\begin{example}
+%			The collection of all isomorphism from $\mathcal{C}$ forms a left multiplicative system.
+%		\end{example}
+%		\begin{example}\label{ex-derived}
+%			Collection of all quasi-isomorphisms in $ \mathcal{K}(\mathcal{A})$ the homotopy category of chain complexes over an abelian category $\mathcal{A}$ forms a multiplicative system. 
+%		\end{example}
+%		
+%		The notion of adding a formal inverse in $S^{-1}\mathcal{C}$ is made precise by the notion of roofs.
+%		\begin{definition}[Roofs]
+%			A roof from an object $A$ to $B$ in a category $\mathcal{C}$ is a diagram of the form.
+%			\[\begin{tikzcd}
+%				& \bullet \\
+%				A && B
+%				\arrow[from=2-1, to=1-2]
+%				\arrow[from=2-3, to=1-2]
+%			\end{tikzcd}\]
+%		\end{definition}
+%		Two roofs are said to be equivalent if there is a larger common roof 
+%		\[\begin{tikzcd}
+%			&& \bullet \\
+%			& \bullet && \bullet \\
+%			A &&&& \bullet
+%			\arrow[dashed, from=2-2, to=1-3]
+%			\arrow[dashed, from=2-4, to=1-3]
+%			\arrow[from=3-1, to=2-2]
+%			\arrow[from=3-1, to=2-4]
+%			\arrow[from=3-5, to=2-2]
+%			\arrow[from=3-5, to=2-4]
+%		\end{tikzcd}\]
+%		such that the outer sides consist of a morphism of two arrows the composition of which belongs to $S$.
+%		
+%		\begin{definition}[Localization over a left multiplicative system in an abelian category]
+%			We define $S^{-1} \mathcal{A}$ as such,
+%			\begin{itemize}
+%				\item The objects is $S^{-1} \mathcal{A}$ are the same as $\mathcal{A}$.
+%				\item The morphisms in $S^{-1} \mathcal{A}$ are the roofs over $A, B$ whose left arrow is in $S$.
+%			\end{itemize}
+%			
+%		\end{definition}
+%		
+%		\begin{example}
+%			Localizing the quasi-isomorphisms in $\mathcal{K}(A)$ (Ex. \ref{ex-derived})gives us the derived category of $\mathcal{A}$.
+%		\end{example}
+%		For an abelian category $\mathcal{A}$ a Serre subcategory of $\mathcal{A}$ is a specific kind of subcateogry which allows us to create a `quotient' which we call a Serre quotient. In reality this is more akin to a localization than a quotient proper. 
+%	
+%	\begin{definition}[Serre subcategory]
+%		Let $\mathcal{A}$ be an abelian category, a full subcategory $\mathcal{B} \subset \mathcal{A}$ is called a Serre subcategory of $\mathcal{A}$ if \begin{itemize}
+%			\item For exact sequence $0 \to A \to B \to C $ in $\mathcal{A}$, $B \in \mathcal{B} \iff A,C \in \mathcal{B}$
+%			\item Equivalently this means that $\mathcal{B}$ is closed under quotients, subobjects and extensions.
+%		\end{itemize}
+%	\end{definition}
+%	
+%	\begin{definition}[Serre quotient]
+%		Given $\mathcal{B} \subset \mathcal{A}$ a locally small Serre subcategory of an abelian category we can define its Serre question $\mathcal{A}/\mathcal{B}$ with the following construction. \begin{itemize}
+%			\item $\mathrm{Ob}(\mathcal{A}/\mathcal{B})$ consists of objects from $\mathcal{A}$
+%			\item Morphisms between $A\to B$ as $\Hom_{\mathcal{A}/\mathcal{B}} (A,B) =  \lim_\to \Hom_\mathcal{A} (\tilde A, Y/\tilde Y)$ where $\tilde A \leq A, \tilde Y \leq Y$ are subobjects.
+%		\end{itemize}
+%	\end{definition}
+%	When $\mathcal{A}$ is small we can treat morphisms $A \to B $ as equivalence classes of diagrams of the form \[ A \xleftarrow{f} \bullet \xrightarrow{g} B \]
+%	Where $\ker, \mathrm{coker}$ of $f$ are in $\mathcal{B}$. Equivalence with another diagram $A \leftarrow \circ \rightarrow B$ is defined with the existence of the below commuting diagram
+%	\[\begin{tikzcd}
+%		& \bullet \\
+%		A & X & B \\
+%		& \bullet
+%		\arrow[from=1-2, to=2-1]
+%		\arrow[from=1-2, to=2-3]
+%		\arrow[from=2-2, to=1-2]
+%		\arrow[from=2-2, to=2-1]
+%		\arrow[from=2-2, to=2-3]
+%		\arrow[from=2-2, to=3-2]
+%		\arrow[from=3-2, to=2-1]
+%		\arrow[from=3-2, to=2-3]
+%	\end{tikzcd}\]
+%	Where for $\bullet \leftarrow X \rightarrow \circ $ we have $\ker,\mathrm{coker}$ of both the arrows in $\mathcal{B}$, making the below diagram commute.
+%	
+%	
+%	
+%	\begin{theorem}
+%		$\mathcal{A/B}$ is abelian and the inclusion functor $L:\mathcal{A} \to \mathcal{A/B}$ is exact
+%	\end{theorem}
+%	\begin{proposition}
+%		The Serre quotient $\mathcal{A/B}$ universal in the following sense. Any exact functor $U: \mathcal{A} \to \mathcal{C}$ such that $U(B)\cong 0$ for $B \in \mathcal{B}$ will factor through $L$. i.e. the below diagram commutes	
+%		\[\begin{tikzcd}
+%			&& {\mathcal{A/B}} \\
+%			\\
+%			{\mathcal{A}} && {\mathcal{C}}
+%			\arrow[dashed, from=1-3, to=3-3]
+%			\arrow["L", from=3-1, to=1-3]
+%			\arrow["U", from=3-1, to=3-3]
+%		\end{tikzcd}\]
+%	\end{proposition}
+%	
+%	This result is the reason why the Serre subcategory is defined the way it is. The conditions required in the definitions are precisely those such that the above proposition may hold.
+%	
+%	
 	
 	
 	%	\begin{proof}
 		%		The functor we use is sending a vector bundle to its set of sections which takes on a natural module structure over $C(X)$. To show that it infact goes to f.g. proj modules 
 		%	\end{proof}
-	\subsection{Localization theorem for $K_0$}\label{Localizationk0}
-	Recall the definitions of Serre quotient.
-	\begin{theorem}[Localization theorem for $K_0$]
-		 For a small abelian category $\mathcal{A}$ and $\mathcal{B} \subset \mathcal{A}$ a Serre subcategory. The following sequence is exact
-		 \[ K_0(\mathcal{B}) \xrightarrow{f} K_0(\mathcal{A}) \xrightarrow{L} K_0(\mathcal{A/B}) \to 0 \]
-	\end{theorem}
-	\begin{proof}
-		By construction we know that $L$ is surjective.
-		Note we already know that $\mathrm{coker} f \to  K_0(\mathcal{A/B})$ is surjective due to the fact that $K_0(B) $ under composition through $T$ goes to zero.
 		
-		Consider the function $g:\mathcal{A/B} \to \mathrm{coker}f$ as $g(L(A)):=[A]$ as a natural candidate. If this is additive from we have found the required inverse.
-		
-		We already know that $T $ is bijective as a set function on objects of $\mathcal{A}$ by construction. Consider two isomorphic elements in the Serre quotient and claim their images under $g$ in $\mathrm{coker} f $ are also isomorphic. Consider $L(A) \cong L(B)$ by the definition of the morphisms this means we have a diagram representative as such.
-		\[ A \xleftarrow{n} X \xrightarrow{m} B \] with $\ker(n), \ker{m}, \mathrm{coker} (n) , \mathrm{coker}(m)$ in $\mathcal{B}$ (since its an isomorphism).
-		
-			As such in $K_0(\mathcal{A})$ we have, $$[X]=[A]+[\ker n]-[\mathrm{coker}(n)]=[B]+[\ker m]- [\mathrm{coker}(n)]$$ so in $\mathrm coker f$ we have $[X] = [A]=[B]$.
-			
-		We have shown $L(A) \cong L(B) \implies [A]=[B]$ in $\mathrm{coker} f$. Now to show additivity.
-		
-		To see that \( g \) is an additive function, suppose we are given an exact sequence in \( \mathcal{A/B} \) of the form
-		\[
-		0 \rightarrow L(A) \xrightarrow{u	} L(B) \xrightarrow{v} L(C) \rightarrow 0;
-		\]
-		we have to show that \( [B] = [A] + [C] \) in \( F \). Represent \( v \) by a diagram representative \( B \xleftarrow{o} Y \xrightarrow{p}	 C \) with \( o \) with $\ker o , \coker o \in \mathcal{B}$
-		
-		Now since canonically
-		\[
-		[Y] = [A] + [\ker(o)] - [\coker(o)] \text{ in } K_0(A),
-		\]
-		we have \( [Y] = [A] \) in \( \coker f \). Since \( L \) is exact and we know the below sequence is canonically exact
-		\[
-		0 \rightarrow \ker(p) \rightarrow Y \xrightarrow{p} B \rightarrow \coker(p) \rightarrow 0	\]
-	
-		Applying $L $ to above gives us that \( \coker(p) \) is in \( \mathcal B \) and that \( L(\ker(p)) \cong L(A) \) in \( \mathcal{A/B} \). Hence, \( [\ker(p)] = [A] \) in \( \coker f \), and in \( \coker f \) we have
-		\[
-		[B] = [Y] = [C] + [\ker(p)] - [\coker(p)] = [A] + [C],
-		\]
-	\end{proof}
-	\begin{example}
-		Consider the following non-example for why the above sequence need not be left exact.
-%		 Consider $A=k[t]$ for a field $k$. Consider the subcategory of modules annhilated by a power of $x$. Then all the terms are isomorphic to $\mathbb{Z}$.
-	\end{example}
-	\begin{corollary}\label{localizationk0corrolary}
-		For a multiplicative set $S$ then the category of $S$ torsion modules over $A$ denoted as $M_S(A)$ form a Serre subcategory. And we have \[ K_0(M_S(A) ) \to G_0(A) \to G_0(S^{-1}A) \to 0 \]
-		When $S=\{1,s,s^2,\cdots \}$ then just \[ K_0(A/sA) \to G_0(A) \to G_0[\frac{1}{s}]	 \to 0\]
-		The change is due to Devissage considering each module has a finite filtration given by multiplying by powers of $s$.
-	\end{corollary}
-	\subsection{Fundamental theorems for $G_0, K_0$}
-	\begin{theorem}[Fundamental theorem for $G_0$]
+%	\subsection{Localization theorem for $K_0$}\label{Localizationk0}
+%%	Recall the definitions of Serre quotient.
+%	\begin{theorem}[Localization theorem for $K_0$]
+%		 For a small abelian category $\mathcal{A}$ and $\mathcal{B} \subset \mathcal{A}$ a Serre subcategory. The following sequence is exact
+%		 \[ K_0(\mathcal{B}) \xrightarrow{f} K_0(\mathcal{A}) \xrightarrow{L} K_0(\mathcal{A/B}) \to 0 \]
+%	\end{theorem}
+%	\begin{proof}
+%		By construction we know that $L$ is surjective.
+%		Note we already know that $\mathrm{coker} f \to  K_0(\mathcal{A/B})$ is surjective due to the fact that $K_0(B) $ under composition through $T$ goes to zero.
+%		
+%		Consider the function $g:\mathcal{A/B} \to \mathrm{coker}f$ as $g(L(A)):=[A]$ as a natural candidate. If this is additive from we have found the required inverse.
+%		
+%		We already know that $T $ is bijective as a set function on objects of $\mathcal{A}$ by construction. Consider two isomorphic elements in the Serre quotient and claim their images under $g$ in $\mathrm{coker} f $ are also isomorphic. Consider $L(A) \cong L(B)$ by the definition of the morphisms this means we have a diagram representative as such.
+%		\[ A \xleftarrow{n} X \xrightarrow{m} B \] with $\ker(n), \ker{m}, \mathrm{coker} (n) , \mathrm{coker}(m)$ in $\mathcal{B}$ (since its an isomorphism).
+%		
+%			As such in $K_0(\mathcal{A})$ we have, $$[X]=[A]+[\ker n]-[\mathrm{coker}(n)]=[B]+[\ker m]- [\mathrm{coker}(n)]$$ so in $\mathrm coker f$ we have $[X] = [A]=[B]$.
+%			
+%		We have shown $L(A) \cong L(B) \implies [A]=[B]$ in $\mathrm{coker} f$. Now to show additivity.
+%		
+%		To see that \( g \) is an additive function, suppose we are given an exact sequence in \( \mathcal{A/B} \) of the form
+%		\[
+%		0 \rightarrow L(A) \xrightarrow{u	} L(B) \xrightarrow{v} L(C) \rightarrow 0;
+%		\]
+%		we have to show that \( [B] = [A] + [C] \) in \( F \). Represent \( v \) by a diagram representative \( B \xleftarrow{o} Y \xrightarrow{p}	 C \) with \( o \) with $\ker o , \coker o \in \mathcal{B}$
+%		
+%		Now since canonically
+%		\[
+%		[Y] = [A] + [\ker(o)] - [\coker(o)] \text{ in } K_0(A),
+%		\]
+%		we have \( [Y] = [A] \) in \( \coker f \). Since \( L \) is exact and we know the below sequence is canonically exact
+%		\[
+%		0 \rightarrow \ker(p) \rightarrow Y \xrightarrow{p} B \rightarrow \coker(p) \rightarrow 0	\]
+%	
+%		Applying $L $ to above gives us that \( \coker(p) \) is in \( \mathcal B \) and that \( L(\ker(p)) \cong L(A) \) in \( \mathcal{A/B} \). Hence, \( [\ker(p)] = [A] \) in \( \coker f \), and in \( \coker f \) we have
+%		\[
+%		[B] = [Y] = [C] + [\ker(p)] - [\coker(p)] = [A] + [C],
+%		\]
+%	\end{proof}
+%	\begin{example}
+%		Consider the following non-example for why the above sequence need not be left exact.
+%%		 Consider $A=k[t]$ for a field $k$. Consider the subcategory of modules annhilated by a power of $x$. Then all the terms are isomorphic to $\mathbb{Z}$.
+%	\end{example}
+%	\begin{corollary}\label{localizationk0corrolary}
+%		For a multiplicative set $S$ then the category of $S$ torsion modules over $A$ denoted as $M_S(A)$ form a Serre subcategory. And we have \[ K_0(M_S(A) ) \to G_0(A) \to G_0(S^{-1}A) \to 0 \]
+%		When $S=\{1,s,s^2,\cdots \}$ then just \[ K_0(A/sA) \to G_0(A) \to G_0[\frac{1}{s}]	 \to 0\]
+%		The change is due to Devissage considering each module has a finite filtration given by multiplying by powers of $s$.
+%	\end{corollary}
+
+
+%	\subsection{Fundamental theorems for $G_0, K_0$}
+	\begin{theorem}[Fundamental theorem for $G_0$ for noetherian rings $A$]\label{g0fund}
 		$G_0[A] \cong G_0(A[t]) \cong G_0(A[t,t^{-1}])$
 	\end{theorem}
+	\begin{theorem}[Resolution theorem for $K_0$ for additive categories]
+		Let $\mathcal{A}$ be abelian and $\mathcal{C} \subset \mathcal{B} \subset \mathcal{A}$ additive subcategories. If the following conditions hold,
+		\begin{itemize}
+			\item Every $B \in \mathrm{Ob}(\mathcal{B})$ has finite $\mathcal{C}$ dimension, in the sense that there exist a minimal finite $\mathcal{C}$ resolution of $\mathcal{B}$ (in the sense of Def. \ref{defresolution})
+			\item $\mathcal{B}$ is closed under kernels of epis in $\mathcal{A}$.
+		\end{itemize}
+		then the inclusion functor $i:\mathcal{C } \to \mathcal{B}$ induces an isomorphism $K_0(\mathcal{C}) \cong K_0(\mathcal{B})$
+	\end{theorem}
 
-	\begin{proof}
-		This is a theorem due to Grothendieck.
-		The evaluation morphism $e: A[t] \to A$ provides an inclusion $M(A) \subset M(A[t])$ and consequently a map $\tilde{e}: G_0(A) \to G_0(A[t])$ by Cor. \ref{localizationk0corrolary}. We obtain a exact sequence \[ G_0(A) \xrightarrow{\tilde{e}} G_0(A[t]) \to G_0(A[t,t^{-1}]) \to 0 \]
-		
-		Now consider the exact sequence in $G_0(A[t])$ given by \[ 0 \to M[t]\to M[t] \to M \to 0 \] i.e. $\tilde e [M]=[M]=[M[t]]-M[[t]]=0$ so $\tilde e =0$ in $G_0[A[t]]$ so $ \implies G_0[A[t]] \cong G_0[A[t,t^{-1	}]]$.
-		
-		Since $A=A[t]/tA[t]$ applying Serres formula we get $\tilde e [M]=[M/Mt]- \mathrm{Ann}_M(t)$
-	\end{proof}
+%	\begin{proof}
+%		This is a theorem due to Grothendieck.
+%		The evaluation morphism $e: A[t] \to A$ provides an inclusion $M(A) \subset M(A[t])$ and consequently a map $\tilde{e}: G_0(A) \to G_0(A[t])$ by Cor. \ref{localizationk0corrolary}. We obtain a exact sequence \[ G_0(A) \xrightarrow{\tilde{e}} G_0(A[t]) \to G_0(A[t,t^{-1}]) \to 0 \]
+%		
+%		Now consider the exact sequence in $G_0(A[t])$ given by \[ 0 \to M[t]\to M[t] \to M \to 0 \] i.e. $\tilde e [M]=[M]=[M[t]]-M[[t]]=0$ so $\tilde e =0$ in $G_0[A[t]]$ so $ \implies G_0[A[t]] \cong G_0[A[t,t^{-1	}]]$.
+%		
+%		Since $A=A[t]/tA[t]$ applying Serres formula we get $\tilde e [M]=[M/Mt]- \mathrm{Ann}_M(t)$
+%	\end{proof}
 	
 	
-	\begin{definition}[Regular ring] A ring is called regular if
+	\begin{definition}[Regular ring] A ring is called regular if every finitely generated ideal has finite projective dimension.
 	\end{definition}
 	\begin{example}
-		content...
+		Any Dedekind domain is a regular ring in particular a PID is a regular ring.
 	\end{example}
-	\begin{theorem}\label{extensionk0iscong}[Fundamental theorem for $K_0$]
-		For a regular ring $A$ the map $A \to A[x]$ induces an isomorphism $K_0(A) \cong K_0(A[x])$ 
+
+	\begin{theorem}\label{extensionk0iscong}[Fundamental theorem for $K_0$ of regular rings]
+		For a regular ring $A$, $K_0(A)\cong G_0(A)$ and by Th. \ref{g0fund} we have \[ K_0(A) \cong K_0(A[t]) \cong K_0(A[t,t^{-1}]) \]
 	\end{theorem}
-	\begin{proof}
+
 	
-	\end{proof}
-	
-	These results can be naturally extended to schemes. Recall the definition of a scheme as such.
-	\subsection{Basic $K_0, G_0$ theory for schemes}
-	\begin{definition}[Scheme]
-		content
-	\end{definition}
-	\begin{definition}[$G_0, K_0$ for noetherian scheme $X$]
-		The category of coherent $\mathcal{O}_X$ modules form an abelian category. So its monoid completion is $G_0(X)$
-	\end{definition}
-	\begin{theorem}
-		content
-	\end{theorem}
+%	These results can be naturally extended to schemes. Recall the definition of a scheme as such.
+%	\subsection{Basic $K_0, G_0$ theory for schemes}
+%	\begin{definition}[Scheme]
+%		content
+%	\end{definition}
+%	\begin{definition}[$G_0, K_0$ for noetherian scheme $X$]
+%		The category of coherent $\mathcal{O}_X$ modules form an abelian category. So its monoid completion is $G_0(X)$
+%	\end{definition}
+%	\begin{theorem}
+%		content
+%	\end{theorem}
 %	
 %	\begin{definition}[$K_0$ for Waldhausen categories]
 %		
@@ -983,14 +1498,14 @@
 	
 	
 	\section{Quillen-Suslin Theorem}
-	We will know move towards Horrock's theorem which will enable a short proof of the famous Quillen-Suslin theorem. We follow Lang's book for the first few results which recounts Vaserstein's proof of Quillen-Suslin \cite{lang02}.
+	We will know move towards a detailed proof of Horrock's theorem which will give us a concise proof of the famous Quillen-Suslin theorem. We follow Lang's book for the first few results which recounts Vaserstein's proof of Quillen-Suslin \cite{lang02}.
 	
 	
 %%	\begin{lemma}
 %	A proj. module is stably free iff if has a finite free resolution.
 %%	\end{lemma}
 	\begin{theorem}[Hilbert-Serre]
-	Every f.g. module over $k[x_1,\dots x_n]$ is stably free where $k$ is a PID.
+	Every finitely generated module over $k[x_1,\dots x_n]$ is stably free where $k$ is a PID.
 	\end{theorem}
 	\begin{proof}
 		Apply Th \ref{k0pidisZ} and Th \ref{extensionk0iscong}
@@ -998,10 +1513,11 @@
 	
 	
 	\begin{definition}[Unimodular row]
-		For a ring $A$, an element of $A^n$ is said to be a unimodular row if its components generate $A$. We denote the set of all unimodular rows as $U_n(A)$
+		For a ring $A$, an element of $A^n$ is said to be a unimodular row if its components generate $A$. We denote the set of all unimodular rows of length $n$ in $A$ as $\mathrm{Um}_n(A)$
 	\end{definition}
+	In particular $v=(v_1, \cdots, v_n) \in \mathrm{Um}_n(A) $ if there exists $a=(a_1, \cdots a_n) \in A^n$ such that $ v \cdot a = v^t a = \sum_{i=1}^n v_i a_i = 1$.	
 	\begin{definition}[Unimodular matrix]
-		In general we say an arbitrary matrix over $A$ not nessecarily square is unimodular if it is right invertible (i.e. a surjective map).
+		In general we say an arbitrary matrix over $A$ not necessarily square is unimodular if it is right invertible (i.e. a surjective map).
 	\end{definition}
 	Alternatively it can be useful to view a unimodular row as as element of $M_{1 \times n} (A) $ as such it represents a surjective linear map $A^n \to A$, or even an element in $M_{n \times 1}$ in which case it represents a injection from $A \to A^n$.
 	
@@ -1010,31 +1526,31 @@
 	
 	
 	\begin{definition}[Equivalence of unimodular rows]
-		For unimodular rows $v,w\in A^n$ we say $v \sim w $ if $\exists M \in GL_n(A)$ such that $Mv=w$.
+		For unimodular rows $v,w\in A^n$ we say $v \sim w $ if there exists $ \alpha \in GL_n(A)$ such that $\alpha v=w$.
 	\end{definition}
 	
-	\begin{definition}[Unimodular extension property]
-		Given a unimodular row $v=(v_1,\dots v_n) \in A^n$ if we can construct a invertible $n \times n $  matrix with $v$ in the first column we say $v$ has the unimodular extension property.
+	\begin{definition}[Unimodular completion property]
+		Given a unimodular row $v=(v_1,\dots v_n) \in A^n$ if we can construct a invertible $n \times n $  matrix with $v$ in the first column we say $v$ has the unimodular completion property.
 	\end{definition}
 	
 
 	
 	\begin{lemma}
-		A unimodular row $v \in A^n$ has the unimodular extension property iff $v \sim (1,0,\dots ,0)$
+		A unimodular row $v \in A^n$ has the unimodular completion property iff $v \sim (1,0,\dots ,0)$
 	\end{lemma}
 	\begin{proof}
-		If $v$ can be extended to a invertible matrix $M \in GL_n(A)$ then \[ M^{-1} = (1,0,\dots, 0) \].
-		Conversely if $M' \in GL_n(A) $ s.t. $M'v=(1,0,\dots,0)$ then $M'{^-1}$ has $v$ in the first column.
+		If $v$ can be extended to a invertible matrix $\alpha \in GL_n(A)$ then \[ \alpha^{-1} = (1,0,\dots, 0). \]
+		Conversely if $\alpha' \in GL_n(A) $ s.t. $\alpha'v=(1,0,\dots,0)$ then $\alpha'^{-1}$ has $v$ in the first column.
 	\end{proof}
 		\begin{corollary}\label{row-of-inv-mat-unimod}
-		Based on the above lemma we can see that trivially any row of a invertible matrix (and column realized as a row of its transpose) is a unimodular row. 
+		Based on the above lemma we can see that naturally any row of a invertible matrix (and column realized as a row of its transpose) is a unimodular row. 
 	\end{corollary}
 	\begin{corollary}
 		A projective module $P$ is free iff the unimodular row $v: A^n \to A$ such that $P=\ker v$ is completable to a invertible matrix (since we can adjoin the basis of $P$).
 	\end{corollary}
 	
 	\begin{example}[Stably free projective module which is not free]
-		Consider the ring $R$ of polynomial functions on the sphere $S^2$, $R=\mathbb{R}[x,y,z]/\langle x^2+y^2+z^2=1 \rangle$. Consider the unimodular row $v=(x,y,z)$. The associated projective module is $P=\ker v = \ker \{(p,q,r) \mapsto xp+yq+zr\}$. By definition $P \oplus v \cong R^3$. Claim that $v$ cannot be completed to an invertible 3x3 matrix.
+		Consider the ring $R$ of polynomial functions on the sphere $S^2$, $R=\mathbb{R}[x,y,z]/\langle x^2+y^2+z^2=1 \rangle$. Consider the unimodular row $v=(x,y,z)$. The associated projective module is $P=\ker v = \ker \{(p,q,r) \mapsto xp+yq+zr\}$. By definition $P \oplus v \cong R^3$. We claim that $v$ cannot be completed to an invertible 3x3 matrix.
 		
 		Every element $(f, g, h)$ of $R^3$ yields a vector field in $\R^3$, (recall a vector field is a function $f:S^2 \to \R^3$ such that $\langle f(x,y,z), (x,y,z) \rangle=0 $.)
 		
@@ -1042,7 +1558,7 @@
 		
 		If $P$ were free, a basis of $P$ would yield two tangent vector fields on $S^2$ which are linearly independent at every point of $S^2$.
 		
-		To see why this leads to a contradiction, note that the matrix
+		This leads to a contradiction, note that the matrix
 		\[
 		\begin{bmatrix}
 			x & a & d \\
@@ -1050,7 +1566,7 @@
 			z & c & f
 		\end{bmatrix}
 		\]
-		must have a nonzero determinant in $R$. Since the determinant of this matrix is a unit in $R$, we could construct a nonvanishing vector field on $S^2$. But the hairy ball theorem tells us that any continuous vector field on $S^2$ must have at least one zero.
+		must have a nonzero determinant in $R$. Since the determinant of this matrix is a unit in $R$, we could construct a nonvanishing vector field on $S^2$. But the 'Hairy ball theorem' \cite{hairyball} tells us that any continuous vector field on $S^2$ must have at least one zero.
 		But then the determinant wouldn't be zero. This is the required contradiction. Therefore $P$ cannot be free.
 		
 	\end{example}
@@ -1059,15 +1575,13 @@
 		Over a PID $A$ any two unimodular rows in $A^n$ are equivalent.
 	\end{proposition}
 	\begin{proof}
-		Let $v $ be a unimodular row. So that we get a split sequence $0 \to A \xrightarrow{v} A^n \to P \to 0 $ for some stably free $P$. But we simply have that $\coker v = A^n/\mathrm{im v} $ is free as submodules of free f.g. modules over a PID are free. So there is a basis for $A^n$ containing $v$, i.e. $v \sim (1,0,\cdots,0)$
-	But that means 
+		Let $v $ be a unimodular row. So that we get a split sequence $0 \to A \xrightarrow{v} A^n \to P \to 0 $ for some stably free $P$. But we have that $\coker v = A^n/\mathrm{im v} $ is free as submodules of free f.g. modules over a PID are free (Prop. \ref{submodoffreemodisfreepid}). So there exists a basis for $A^n$ containing $v$, i.e. $v \sim (1,0,\cdots,0)$
+
 	\end{proof}
+	Using the fact that projective modules over local rings are free we obtain.
 	\begin{proposition}
 		Over a local ring $A$ any two unimodular rows are equivalent
 	\end{proposition}
-	\begin{proof}
-		Use the fact that projective modules over local rings are free.
-	\end{proof}
 	\begin{theorem}[Horrocks' theorem]
 	If $(A, \mathfrak{m})$ is a local ring then for any arbitrary unimodular row $v(x)$ in $A[x]^n$ such that one of its component elements has leading coefficient 1 implies that $v$ has the unimodular extension property. Furthermore, any such $v$ is equivalent to $v(0)$.
 	\end{theorem}
@@ -1100,32 +1614,32 @@
 	We now extend the idea of Horrock's theorem.
 	
 	\begin{lemma}\label{horrocksbutforlocal}
-		For an integral domain $A$ and a multiplicative subset $S$ if $v(x) \sim v(0)$ over $A_S[x]^n $ then there exists $c \in S$ such that $v(x+cy) \sim v(x) $ over $A[x,y]^n$
+		For an integral domain $A$ and a multiplicative subset $S$ if $v(x) \sim v(0)$ unimodular over $A_S[x]^n $ then there exists $b \in S$ such that \\$v(x+by) \sim v(x) $ over $A[x,y]^n.$
 	\end{lemma}
 	\begin{proof}
-		By the equivalence $v(x) \sim v(0)$ we know there exists a matrix $M \in GL_n(R_S[x])$ such that $M(x)v(x)=v(0) $ now consider \[ N(x,y) = M(x)^{-1} M(x+y) \]
+		By the equivalence $v(x) \sim v(0)$ we know there exists a matrix $\alpha (x) \in GL_n(A_S[x])$ such that $\alpha(x)v(x)=v(0) $ now consider \[ \beta(x,y) := \alpha(x)^{-1} \alpha(x+y) \]
 		
-		Note that now $N(x,y)v(x+y)=v(x)$ and so also $y \mapsto cy$ implies that $N(x,cy)v(x+cy)=v(x).$
+		Note that now $\beta(x,y)v(x+y)=v(x)$ and so also $y \mapsto by$ implies that $\beta(x,by)v(x+by)=v(x).$
 		
-		Now to show that indeed $N(x,cy)\in R[x,y]$ for some choice of $c \in S$ but this is true since $N(x,0)=I_N \implies N(x,y)=I+yP $ for some $P \in R_S[x,y]$ but this just means there is some appropriate choice of $c \in S$ that allow us to cancel out all the denominators in $P$ so that $P[x,cy] \in R[x,y]$.
+		Now to show that indeed $\beta(x,by)\in A[x,y]$ for some choice of $b \in S$ but this is true since $\beta(x,0)=I_n \implies \beta(x,y)=I+yP $ for some $P \in A_S[x,y]$ but this just means there is some appropriate choice of $b \in S$ that allow us to cancel out all the denominators in $P$ so that $P[x,by] \in A[x,y]$.
 	\end{proof}
 	
 	\begin{lemma}\label{horrocksbuteverything}
-		For an ID $A$ and $v(x)$ unimodular row in $A[x]^n$ with at least one component having leading coefficient one implies $v(x) \sim v(0)$.
+		For an integral domain $A$ and $v(x)$ unimodular row in $A[x]^n$ with at least one component having leading coefficient one implies $v(x) \sim v(0)$.
 	\end{lemma}
 	\begin{proof}
-		Consider the set $I$ containing all $c \in A$ such that $v(x+cy)\sim v(x)$ as rows in $A[x,y]$ if the ideal contains $1$ then sending $x \to 0$ would give us $v(y)\sim v(0) $ in $A[y].$
+		Consider the set $I$ containing all $b \in A$ such that $v(x+by)\sim v(x)$ as rows in $A[x,y]$ if the ideal contains $1$ then sending $x \to 0$ would give us $v(y)\sim v(0) $ in $A[y].$
 		
 		We can achieve this by first showing $I$ is an ideal and then showing that its not contained in any maximal ideal.	To do this last step we will localize at the maximals and use the previous result.
 		
 		First prove that $I$ is an ideal.
 		\begin{enumerate}
 			\item $I \neq \emptyset $ as $0 \in I$
-			\item If $c,d \in I$ then $c-d \in I$ as $v(x+(c-d)y)=v(x+cy-dy) \sim v(x+cy) \sim v(x)$ by a substitution $x \mapsto x+cy$
-			\item For $a \in A, c \in I$ then simply $v(x+cay) \sim v(x)$ by the $y \mapsto ay$
+			\item If $b,c \in I$ then $b-c \in I$ as $v(x+(b-c)y)=v(x+by-cy) \sim v(x+by) \sim v(x)$ by a substitution $x \mapsto x+by$
+			\item For $a \in A, b \in I$ then simply $v(x+bay) \sim v(x)$ by the $y \mapsto ay$
 		\end{enumerate}
 		
-		Now to show $I$ isn't contained in any maximal ideal. Pick a maximal ideal $\mathfrak m$ and localize at it first due to Horrocks we know $v(x) \sim v(0) $ in $A_{\mathfrak m} [x]$ and then due to the previous lemma \ref{horrocksbutforlocal} we find some $c \in A\setminus \mathfrak m$ such that $v(x+cy) \sim v(x) \sim v(0)$ but this just means that $ c \in I$ and so $I\not \subset \mathfrak m$ this applies to any maximal and so we are done.  
+		Now to show $I$ isn't contained in any maximal ideal. Pick a maximal ideal $\mathfrak m$ and localize at it first due to Horrocks we know $v(x) \sim v(0) $ in $A_{\mathfrak m} [x]$ and then due to the previous lemma \ref{horrocksbutforlocal} we find some $b \in A\setminus \mathfrak m$ such that $v(x+by) \sim v(x) \sim v(0)$ but this just means that $ b \in I$ and so $I\not \subset \mathfrak m$ this applies to any maximal and so we are done.  
 	\end{proof}
 	
 	\begin{theorem}
@@ -1147,26 +1661,19 @@
 		Finitely generated projective modules over $A=k[x_1,\dots,x_n]$ where $k$ is a PID are free.
 	\end{theorem}
 	\begin{proof}
-		We know such f.g. proj. modules are stably free. And from above we know any unimodular row in $A$ is equivalent to $(1,0,\dots,0)$.
+		We know such f.g. projective modules are stably free. And from above we know any unimodular row in $A$ is equivalent to $(1,0,\dots,0)$.
 		
-		That is to say given a f.g. proj. module $P$ which is stably free, i.e. $P \oplus R^{m_1} \cong R^{m_2}$ then $P$ is free.
+		That is to say given a f.g. projective module $P$ which is stably free, i.e. $P \oplus R^{m_1} \cong R^{m_2}$ then $P$ is free.
 		
 		When $m_1=1$ this is the split exact sequence (since P is projective see \ref{projtfae}),
-		\[ 0 \to A \hookrightarrow A^{m_2}  \twoheadrightarrow P \to 0 \]
+		\[ 0 \to A \to A^{m_2}  \to P \to 0 \]
 		The injection $A \to A^{m_2}$ is precisely a unimodular row by definition which we know must correspond to the canonical embedding of $1 \mapsto (1,0,\cdots, 0)$.
 		So,$$P = \mathrm{im}(A^{m_2} \to P) \cong A^{m_2}/\ker (A^{m_2} \to P) \cong A^{m_2}/\mathrm{im}(A \to A^{m_2}).$$
 		But $A^{m_2}/\mathrm{im}(A \to A^{m_2})$ is free since $\mathrm{im}(A \to A^{m_2})$ is naturally free due to the embedding.
 		
 		When $m_1 \neq 1$ just take $(P \oplus A^{m_1-1}) \oplus A$.
 	\end{proof}
-	\subsection{Mennicke symbols(Relevance? Maybe move to results in lingrps)}
-	\begin{definition}[Mennicke symbol]
-		A Mennicke symbol is a map $\phi : \mathrm{Un}_{n}(A) \to G $ where $G$ is a group such that,
-		\begin{enumerate}
-			\item $\phi(1,0,\dots, 0)=1, \phi(v)=\phi(v M)$ for $M \in E_n(A)$
-			\item $\phi(a,a_2,\dots,a_n)\cdot \phi(b,a_2, \dots a_n)=\phi(ab,a_2,\dots, a_n)$ if $(a,a_2,\dots,a_n), (b,a_2,\dots,b_n) \in \mathrm{Um}_n(A)$.
-		\end{enumerate}
-	\end{definition}
+
 
 	
 	\section{Whitehead group $K_1$}
@@ -1174,40 +1681,18 @@
 		$$K_1:= \frac{GL(A)}{[GL(A):GL(A)]}$$
 		Where $GL(A)$ the infinite general linear group is the colimit of $GL_n(A)$ with $GL_{n}$ realized as a subgroup of $GL_{n+1}$ by placing the matrix in the top left corner. 
 	\end{definition}
-	\begin{proposition}
-		\[ [GL(A):GL(A)]=E[A] \]
-	\end{proposition}
-	\begin{proof}
-		Using Lemma \ref{whiteheadmain} we can see that \[ \begin{bmatrix}
-			a^{-1}b^{-1} & 0 \\ 0 & I_n
-		\end{bmatrix} \equiv \begin{bmatrix}
-			b^{-1} a^{-1 } & 0 \\
-			0 & 1_n
-		\end{bmatrix} \mod E_{2n}(A)\]
-		So the derived subgroup of $GL_n(A)$ is contained in $E_{2n}(A)$. 
-	\end{proof}	
-	
-	
-	\begin{definition}[Relative $K_1$]
-		$SK_1(A):= \ker \det$
-		
-		Where, $\det : K_1(A) \to A^\times$. We have a split exact sequence
-		\[ 0 \to SK_1(A) \to K_1(A) \to A^\times \to 0 \]
-	\end{definition}
-	
-	
-	\section{Some results on linear groups}
+
 	\begin{definition}[Elementary matrices]
-		We denote the elementary matrices as $E_n(A)$ generated by standard elementary matrices of the form $I_{n}+ \lambda E_{ij} $ where $E_{ij}$ is the matrix with $1$ in the $(i,j)$ entry and zero elsewhere. In shorthand notation we will write it as $e_{ij}(\lambda)$. 
+		We denote the $n\times n$ elementary matrices as $E_n(A)$ generated by standard elementary matrices of the form $e_{ij}(\lambda) := I_{n}+ \lambda E_{ij} $ where $E_{ij}$ is the matrix with $1$ in the $(i,j)$ entry and zero elsewhere.
 	\end{definition}
 	
 	\begin{lemma}\label{diag1andprodelementary}
 		A nonsingular triangular matrix with $1$'s in the diagonal is a product of standard elementary matrices.
 	\end{lemma}
 	\begin{proof}
-		Let $A \in GL_n(A)$ then consider the following inductive procedure.
+		Let $\alpha \in GL_n(A)$ then consider the following inductive procedure.
 		\begin{align*}
-			A&= \begin{bmatrix}
+			\alpha&= \begin{bmatrix}
 				1 & a_{12} &\cdots &a_{1n}\\
 				0& 1 & \cdots &a_{2n}\\
 				\vdots & \vdots  & \ddots  & \vdots \\
@@ -1216,48 +1701,60 @@
 			= \begin{bmatrix}
 				1 & a_{12} &\cdots &a_{1n}\\
 				0&  &   &\\
-				\vdots &  & A_{n-1}  &  \\
+				\vdots &  & \alpha_{n-1}  &  \\
 				0 &  & & 
 			\end{bmatrix}\\
 			&=\begin{bmatrix}
 				1 & 0 &\cdots &0\\
 				0&  &   &\\
-				\vdots &  & A_{n-1}  &  \\
+				\vdots &  & \alpha_{n-1}  &  \\
 				0 &  & & 
 			\end{bmatrix} e_{12}(a_{12}) e_{13}(a_{13}) \cdots e_{1n}(a_{1n})\\
-			\intertext{Repeat the procedure for $A_{n-1}$ to obtain}
+			\intertext{Repeat the procedure for $\alpha_{n-1}$ to obtain}
 			&= \begin{bmatrix}
 				1 & 0 & 0 & \cdots & 0 \\
 				0 & 1 & 0 & \cdots & 0\\
 				0 & 0 &   &  &\\
-				\vdots & 0 &   &A_{n-2}  &\\
+				\vdots & 0 &   &\alpha_{n-2}  &\\
 				0 & 0 &   &  &
 			\end{bmatrix}\prod_{j=2}^n e_{2j}(a_{2j}) \prod_{i=1}^n e_{1i} (a_{1i})
 		\end{align*}
+		Continuing this process we obtain the required result.
 	\end{proof}
-
+	
 	\begin{proposition}\label{whiteheadsimple}
-		Let $A$ be a ring and $u \in A^\times$
+		Let $A$ be a ring and $u$ be a unit in $A$, i.e. $u \in A^\times$
 		\[ {\displaystyle {\begin{bmatrix}u&0\\0&u^{-1}\end{bmatrix}}} \equiv I_2 \mod E_2(A)\]
 	\end{proposition}
 	\begin{proof}
 		${\displaystyle {\begin{bmatrix}u&0\\0&u^{-1}\end{bmatrix}}=e_{21}(u^{-1})e_{12}(1-u)e_{21}(-1)e_{12}(1-u^{-1}).}$
 	\end{proof}
-\begin{lemma}[Whitehead]\label{whiteheadmain}
-	For $a,b \in GL_n(A)$ \[ \begin{bmatrix}
-		ab & 0 \\ 0 & I_n
-	\end{bmatrix} \equiv \begin{bmatrix} a & 0 \\ 0 & b
-	\end{bmatrix} \equiv \begin{bmatrix}
-		ba & 0 \\ 0 & I_n 
-	\end{bmatrix} \mod E_{2n} (A)\]
-\end{lemma}
-\begin{proof}
-	Let $A=M_n(A)$ and note $E_2(M_n(A) ) \subset E_{2n}(A)$ in Prop. \ref{whiteheadsimple}.
-\end{proof}
-	
+	\begin{lemma}[Whitehead]\label{whiteheadmain}
+		For $\alpha,\beta \in GL_n(A)$ \[ \begin{bmatrix}
+			\alpha \beta & 0 \\ 0 & I_n
+		\end{bmatrix} \equiv \begin{bmatrix} \alpha & 0 \\ 0 & \beta
+		\end{bmatrix} \equiv \begin{bmatrix}
+			\beta \alpha  & 0 \\ 0 & I_n 
+		\end{bmatrix} \mod E_{2n} (A)\]
+	\end{lemma}
+	\begin{proof}
+		Let $A=M_n(A)$ and note $E_2(M_n(A) ) \subset E_{2n}(A)$ in Prop. \ref{whiteheadsimple}.
+	\end{proof}
+		\begin{proposition}
+		\[ [GL(A):GL(A)]=E[A] \]
+	\end{proposition}
+	\begin{proof}
+		Using Lemma \ref{whiteheadmain} we can see that \[ \begin{bmatrix}
+			\alpha^{-1}\beta^{-1} & 0 \\ 0 & I_n
+		\end{bmatrix} \equiv \begin{bmatrix}
+			\beta^{-1} \alpha^{-1 } & 0 \\
+			0 & 1_n
+		\end{bmatrix} \mod E_{2n}(A)\]
+		So the derived subgroup of $GL_n(A)$ is contained in $E_{2n}(A)$. 
+	\end{proof}	
 	
 	\begin{lemma}
-		For E.D. $A$ we have $SL_n(A)=EL_n(A)$ for all $n.$
+		For a Euclidean domain $A$ we have $SL_n(A)=EL_n(A)$ for all $n.$
 	\end{lemma}
 	\begin{proof}
 		With elementary row and column operations arrange the matrix so that the element with the smallest norm is in the top right position. And using elementary row operations reduce it to a matrix with a unit in the top left and 0s in the rest of the first column and first row. Proceeding similarly for the remaining $n-1 \times n-1 $ matrix left we reduce it down to a matrix of the form.
@@ -1271,63 +1768,350 @@
 		
 		Now apply Whiteheads lemma 
 	\end{proof}
-%	\subsubsection{Suslin's Normality theorem}
-	We now consider a result due to Suslin about the normality of $E_n(A) $ in $GL_n(A)$. The following Lemma due to Vaserstein will be useful.
-	\begin{lemma}[Vaserstein]
-		Let $a \in M_{m,n} (A)$ and $b \in M_{n,m}(A)$ then if $I_m+ab \in GL_m(A)	\implies $ $I_n+ba \in GL_n(A)$ and \[ \begin{bmatrix}
-			I_m+ab & 0 \\ 0 & (I_n+ba)^{-1}
-		\end{bmatrix} \in E_{m+n} (A)\] 
-	\end{lemma}
-	\begin{proof}
-		Note that $(I_n+ba)^{-1}=I_n-b(I_m+ab)^{-1}a$. Lem. \ref{whiteheadsimple} cannot be applied in this case since $n\neq m$ in general. But the idea is nearly the same. 
-		\( \begin{bmatrix}
-			I_m+ab & 0 \\ 0 & (I_n+ba)^{-1}
-		\end{bmatrix} 
-		\)
+	
+	\begin{definition}[Relative $K_1$]
+		$SK_1(A):= \ker \det$
 		
+		Where, $\det : K_1(A) \to A^\times$. We have a split exact sequence
+		\[ 0 \to SK_1(A) \to K_1(A) \to A^\times \to 0 \]
+	\end{definition}
+	
+	
+%	\subsection{Relationship between $K_0$ and $K_1$}
+%	\begin{theorem}[Mayer-Vietoris]
+%	\end{theorem}
+%	\begin{theorem}
+%		Let $A$ be a ring and $S$ denote a multiplicatively closed set of central elements in $A$. We obtain the following exact sequence
+%		\[ K_1(A)  \to K_1(S^{-1}A ) \to K_0(A \text{ on } S) \to K_0(A) \to K_0(S^{-1} A)\]
+%	\end{theorem}
+	\section{Some results on linear groups}
+	
+	\subsection{Suslin's Normality theorem}
+		We now consider a result due to Suslin about the normality of $E_n(A) $ in $GL_n(A)$. The following Lemma due to Vaserstein will be useful.
+		\begin{lemma}[Vaserstein]\label{vasersteinlem}
+			Let $\alpha \in M_{m,n} (A)$ and $\beta \in M_{n,m}(A)$ then $I_m+\alpha \beta \in GL_m(A)$ implies that $I_n+\beta \alpha \in GL_n(A)$ and \[ \begin{bmatrix}
+				I_m+\alpha \beta & 0 \\ 0 & (I_n+\beta \alpha)^{-1}
+			\end{bmatrix} \in E_{m+n} (A)\] 
+		\end{lemma}
+		\begin{proof}
+			Note that $(I_n+\beta \alpha )^{-1}=I_n-\beta (I_m+\alpha \beta )^{-1} \alpha$. Lem. \ref{whiteheadsimple} cannot be applied in this case since $n\neq m$ in general. But the idea is nearly the same. 
+			\( \begin{bmatrix}
+				I_m+\alpha \beta & 0 \\ 0 & (I_n+\beta \alpha)^{-1}
+			\end{bmatrix} 
+			\)
+			
+			
+			\(=\begin{bmatrix}
+			I_m & 0 \\
+			(I_n+\beta \alpha )^{-1}\beta I_n
+			\end{bmatrix}\begin{bmatrix}
+			I_m & -\alpha \\
+			0 & I_n
+			\end{bmatrix} \begin{bmatrix}
+			I_m & 0\\
+			-\beta  & I_n
+			\end{bmatrix} \begin{bmatrix}
+			I_m & (I_n+\alpha \beta )^{-1} \alpha \\
+			0 & I_n
+			\end{bmatrix}\in E_{m+n} (A)\) 
+			We implicitly use Prop. \ref{diag1andprodelementary} to justify that the triangular matrices here are indeed elementary.
+		\end{proof}
 		
-		\(=\begin{bmatrix}
-		I_m & 0 \\
-		(I_n+ba)^-1b I_n
-		\end{bmatrix}\begin{bmatrix}
-		I_m & -a\\
-		0 & I_n
-		\end{bmatrix} \begin{bmatrix}
-		I_m & 0\\
-		-b & I_n
-		\end{bmatrix} \begin{bmatrix}
-		I_m & (I_n+ab)^{-1}a\\
-		0 & I_n
-		\end{bmatrix}\in E_{m+n} (A)\) 
-		We implicitly use Prop. \ref{diag1andprodelementary} to justify that the triangular matrices there are indeed elementary.
-	\end{proof}
+		\begin{corollary}\label{corofvaserstein}
+		Let $v = (v_1,\ldots,v_n)^t$ and $w = (w_1,\ldots,w_n)^t$ be column vectors in $R^n$ such that $w^tv = 0$, and suppose $w_i = 0$ for some $i \leq n$. Then $I_n + vw^t \in E_n(R)$.
+		\end{corollary}
+		\begin{proof}
+			When $w_i =0$ for $i \neq n $ we have $\alpha(I_n+vw^t)\alpha^{-1}=I_n+(\alpha v)(w^t\alpha^{-1})$for $\alpha=e_{in}(-1)e_{ni}(1)e_{in}(-1)$, which acts as a permutation matrix making the nth term i.e. $(w^t \alpha^{-1})^t_n=0$.
+			
+			Therefore, without loss of generality we may assume that $w_n=0$. Now define $w'=(w_1,\cdots, w_{n-1})^t, v'=(v_1, \cdots, v_{n-1}) \in R^{n-1}$. Since $w_n=0$ and $w^tv=0 \implies w'^tv'=0$ also. 
+			
+			Proceeding inductively on $n$. We can say that $I_{n-1}+v'w'^t \in E_{n-1}(R)$. Note that the base case $n=1$ is given by Lem. \ref{vasersteinlem}.
+			
+			Therefore we have  \[
+			I_n + v w^t = \begin{bmatrix}  & 0 \\ 
+			I_{n-1} + v' w'^t	& 0\\
+				 & \vdots \\ \hline
+				* & 1 \end{bmatrix},
+			\]
+			We can make the last row zero using appropriate column transformations using the last column (which are all elementary matrices). Therefore, $I_n +vw^t \in E_n(R)$
+		\end{proof}
+		
+		\begin{lemma}\label{kernelf}
+			For $v$ unimodular row in $R^n,$ and $f: R^n \to R$ a $R-$ linear map determined by $e_i \mapsto v_i $. Where $e_i $ is the standard basis element of $R^n$.
+			\[ \ker (f) =\left\{w=(w_1,\cdots w_n)^t \mid \sum_i^n w_i v_i =0\right\} \] and is generated by elements of the form \( \{ v_j e_i - v_i e_j \} \) for positive $i \leq n$.
+			\end{lemma}
+		\begin{proof}
+			We wish to show that $\ker(f)$ is generated by the elements $\{v_ie_i - v_ie_j \mid 1 \leq i \leq n\}$.
+			
+			By definition of unimodularity of $v$, there exist elements $r_1, \ldots, r_n \in R$ such that $\sum_{i=1}^n r_iv_i = 1$. Consider the 
+			$R$-module homomorphism $g: R \to R^n$ given by $g(1) = (r_1, \ldots, r_n)^t$. This provides a splitting 
+			on the right of the exact sequence \[ 0 \to \ker (f ) \to R^n \xrightarrow{f} R \to 0 \] since $f(g(1))=\sum_i r_iv_i = 1$. So the sequence is split exact and $R^n \cong \ker (f) \oplus R.$
+			
+			Now, consider a map $h:R^n \to \ker f$ defined as  $h(x)=x - g(f(x))$. This creates a splitting on the left side of the 
+			exact sequence, since  $h|_{\ker(f)} = 1_{\ker(f)}$. Since $h$ is surjective, the 
+			elements $h(e_i)$ generate $\ker(f)$.
+			\begin{align*}
+				h(e_i) &= e_i - g(f(e_i)) = e_i - g(v_i) = e_i - v_i \sum_j r_je_j\\
+				&= (\sum_j r_jv_j)e_i - \sum_j r_jv_ie_j = \sum_j r_j(v_je_i - v_ie_j)
+			\end{align*}
+			
+			This shows that $\ker(f)$ is indeed generated by the claimed elements.
+		\end{proof}
+		
+		We finally generalize Cor. \ref{corofvaserstein} to the following lemma which will be used in the proof of the normality theorem.
+		\begin{proposition}\label{finalpropfornormality}
+			Let $n \geq 3$. If $v \in R^n$ is unimodular, and $w \in R^n$ such that $w^tv = 0$, then $I_n + vw^t \in E_n(R)$ and this is also true if $w$ is unimodular and $v$ is arbitrary by transposition.
+		\end{proposition}
+		
+		\begin{proof}
+			Consider the $R$-linear map $f:R^n \to R$ defined as $e_i \mapsto v_i$. The condition $w^tv = 0 \implies w^t \in Ker(f)$. By Lem. \ref{kernelf}, there exists $r_{ij} \in R$ such that we can decompose $w^t$ as such
+			\[
+			w^t = \sum_{i<j} r_{ij}(v_ie_j - v_je_i).
+			\]
+			
+			Label $w_{ij}^t = v_ie_j - v_je_i$ and decompose $I_n+vw^t$ 
+			\[
+			I_n + vw^t = I_n + v\sum_{i<j} w_{ij}^t = \prod_{i<j}(I_n + vw_{ij}^t).
+			\]
+			
+			We have $w_{ij}v=0$ and since $n \geq 3$, there exists a zero component and so we have from Cor. \ref{corofvaserstein} that $I_n + vw_{ij}^t \in E_n(R)$ for all $i < j$. This completes the proof.
+		\end{proof}
 	
 	\begin{theorem}[Suslin's Normality theorem]
-		For $A$ a commutative ring with unity, $E_n(A)$ normal in $GL_n(A)$ for $n \geq 3$. 
+		For $A$, a commutative ring with unity, $E_n(A)$ normal in $GL_n(A)$ for $n \geq 3$. 
 	\end{theorem}
 	\begin{proof}
-		Let $a \in GL_n(A)$ consider $e_{ij}(\lambda) \in E_n(A)$ arbitrary. Recall from \ref{row-of-inv-mat-unimod} that the columns of $a$ and the rows of $a^{-1}$ are unimodular.
-		\[ ae_{ij} (\lambda ) a^{-1}= I_n +\lambda c_i r_j\]
-		Where $c_i$ is the $i^\mathrm{th}$ column of $a$ and $r_j$ is the $j^{\mathrm{th}}$ row of $a^{-1}$.
+		Since $E_n(R)$ is generated by $e_{ij} (\lambda) $ it suffices to check that $\alpha e_{ij}(\lambda) \alpha^{-1} \in E_n(R)$ for $\alpha \in GL_n(A)$.
 		
-		Furthermore since $a^{-1}a=I_n \implies b_ja_i=\delta_{ij} \implies $ using Prop. that $ae_{ij}(\lambda) a^{-1} = I_n + \lambda c_i r_j \in E_n(A)$ and since $E_n(A)$ is generated by matrices of the form $e_{ij}(\lambda )$ we are done.
+		 Recall from \ref{row-of-inv-mat-unimod} that the columns of $\alpha$ and the rows of $\alpha^{-1}$ are unimodular.
+		\[ \alpha e_{ij} (\lambda ) \alpha^{-1}= \alpha(I_n+\lambda E_{ij}) \alpha^{-1} = I_n +\lambda c_i r_j\]
+		Where $c_i$ is the $i^\mathrm{th}$ column of $\alpha$ and $r_j$ is the $j^{\mathrm{th}}$ row of $\alpha^{-1}$.
+		
+		Furthermore since $\alpha^{-1}\alpha =I_n \implies r_jc_i=\delta_{ij} \implies $ using Prop. \ref{finalpropfornormality} that $\alpha e_{ij}(\lambda) \alpha^{-1} = I_n + \lambda c_i r_j \in E_n(A)$.
 	\end{proof}
 	
-	\begin{proposition}[Cohn] If $n=2$ $E_2(A)$ need not be normal in $SL_2(A)$
-		content
+%	\begin{proposition}[Cohn] If $n=2$ $E_2(A)$ need not be normal in $SL_2(A)$
+%		content
+%	\end{proposition}
+		\subsection{Local-global principle for unimodular vectors}
+		In this section, we establish an important result that plays a crucial role in proving Suslin’s factorial theorem. Specifically, we prove a useful `Local-global principle' for unimodular polynomial vectors.
+		
+		
+		\begin{lemma}\label{lemlocalglobal}
+			Let $S$ be a multiplicative set in $A$. For $f(x) \in GL_n(A_S[x])$ such that $f(0) = I_n$, there exists $\hat{f}(x) \in GL_nA[x])$ such that $\hat{f}(x)$ under the localization map maps to $f(sx)$ (for some $s \in S$), and $\hat{t}(0) = I_n$.
+		\end{lemma}
+		
+		\begin{proof}
+			Since $f(x) \in GL_n(A_S[x])$, there exists $g(x) \in GL_n(A_S[x])$ such that $f(x)g(x) = I_n$. The condition $f(0) = I_n$ implies $g(0) = I_n$.
+			
+			In particular this means that the diagonal entries belong to $1 + xA_S[x]$ and off diagonal entries are of the form $x A_S[x]$.
+			
+			Since only finitely many denominators appear in the entries of $f(x)$ and $g(x)$, there exists $s_1 \in S$ which is a common denominator.  This allows us `cancel' the denominators and to define matrices $f(s_1 x)$ and $g(s_1 x)$ with coefficients in $A$. 
+			
+			This means there exist $f_1(x)$ and $g_1(x)$ with polynomial entries in $A[x]$ with $f_1(0) = g_1(0) = I_n$ which map to $f(s_1x), g(s_1x)$ under the localization map.
+			
+			Let $h(x) = f_1(x)g_1(x)$. Then $h(x)$ maps to $f(s_1x)g(s_1x) = I_n$ under the localization map. Since $h(0) = I_n$, there exists $s_2 \in S$ such that $h(s_2x) = I_n$.  This implies that $f_1(s_2x)$ is invertible over $A[x]$ with inverse $g_1(s_2x)$.
+			
+			Therefore, we define $\hat{f}(x) = f_1(s_2x)$.  Then $\hat{f}(x) \in GL_n(A[x])$, $\hat{f}(0) = I_n$, and the image of $\hat{f}(x)$ under the localization map is $f(s_1 s_2 x)$. Thus, setting $s = s_1 s_2$, the lemma is proved.
+			\end{proof}
+		
+			The below result is a generalization of Lem. \ref{horrocksbutforlocal}.
+	\begin{proposition}\label{generaliationoflocalhorrocks}
+		Let $A$ be a commutative ring and $S$ a multiplicative subset of $A$. For $v = (v_1, \dots, v_n) \in \mathrm{Um}_n(A[x])$, the following statements are equivalent:
+		\begin{enumerate}
+			\item $v(x) \sim v(0)$ over $A_S[x]$;
+			\item There exists $b \in S$ such that $v(x + by) \sim v(x)$ over $A[x, y]$.
+		\end{enumerate}
 	\end{proposition}
 	
-	\begin{theorem}[Suslin]
-		Given $(x_1,\dots,x_n) \in U_n(A)$ then $(x_1^{m_1}, \dots, x_n^{m_n}) \in U_n(A)$ iff $(n-1)! | m_1\dot m_2 \cdots m_n$
+	\begin{proof}
+	Start with $2 \implies 1$. Consider a change of variable in $A_S[x,y]$ given by $x=0, y=b^{-1}x$ so we have that under the localization map $v(0+b b^{-1}x ) = v(x) \sim v(0) $ over $A_S[x]$ as required.
+	
+	For the other direction.
+	There exists \( \alpha(x) \in GL_n(A_S[x]) \) such that \( v(x) \cdot \alpha(x) = v(0) \). Define $\beta$ as such  
+	\(
+	\beta(x, y) = \alpha(x + y) \alpha(x)^{-1} \in GL_n(A_S[x, y]).
+	\)
+	\begin{align*}
+			v(x + y)  \beta(x, y) &= v(x + y)  \alpha(x + y)  \alpha(x)^{-1}\\
+			&=v(0) \alpha(x)^{-1} = v(x) \in A_S[x,y].
+	\end{align*}
+	This shows $v(x+y) \sim v(x) $ over $A_s[x,y]$ now we lift it to $A[x,y]$.
+	
+	Since \( \beta(x, 0) = \alpha(x) \cdot \alpha(x)^{-1} = I_n \), we can apply Lem. \ref{lemlocalglobal} over \( A[x] \) to obtain \( \hat{\beta}(x, y) \in GL_n(A[x, y]) \) such that under the localization map it goes to \( \beta(x, sy) \in GL_n(A_S[x,y])\) for some \( s \in S \), and \( \hat{\beta}(x, 0) = I_n \). 
+	
+	With $y\mapsto sy$ in the above relation lifted to \( A[x, y]^n \), we have  
+	\[
+	v(x + sy)  \hat{\beta}(x, y) - v(x) = y  g(x, y)
+	\]
+	for some \( g(x, y) \) that localizes to 0, so there exists \( s' \in S \) such that 
+	\[
+	v(x + ss'y) \hat{\beta}(x, s'y) - v(x) = y  s' g(x, s'y) = 0.
+	\]
+	Choose $n=ss' $ and we are done.
+	\end{proof}
+		
+	\begin{proposition}
+		Let $v(x) = (v_1(x), \dots, v_n(x)) \in \mathrm{Um}_n(A[x])$. Define the ideals $\mathfrak{a}$ and $\mathfrak{b}$ as follows:
+		\begin{align*} \mathfrak{a} &= \{a \in A \mid v(x) \sim v(0) \text{ over } A_a[x] \} \\ \mathfrak{b} &= \{b \in A \mid v(x + by) \sim v(x) \text{ over } A[x, y] \} \end{align*} 
+		Then $\mathfrak{a}$ and $\mathfrak{b}$ are ideals in $A$, with $\mathfrak{a} = \text{rad}(\mathfrak{b})$.
+	\end{proposition}
+	
+	\begin{proof}
+		If $b \in \mathfrak{b}$, then $v(x + by) \sim v(x)$.  With a substitution of variables for any $r \in A$, we have $v(x +bry) \sim v(x)$, so $br \in \mathfrak{b}$.  If $b, b' \in \mathfrak{b}$, then the substitution $x \mapsto x+b'y$ shows that $\mathfrak{b}$ is an ideal. Since, $ v(x+(b'+b)y) \sim v(x+b'y) \sim v(x)$.
+		
+		 The equality $\mathfrak{a} = \text{rad}(\mathfrak{b})$ follows from the above proposition.
+	\end{proof}
+	
+	\begin{theorem}[Local-global principle]\label{localglobalprinciple}
+		Let $v = (v_1, \dots, v_n) \in \mathrm{Um}_n(A[x])$. If $v(x) \sim v(0)$ over $A_{\mathfrak{m}}[x]$ for all maximal $\mathfrak{m} \in A$, then $v(x) \sim v(0)$ over $A[x]$.
 	\end{theorem}
 	
-	\subsection{Relationship between $K_0$ and $K_1$}
-	\begin{theorem}[Mayer-Vietoris]
-	\end{theorem}
-	\begin{theorem}
-		Let $A$ be a ring and $S$ denote a multiplicatively closed set of central elements in $A$. We obtain the following exact sequence
-		\[ K_1(A)  \to K_1(S^{-1}A ) \to K_0(A \text{ on } S) \to K_0(A) \to K_0(S^{-1} A)\]
-	\end{theorem}
+	\begin{proof}
+		Define $\mathfrak{a}$ and $\mathfrak{b}$ as above. Suppose $v(x) \sim v(0)$ over $A_\mathfrak{m}[x]$ Prop. \ref{generaliationoflocalhorrocks} implies that there exist $b \in A \setminus \mathfrak m$ such that $v(x+by) \sim v(x)$ over $A[x,y]$.
+		
+		i.e $A\setminus \mathfrak{m}$ contains an element of $\mathfrak{b}$ this implies $\mathfrak{b} = A$.  And since $\mathrm{rad}(\mathfrak{b})= \mathrm{rad}(A)=A$, we have $\mathfrak{a} = A$, which implies $v(x) \sim v(0)$ over $A[x]$.
+	\end{proof}
+		
+		\subsection{Suslin's factorial theorem and Mennicke symbols}	
+		In this section we will prove a celebrated theorem due to Suslin. \begin{theorem}[Suslin's factorial theorem]\label{suslinfactorial}
+			Given $(v_0,\dots,v_n) \in \mathrm{Um}_{n+1}(A)$ then$n! | \prod_{i=0}^n m_i$ implies $(v_0^{m_1}, \dots, v_n^{m_n}) \in \mathrm{Um}_{n+1}(A)$ 
+		\end{theorem}
+			The proof of the theorem in this section can be seen in detail in the papers by Suslin \cite{suslin1977} and the expository book by Lam \cite{lam2010serre}. 
+			
+			The converse of this result is also true as proved by Suslin in \cite{suslin1982}. But we do not cover that direction here.
+			
+	
+%	We will first prove that given $(v_0,\cdots,v_n) \in \mathrm{Um}_{n+1}(A)$ if $n! | \prod_{i=0}^n m_i$ then $(v_0^{m_1}, \cdots, v_n^{m_n}) \in \mathrm{Um}_{n+1}(A)$ and it is completable.
+%	
+	\begin{proposition} If there exists $v=(v_0, v_1, \cdots v_n) \in \mathrm{Um}_{n+1}(A)$ such that $\bar{v}=(\bar{v}_0, \cdots, \bar{v}_{n-1})$ is completable over the ring $\bar{A}=A/Av_n$ then $$(v_0,\cdots, v_{n-1} ,v_n^n) \in \mathrm{Um}_{n+1}(A)$$ and is completable in $A$.
+		
+	\end{proposition}
+	\begin{proof}
+		Let $\alpha \in M_{n}(A)$ be some matrix with first row $(v_0 \cdots, v_{n-1})$ such that $\bar{\alpha} \in GL_{n}(\bar{A})$ (which we know exists due to $v$ being completable) let $\beta \in M_{n}(A)$ be the lift of $\bar{\alpha}^{-1},$ i.e., $\bar{\alpha}\bar{\beta} = I_{n}$. Then $$\alpha \beta= I_n+v_n \gamma, \ \ \beta \alpha=I_n+v_n \delta$$ for some $\gamma,\delta \in M_{n}(A)$.
+		
+		The matrix $\begin{bmatrix}
+			\alpha & v_n I_{n}\\
+			\delta & \beta 
+		\end{bmatrix} \in GL_{2n}(A)$ since $$\begin{bmatrix}
+		\alpha & v_n I_n\\ \delta & \beta 
+		\end{bmatrix} \cdot \begin{bmatrix}
+		\beta & -v_n I_n \\ -\gamma & \alpha 
+		\end{bmatrix} = \begin{bmatrix}
+		I_n & 0 \\ * & I_n
+		\end{bmatrix} \in GL_{2n}(A).$$ 
+		
+		Note that $\det(\alpha)$ is a unit in $\bar{A}$ using Lem. \ref{whiteheadmain} on $\bar{A}$ and pulling back through the surjection $E_n(A) \to E_n(\bar{A})$ we have $$\begin{bmatrix}
+			v_n^n & 0 \\ 0 & I_{n-1}
+		\end{bmatrix} = (v_n I_n) \epsilon + \det(a) \zeta $$ for some $\epsilon \in E_n(A)$ and $\zeta  \in M_n(A)$.
+		
+	 Let $\alpha' = \text{adj}(\alpha)$ be the adjoint of $\alpha$. Recall that $\alpha \cdot \mathrm{adj}(\alpha )= \det (\alpha) I_n$, define a matrix $\varphi$ as such
+		\begin{align*}
+			\varphi = \begin{bmatrix} \alpha & v_nI_n \\ \delta & \beta \end{bmatrix} \begin{bmatrix} I_n & \alpha't \\ 0 & \epsilon \end{bmatrix} &= \begin{bmatrix} \alpha & \alpha \alpha' \zeta + v_n \epsilon  \\ \delta & * \end{bmatrix}\\
+			&= \begin{bmatrix} \alpha & \det(\alpha) \zeta + v_n \epsilon \\ \delta & * \end{bmatrix} \\
+			&= \left[ \begin{array}{c|c}
+				\alpha & \begin{matrix}
+					v_n^n & 0\\
+					0 & I_{n-1}
+				\end{matrix}\\ \hline
+				\delta & *
+			\end{array} \right ]\in GL_{2n}(R) 
+		\end{align*}
+		We now rewrite $\varphi$ in the following adjusted block form
+		
+		\[\begin{bmatrix} a_1 & a_2 \\ a_3 & a_4 \end{bmatrix}.\] 
+		
+		Where $a_1$ is $n \times (n+1)$ comprising of $a$ along with the column $(v_n^n, 0, \ldots, 0)^t$) adjoined at the right, $a_2 = \begin{bmatrix} 0 \\ I_{n-1} \end{bmatrix}$. 
+		
+		With appropriate elementary transformations on the last $n$ rows of $\varphi$, we obtain a matrix of the form
+		\[\varphi' = \begin{bmatrix} a_1 & a_2 \\ a_3' & 0 \end{bmatrix}\]
+		Now consider the submatrix of $\varphi'$ formally complementary to $I_{n-1}$ which we obtain by deleting the $2$nd up to the $n$th rows and the last $n-1$ columns. This is the required invertible $(n+1) \times (n+1)$ matrix with top row $(v_0,\ldots,v_{n-1},v_n^n)$.
+
+		
+	\end{proof}
+	By induction on $n$, we obtain the following corollary.
+	\begin{corollary}\label{corprefactorial}
+		For $(v_0, \cdots, v_n) \in \mathrm{Um}_{n+1}(A)$ the row $(v_0, v_1, v_2^2, \cdots, v_n^n)$ is completable.
+	\end{corollary}
+	
+	We now prove a result involving moving powers of coefficients in a unimodular row. Which in conjunction with the above corollary will prove the forward direction of Th. \ref{suslinfactorial}.
+	\begin{proposition}\label{propshifting}
+		For $(v_0, \cdots, v_n) \in \mathrm{Um}_{n+1}(A)$ and any $r \in \N, i \neq j $ \[ (v_0, \cdots, v_i^r, \cdots, v_n) \sim (v_0, \cdots, v_j^r, \cdots, v_n) \]
+	\end{proposition}
+	\begin{proof} Begin with the case of $i=0,j=1$. Define $f(t)=(v_0^r, v_1+v_0t, \cdots, v_n) \in \mathrm{Um}_{n+1}(A[t])$. 
+		
+		Claim that $f(t)\sim f(0)$ over $A[t]$. Using Th. \ref{localglobalprinciple} Local-global principle to check this equivalence in $A_\mathfrak{m}$ for some arbitrary $\mathfrak{m}$ maximal in $A$. 
+		
+		Assume that $v_0, v_2, \cdots, v_n \in \mathfrak{m}$ else the claim is naturally true as they will be invertible if not. And so $v_1 \in A\setminus \mathfrak{m}$ is a unit. 
+		
+		Note that $(v_0^r, v_1 + v_0 t) \in \mathrm{Um}_2(A[t])$ since, which is naturally completable, unimodularity is due to the fact that not both $v_0^r$ and $v_1+v_0t \in \mathfrak m$ for if that is the case then $v_0,v_1 \in \mathfrak{m}$ which is a contradiction. Since this is true for all $\mathfrak m$. We have by the local-global principle that $(v_0^r, v_1 + v_0 t) \in \mathrm{Um}_2 (A[t])$ this is also completable as all length $2$ unimodular rows are naturally completable. In particular if $v_0^r b_0 + (v_1+v_0t) b_1 =1 $ then consider the matrix $\alpha \in GL_2(A[t])$ defined as $$\alpha = \begin{bmatrix}
+			v_0^r & v_1 + v_0 t \\
+			- b_1 & b_0
+		\end{bmatrix}$$
+		
+		Therefore over $A[t]$ we have $f(t)$ is also completable with the block matrix \[ \beta = \begin{bmatrix}
+			\alpha & \beta \\
+			0 & I_{n-2}
+		\end{bmatrix} \in GL_n(A)\] where the first row of $\beta$ equals $(v_2, \cdots, v_n)$. Therefore we have \[ f(t) \sim (1, 0, \ldots, 0) \sim f(0) \] as claimed. 
+		
+		Now note that $f(t) \sim f(0)$ over $A[t]$ implies that $f(-1) \sim f(0)$ over $A$ 
+		\begin{align*}
+			(v_0^r, v_1, v_2, \cdots, v_n) &\sim (v_0^r, v_1 - v_0, v_2, \cdots, v_n).
+			\intertext{With the substitution $v_0 \mapsto v_1$ and $v_1 \mapsto v_1 - v_0$}
+			&\sim (v_1^r, -v_0, v_2, \ldots, v_n)\\
+			&\sim(v_0, v_1^r, v_2, \ldots, v_n) 
+		\end{align*}
+		The last equivalence is true since the block matrix $\begin{bmatrix}
+			-I & 0 \\ 0 & I
+		\end{bmatrix} $ is elementary (with column transformations it is equivalent to the block matrix with $I$ in both diagonal places).
+		
+		Repeating this procedure for other $i \neq j $ completes the proof.	
+  \end{proof}
+	
+	
+	Combining Cor. \ref{corprefactorial} and Prop. \ref{propshifting} we obtain the proof of the backward direction of Th. \ref{suslinfactorial} as required.
+	
+%	For the forward direction we require some additional machinery. Mainly the concept of a Mennicke symbol.
+%	
+%	\begin{definition}[Mennicke symbol]
+%		A Mennicke symbol is a map $\phi : \mathrm{Um}_{n}(A) \to G $ where $G$ is a group such that,
+%		\begin{enumerate}
+%			\item $\phi(1,0,\dots, 0)=1, \phi(v)=\phi(v M)$ for $M \in E_n(A)$
+%			\item $\phi(a,a_2,\dots,a_n)\cdot \phi(b,a_2, \dots a_n)=\phi(ab,a_2,\dots, a_n)$ if \\
+%			$(a,a_2,\dots,a_n), (b,a_2,\dots,b_n) \in \mathrm{Um}_n(A)$.
+%		\end{enumerate}
+%	\end{definition}
+%	
+%	When $K_1(A)$ we obtain a special symbol. Which following the paper of \cite{suslin1982} and \cite{Fossum1980} we label as $\mathrm{wt}$. It is constructed via a procedure called whitehead torsion the verification of the fact that it is indeed a Mennicke symbol can be seen in \cite{Fossum1980}.
+%	\subsubsection{warning}
+%	\begin{definition}
+%		Let $A$ be a ring.  A \textit{Mennicke $n$-symbol} is a map $\phi: \text{Um}_n(A, \mathfrak{a}) \to C$ (where $\text{Um}_n(A, \mathfrak{a})$ denotes the set of unimodular rows of length $n$ congruent to $e_1$ modulo an ideal $\mathfrak{a}$ and $C$ is an abelian group) satisfying certain properties (see the original paper for details).  A universal Mennicke $n$-symbol exists.
+%	\end{definition}
+%	
+%	\begin{definition}
+%		For a unimodular row $v = (a_1, \dots, a_n) \in \text{Um}_n(A)$, the \textit{Whitehead torsion} $\text{wt}(v) \in K_1(A)$ is defined using a Koszul complex and contraction (see Section 2 of the paper for the detailed construction).
+%	\end{definition}
+%	
+%	
+%	\begin{proposition}[Fossum, Foxby, Iversen]
+%		Let $A$ be a ring. The map $v \mapsto \text{wt}(v) \in K_1(A)$ is a Mennicke $n$-symbol.  If $n > d$ where $d = \dim A$, then $\text{wt}(v) \in SK_1(A)$ (the special K-group).
+%	\end{proposition}
+%	
+%	\begin{proposition}
+%		If $\alpha \in GL_n(A)$ and $v \in \text{Um}_n(A)$, then $\text{wt}(v\alpha) = \text{wt}(v) + (-1)^n [\alpha]$, where $[\alpha]$ denotes the class of $\alpha$ in $K_1(A)$.
+%	\end{proposition}
+%	
+%	
+%	
+%	\begin{theorem}
+%		Suppose that $F$ is a field and $m_1, \dots, m_n$ are natural numbers.  For $x_1, \dots, x_n$ as in Corollary 2.7 (related to the universal unimodular row), the unimodular row $\begin{pmatrix} x_1^{m_1} & \cdots & x_n^{m_n} \end{pmatrix}$ can be completed to an invertible matrix if and only if $\prod_{i=1}^n m_i$ is divisible by $(n-1)!$.
+%	\end{theorem}
+%	
+%	\begin{proof}
+%		The sufficiency of the condition is proved in [17]. Suppose that $\begin{pmatrix} x_1^{m_1} & \cdots & x_n^{m_n} \end{pmatrix}$ is the first row of an invertible matrix $Y$. Then $\text{wt}(x_1^{m_1}, \dots, x_n^{m_n}) = \prod_{i=1}^n m_i \text{wt}(x_1, \dots, x_n) = (-1)^n [\gamma]$ where $\gamma \in \text{SL}_n(F_n)$ and hence $[\gamma] = r \text{wt}(x_1, \dots, x_n)$.  The result follows.
+%	\end{proof}
+%	
+	
 	
 %	\section{Higher K theory}
 %	\subsection{Quillen + Construction}
@@ -1336,39 +2120,10 @@
 %	\subsection{Waldhausen construction}
 %	
 	
-	\begin{appendices}
+%	\begin{appendices}
 	
 	
-	\section{Vector bundles}
-	More detailed exposition can be found in \cite{milnor1974characteristic}. We define the basics as needed for Swam's theorem. We understand all maps as continuous functions.
-	\begin{definition}[Vector bundle]
-		A real $n$ dimensional vector bundle is a triple $(E,p, B)$. Which consists of a continuous map $p:E \to B$ from the total space $E$ to the base space $B$. Such that for all $b \in B$, $F_b=p^{-1}(b)$ the fibre of $b$ has a real/complex vector space structure. Along with the following property of local trivialization
-		\begin{enumerate}
-			 \item For any $b \in B$ there exists a open open $U \subset B$ along with a homeomorphism \[ h: U \times \R^n	\to p^{-1}(U) \] such that for all $c \in U$ the map through $h$ defines an isomorphism between $F_c$ and $\R^n$.
-		\end{enumerate}
-	\end{definition}
-	
-	A trivial vector bundle is one in which the total space $E=B \times \R^n$ with $p$ just the trivial projection mapping.
-	
-	
-	\begin{definition}[Vector bundle isomorphisms]
-		Two vector bundles $(E_1,p, B)$ and $(E_2,p_2, B) $ are considered isomorphic if there exists a homeomorphism between their total spaces $h$ such that the below diagram commutes
-		\[\begin{tikzcd}
-			{E_1} && {E_2} \\
-			& B
-			\arrow["{p_1}"', from=1-1, to=2-2]
-			\arrow["{p_2}", from=1-3, to=2-2]
-			\arrow["h", from=1-1, to=1-3]
-		\end{tikzcd}\]
-		
-		and also if $h$ induces a vector space isomorphism for each fibre.
-	\end{definition}
-	
-	\begin{definition}[Sections of a vector bundle]
-		For a topological vector bundle $(E,p,B)$ a section refers to a map	$s: B \to E$ such that $p \circ s= 1_B$ where $1_B$ denotes the identity map on $B$.
-		
-		These sections equivalently are a homomorphism of vector bundles from the trivial line bundle $(B \times \R, \pi_B, B) \to (E,p,B)$
-	\end{definition}
+
 %	
 %	\begin{definition}[Pullbacks of bundles]
 %		content...
@@ -1410,8 +2165,8 @@
 %		A sequence of based CW-complexes $\{E_n\}_{n \in \mathbb{Z}}$ with structure maps $\sum E_n \to E_{n+1}$
 %	\end{definition}
 %	The suggestive notation is pointing in the direction of the canonical spectrum known as the suspension spectrum when the structure maps are indeed suspensions.
-	\end{appendices}
-	\appendix
+%	\end{appendices}
+%	\appendix
 
 	
 	
