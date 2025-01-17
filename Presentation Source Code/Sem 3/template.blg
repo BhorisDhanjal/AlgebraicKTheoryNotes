@@ -1,0 +1,127 @@
+This is BibTeX, Version 0.99d (TeX Live 2023)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: template.aux
+The style file: unsrt.bst
+Database file #1: references.bib
+You're missing a field name---line 3 of file references.bib
+ : 
+ : % title={Commutative Algebra: with a View Toward Algebraic Geometry},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 25 of file references.bib
+ : 
+ : % address = {Oxford, England},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 41 of file references.bib
+ : 
+ : % author = {{nLab authors}},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 89 of file references.bib
+ : 
+ : % title={Enriched categories as a free cocompletion},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 111 of file references.bib
+ : 
+ : % title={Categories for the Working Mathematician},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 133 of file references.bib
+ : 
+ : % title = {Vector bundles and projective modules},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 181 of file references.bib
+ : 
+ : % author       = {The {Stacks project authors}},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 197 of file references.bib
+ : 
+ : % title={Characteristic Classes},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 219 of file references.bib
+ : 
+ : % title={Stable Homotopy and Generalised Homology},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 263 of file references.bib
+ : 
+ : % title={Sur quelques points d'alg{\`e}bre homologique},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 287 of file references.bib
+ : 
+ : % title={Category Theory in Context},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 327 of file references.bib
+ : 
+ : % title={Calculus of Fractions and Homotopy Theory},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 349 of file references.bib
+ : 
+ : % title={Abelian Categories: An Introduction to the Theory of Functors},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 369 of file references.bib
+ : 
+ : % TITLE = {Freyd-Mitchell's embedding theorem},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 387 of file references.bib
+ : 
+ : % title={K-Theory: An Introduction},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 563 of file references.bib
+ : 
+ : % author = {Fossum, Robert M.},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You've used 10 entries,
+            1791 wiz_defined-function locations,
+            506 strings with 4588 characters,
+and the built_in function-call counts, 1912 in all, are:
+= -- 189
+> -- 48
+< -- 1
++ -- 22
+- -- 12
+* -- 83
+:= -- 308
+add.period$ -- 37
+call.type$ -- 10
+change.case$ -- 3
+chr.to.int$ -- 0
+cite$ -- 10
+duplicate$ -- 109
+empty$ -- 215
+format.name$ -- 12
+if$ -- 454
+int.to.chr$ -- 0
+int.to.str$ -- 10
+missing$ -- 17
+newline$ -- 53
+num.names$ -- 12
+pop$ -- 43
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 34
+stack$ -- 0
+substring$ -- 66
+swap$ -- 19
+text.length$ -- 1
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 0
+while$ -- 17
+width$ -- 12
+write$ -- 114
+(There were 16 error messages)

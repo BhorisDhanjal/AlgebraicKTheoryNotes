@@ -1,0 +1,6 @@
+\beamer@sectionintoc {1}{Projective modules}{3}{0}{1}
+\beamer@sectionintoc {2}{$K_0$ of a ring}{8}{0}{2}
+\beamer@sectionintoc {3}{Quillen-Suslin}{26}{0}{3}
+\beamer@sectionintoc {4}{$K_1$ of a ring}{36}{0}{4}
+\beamer@sectionintoc {5}{Results on linear groups}{41}{0}{5}
+\beamer@sectionintoc {6}{References}{47}{0}{6}
