@@ -3454,7 +3454,7 @@ TODO NEW
 
 	\begin{definition}[Geometric realization of a standard $n$-simplical set]
 		We define a functor $|.|:\mathbf{sSet} \to \mathbf{Top}$ as such. Send each standard $n$ simplex $\Delta[n]$ to the standard $n$-toplogical simplex. In particular,
-		\[ |\Delta[n]|=\{ (x_0,\dots,x_{n+1} | 0 \leq x_i \leq 1, \sum_i x_i=1 \} \subset \R^{n+1} \].
+		\[ |\Delta[n]|=\{ (x_0,\dots,x_{n+1}) | 0 \leq x_i \leq 1, \sum x_i=1 \} \subset \R^{n+1}. \]
 	\end{definition}
 	
 		Since we defined simplicial sets as presheaves of the simplex category we have a lot of nice properties thanks to the well behavedness of presheaves, such as being complete and cocomplete. More than this however, one of the most useful results we can borrow is the below result often called the density theorem or the co-Yoneda lemma. Which essentially says any presheaf is a colimit of presentable presheaves.
@@ -3490,17 +3490,17 @@ TODO NEW
 %			\end{example}
 	
 	\begin{definition}[Category of elements]
-		Let $\mathcal{C}$ be a category and $F\in \mathbf{Sets}^{\mathcal{C}^{\mathrm{op}}}$ the category of elements of $F$ is denoted as $\int_{C} F $ and is defined as such.
+		Let $\mathcal{C}$ be a category and $F\in \mathbf{Sets}^{\mathcal{C}^{\mathrm{op}}}$ the category of elements of $F$ is denoted as $\int^{\mathcal{C}} F $ and is defined as such.
 		
 		Objects are pairs $(A,a)$ for $A$ an object of $\mathcal{C}$ and $a \in FA$.
 		
 		Morphisms between $(A,a) \to (B,b)$ is a morphism $f:A\to B$ in $\mathcal{C}$ under which $Ffb=a$.
 	\end{definition}
-	The notation is suggestive of the fact that this is simply an end.
+	The notation is suggestive of the fact that this is a coend.
 	
-	The category of elements for a given simplicial set is confusingly called the category of simplicies.
+	The category of elements for a given simplicial set is called the category of simplicies.
 	\begin{example}[Category of simplicies]
-		Applying the above construction with $\mathcal{C}=\Delta, F=X \in \mathbf{sSets}$ we have. The objects in $\int_\Delta X$ are simplicies $x \in X_n$ and morphisms $x\in X_n \to y\in X_m$ is a map in $\Delta$, $f:[n]\to [m] $ such that $yf=x.$
+		Applying the above construction with $\mathcal{C}=\Delta, F=X \in \mathbf{sSets}$ we have. The objects in $\int^\Delta X$ are simplicies $x \in X_n$ and morphisms $x\in X_n \to y\in X_m$ is a map in $\Delta$, $f:[n]\to [m] $ such that $yf=x.$
 	\end{example}
 	
 	\begin{theorem}[Density theorem]
@@ -3927,11 +3927,15 @@ TODO NEW
 		Given a functor $X: I \to \mathbf{Set}$ from a small category $I$, its translation category $E_I X$ has objects $(i, x)$ for $i \in \mathrm{Ob}(I), x \in X(i)$, and morphisms $\alpha: (i, x) \to (j, y)$ given by morphisms $\alpha: i \to j$ in $I$ such that $X(\alpha)(x) = y$.
 	\end{definition}
 	
-	\begin{definition}[Homotopy Colimit]\index{Homotopy colimit}
+	\begin{definition}[Homotopy Colimit]\index{Homotopy colimit}\label{def:homotopycolimit}
 		Let $I$ be a small category and $X: I \to \mathbf{sSet}$ be an $I$-diagram. The homotopy colimit of $X$, denoted $\mathrm{hocolim}_{I} X$, is defined as the diagonal of the bisimplicial set $n \mapsto B(E_I(X_n))$, where $B(-)$ denotes the nerve:
 		\[ \mathrm{hocolim}_{I} X := d( n \mapsto B(E_I(X_n)) ). \]
 		Its $k$-simplices are $(\mathrm{hocolim}_{I} X)_k = \coprod_{i_0 \to \dots \to i_k \text{ in } I} X_k(i_0)$.
 	\end{definition}
+	
+	\begin{proposition}
+		A simplicial set is a homotopy colimit of its representative standard simplicial sets.
+	\end{proposition}
 	
 	\begin{definition}[Classifying space $BI$]
 		The classifying space (nerve) of $I$, $BI$, is the homotopy colimit of the constant diagram $*$: $BI := \mathrm{hocolim}_{I} *$.
@@ -4330,7 +4334,7 @@ TODO NEW
 				\arrow["p", two heads, from=1-2, to=2-2]
 				\arrow["i", tail, from=2-1, to=2-2]
 			\end{tikzcd}\]
-			Then \( e(p)+m(i)=e(p)+0=e(p)=[ker p]=[ker p']=e(p')=e(p')+m(i') \).
+			Then \( e(p)+m(i)=e(p)+0=e(p)=[\ker p]=[\ker p']=e(p')=e(p')+m(i') \).
 			
 			The key point to note is that the kernels of \( p \) and \( p' \) are isomorphic since they are parallel morphisms in a pullback square \footnote{Note that this is basically due to the fact that limits commute. We can think of the kernel of \( p' \) as \( P\times_B 0 \) and that of \( p \) as \( A \times_C 0 \). The notion of commuting limits is basically that \( \ker p' \cong P\times_B 0 =(A \times_C B) \times_B 0 \cong A \times_C (B \times_B 0) \cong A \times_C 0 \cong \ker p\).}.
 			
@@ -4388,7 +4392,7 @@ TODO NEW
 	We end with two theorems without proof. These are Quillens A and B theorem. Quillens A theorem follows from the B theorem. A full proof may be seen in \cite{quillenhigherktheoryI} or in \cite{Goerss_Jardine_2009}.	
 
 	
-	These theorems relate the homotopy theoretic properties of classifying spaces (nerves) of categories connected by a functor, based on the properties of the functor's "homotopy fibers".
+	These theorems relate the homotopy theoretic properties of classifying spaces (nerves) of categories connected by a functor, based on the properties of the functor's homotopy fibers .
 
 	
 	For a functor $f: \mathcal{C} \to \mathcal{D}$ and an object $d \in \mathrm{Ob}(\mathcal{D})$, recall the slice category $\mathcal{D}/d$ (objects of $\mathcal{D}$ over $d$). We also define the category $f/d$ (sometimes written $f \downarrow d$), whose objects are pairs $(c, \alpha: f(c) \to d)$ where $c \in \mathrm{Ob}(\mathcal{C})$ and $\alpha$ is a morphism in $\mathcal{D}$. A morphism from $(c, \alpha)$ to $(c', \alpha')$ is a morphism $\gamma: c \to c'$ in $\mathcal{C}$ such that $\alpha' \circ f(\gamma) = \alpha$. There is a canonical projection functor $f/d \to \mathcal{C}$ given by $(c, \alpha) \mapsto c$, and another functor $f/d \to \mathcal{D}/d$ given by $(c, \alpha) \mapsto (\alpha: f(c) \to d)$.
@@ -4407,7 +4411,7 @@ TODO NEW
 		(where the horizontal maps are induced by the projections $(c, \alpha) \mapsto c$ and $(\beta: x \to d) \mapsto x$, and the vertical maps are induced by $(c, \alpha) \mapsto (\alpha: f(c) \to d)$ and the functor $\mathcal{D}/d \to \mathcal{D}$) is homotopy Cartesian.
 	\end{theorem}
 	
-	Theorem B relates the "homotopy fiber" $B(f/d)$ over a point $d$ (represented by $B(\mathcal{D}/d)$ which is contractible) to the map $B(f)$. Theorem A is a direct consequence when the homotopy fibers are contractible.
+	Theorem B relates the ``homotopy fiber" $B(f/d)$ over a point $d$ (represented by $B(\mathcal{D}/d)$ which is contractible) to the map $B(f)$. Theorem A is a direct consequence when the homotopy fibers are contractible.
 	
 	\begin{theorem}[Quillen's Theorem A]
 		\label{thm:quillen_A}
@@ -4427,28 +4431,51 @@ TODO NEW
 	Recall the notion of a arrow category (Definition \ref{def:arrowcat}).
 	
 	\begin{example}[Arrow Category of an Ordinal]
-		Let $n = \{0 \leq 1 \leq \dots \leq n\}$ be the poset category corresponding to the ordinal number $n$. A morphism $i \to j$ exists in $n$ if and only if $i \leq j$. The objects of $\mathrm{Arr}(n)$ can be identified with pairs $(i, j)$ such that $i \leq j$ in $n$. A morphism from $(i, j)$ to $(k, l)$ in $\mathrm{Arr}(n)$ exists if and only if $i \leq k$ and $j \leq l$. This corresponds to a commutative square since composition in a poset is uniquely determined.
+		Let $\mathbf{n} = \{0 \leq 1 \leq \dots \leq n\}$ be the category corresponding to the ordinal number $n$. A morphism $i \to j$ exists in $\mathbf{n}$ if and only if $i \leq j$. The objects of $\mathrm{Arr}(\mathbf{n})$ can be identified with pairs $(i, j)$ such that $i \leq j$ in $\mathbf{n}$. A morphism from $(i, j)$ to $(k, l)$ in $\mathrm{Arr}(\mathbf{n})$ exists if and only if $i \leq k$ and $j \leq l$. This corresponds to a commutative square since composition in a poset is uniquely determined.
 	\end{example}
 	
 	Now we define a simplicial set using functors from these arrow categories into an exact category.
 	
 	\begin{definition}[Waldhausen \( s_\bullet \)-construction]\index{Waldhausen \( s_\bullet \) construction}
-		Let $\mathcal{E}$ be an exact category with its distinguished class of exact sequences $E$. For each integer $n \geq 0$, let $\mathrm{Arr}(n)$ be the arrow category of the ordinal $n$.
+		Let $\mathcal{E}$ be an exact category with its distinguished class of exact sequences $E$. For each integer $n \geq 0$, let $\mathrm{Arr}(\mathbf{n})$ be the arrow category of the ordinal $n$.
 		Define $s_n(\mathcal{E})$ to be the set of all functors
 		\[ P: \mathrm{Arr}(n) \to \mathcal{E} \]
 		such that the following conditions hold:
 		\begin{enumerate}
 			\item $P(i, i) \cong 0$ for all $0 \leq i \leq n$.
-			\item For any sequence $i \leq j \leq k$ in $n$, the sequence induced by the morphisms $(i,j) \to (i,k)$ and $(i,k) \to (j,k)$ in $\mathrm{Arr}(n)$, namely
+			\item For any sequence $i \leq j \leq k$ in $n$, the sequence induced by the morphisms $(i,j) \to (i,k)$ and $(i,k) \to (j,k)$ in $\mathrm{Arr}(\mathbf{n})$, namely
 			\[ 0 \to P(i, j) \rightarrowtail P(i, k) \twoheadrightarrow P(j, k) \to 0 \]
 			is an exact sequence in $E$.
 		\end{enumerate}
 		A functor $P$ satisfying these conditions is called an exact functor in this context.
 		
-		These sets form a simplicial set $s_\bullet(\mathcal{M})$ whose $n$-simplices are the elements of $s_n(\mathcal{M})$. The simplicial structure maps are defined by precomposition. Specifically, if $f: [m] \to [n]$ is a morphism in $\Delta$, it induces a functor $f^*: \mathrm{Arr}(m) \to \mathrm{Arr}(n)$ by sending $(i, j)$ to $(f(i), f(j))$. The corresponding map $s_n(\mathcal{M}) \to s_m(\mathcal{M})$ sends a functor $P \in s_n(\mathcal{M})$ to the composite functor $P \circ f^*: \mathrm{Arr}(m) \to \mathcal{M}$. (This composite functor $P \circ f^*$ is also exact).
+		These sets form a simplicial set $s_\bullet(\mathcal{E})$ whose $n$-simplices are the elements of $s_n(\mathcal{E})$.
 	\end{definition}
 	
-	This simplicial set $s_\bullet(\mathcal{M})$ is the Waldhausen \( s_\bullet \)-construction for the exact category $\mathcal{E}$.
+	This simplicial set $s_\bullet(\mathcal{E})$ is the Waldhausen \( s_\bullet \)-construction for the exact category $\mathcal{E}$.
+	
+	\begin{example}
+		The following is a picture of exact \( P:\mathrm{Arr}(\mathbf{3}) \to \mathcal{E} \). Note that all the squares are pullback+pushout diagrams (bicartesian) since two parallel admissible epis share kernels.
+			\[\begin{tikzcd}[cramped]
+				&&& {P(0,3)} \\
+				&& {P(0,2)} && {P(1,3)} \\
+				& {P(0,1)} && {P(1,2)} && {P(2,3)} \\
+				0 && 0 && 0 && 0
+				\arrow[two heads, from=1-4, to=2-5]
+				\arrow[tail, from=2-3, to=1-4]
+				\arrow[two heads, from=2-3, to=3-4]
+				\arrow[two heads, from=2-5, to=3-6]
+				\arrow[tail, from=3-2, to=2-3]
+				\arrow[two heads, from=3-2, to=4-3]
+				\arrow[tail, from=3-4, to=2-5]
+				\arrow[two heads, from=3-4, to=4-5]
+				\arrow[two heads, from=3-6, to=4-7]
+				\arrow[tail, from=4-1, to=3-2]
+				\arrow[tail, from=4-3, to=3-4]
+				\arrow[tail, from=4-5, to=3-6]
+			\end{tikzcd}\]
+	\end{example}
+	To recover the more familar definition of the Waldhausen construction note that the above diagram is generated by the string of monics \[0\rightarrowtail P(0,1)\rightarrowtail P(0,2) \rightarrowtail P(0,3) \] by attaching all cokernels.
 	
 	Recall the definition of a simplicial homotopy (Definition \ref{def:simplicialhomotopy}) 
 	
@@ -4456,12 +4483,115 @@ TODO NEW
 		Let \( \mathcal{C, D} \) be two exact categories if there exist naturally isomorphic exact functors \( F,G: \mathcal{C} \to \mathcal{D} \) then the induced maps \( F_*,G_*: s_\bullet(\mathcal{C}) \to s_\bullet(\mathcal{D})\) are homotopic.
 	\end{lemma}
 	\begin{proof}
-		We wish to find a simplicial map \( H: s_\bullet(\mathcal{C}) \times \Delta[1] \to s_\bullet(\mathcal{D})\) which is a simplicial homotopy. Such a map \( H \) consists of a sequence of functions \( H_t: s_n(\mathcal{C}) \to s_n(\mathcal{D}) \) for each \( t: n \to 1 \) resulting in the following diagram commuting.
+		Let \( h \) denote the natural isomorphism \( F(C)=h(C,0)\cong h(C,1)=G(C) \).
+		
+		We wish to find a simplicial map \( H: s_\bullet(\mathcal{C}) \times \Delta[1] \to s_\bullet(\mathcal{D})\) which is a simplicial homotopy. Such a map \( H \) consists of a sequence of functions \( H_t: s_n(\mathcal{C}) \to s_n(\mathcal{D}) \) for each \( t: \mathbf{n} \to \mathbf{1} \) resulting in the following diagrams commuting.
+		\[\begin{tikzcd}
+			\mathbf{n} && {s_n(\mathcal{C})} & {s_n(\mathcal{D})} \\
+			\mathbf{m} && {s_m(\mathcal{C})} & {s_m(\mathcal{D})}
+			\arrow["{H_t}", from=1-3, to=1-4]
+			\arrow["{f^*}"', from=1-3, to=2-3]
+			\arrow["{f^*}", from=1-4, to=2-4]
+			\arrow["f", from=2-1, to=1-1]
+			\arrow["{H_{tf}}"', from=2-3, to=2-4]
+		\end{tikzcd}\]
+		
+		Let \( s:\mathrm{Arr}(\mathbf{1})  \to \mathbf{1} \) denote the map \( (i,j)\mapsto i \) i.e., the source map.
+		
+		Let \( P:\mathrm{Arr}(\mathbf{n}) \to \mathcal{C} \) be exact consider \( H_t(P) \) as the composite map, \[ \mathrm{Arr}(\mathbf{n}) \xrightarrow{(P,t_*)} \mathcal{C} \times \mathrm{Arr}(\mathbf{1}) \xrightarrow{(1_\mathcal{C},s)} \mathcal{C}\times \mathbf{1} \xrightarrow{h} \mathcal{D}.\]
 	\end{proof}
 	
-	\begin{definition}[Ex]
-		content
+	\section{Segal edgewise subdivision}
+	
+	We now wish to draw a parallel between the Waldhausen \( s_\bullet \) construction and Quillen's Q construction. This requires the notion of edgewise subdivision of a simplicial set. First recall the notion of the join of a poset.
+	\begin{definition}[Join of elements in a poset]
+		For two elements in a poset their join is just their coproduct.
 	\end{definition}
+	\begin{example}
+		When \( \mathbf{n} \) is a ordinal number consider \( \mathbf{n}^\mathrm{op} \) then \( \mathbf{n}^\mathrm{op} \vee \mathbf{n} \cong \mathbf{2n+1} \). This can be seen in the following diagram.
+		\[\begin{tikzcd}
+			0 & 1 & 2 & \cdots & n \\
+			0 & 1 & 2 & \dots & n
+			\arrow[from=1-1, to=1-2]
+			\arrow[from=1-2, to=1-3]
+			\arrow[from=1-3, to=1-4]
+			\arrow[from=1-4, to=1-5]
+			\arrow[from=2-1, to=1-1]
+			\arrow[from=2-2, to=2-1]
+			\arrow[from=2-3, to=2-2]
+			\arrow[from=2-4, to=2-3]
+			\arrow[from=2-5, to=2-4]
+		\end{tikzcd}\]
+	\end{example}
+	This defines a functor \( e:\Delta \to \Delta \), as \( e(\mathbf{n}) = \mathbf{n}^\mathrm{op} \vee \mathbf{n} .\)
+	
+	\begin{definition}[Segal's edgewise subdivision of a simplicial set]
+		For \( X \in \mathbf{sSets} \) consider the functor \( X^e=Xe^{\mathrm{op}} \), i.e. \[ X_n^e=X(\mathbf{n}^\mathrm{op} \vee \mathbf{n}) \].
+		The face and degeneracy maps are defined as such,
+		\begin{align*}
+			d^e_i&=d_{n-i} d_{n+1+i}:X_{\mathbf{2n+1}} \to X_{\mathbf{2n-1}}\\
+			s^e_j&=s_{n-j} s_{n+1+j}:X_{\mathbf{2n+1}} \to X_{\mathbf{2n+3}}	
+		\end{align*}
+		
+	\end{definition}
+	
+	\begin{example}
+		Consider \( \Delta[2] \) the standard \( 2\)-simplex.
+		
+		\( \Delta[2]_0^e=\Delta[2]_1=\{(0\to0), (0\to1), (0 \to 2), (1 \to 1), (1 \to 2), (2 \to 2)\} \)
+		\( \Delta[2]_1^e=\Delta[2]_3=\{ (0 \to 0 \to 0 \to 0), (0 \to 0 \to 0 \to 1), (0 \to 0 \to 0 \to 2), (0 \to 0 \to 1 \to 1), (0 \to 0 \to 1 \to 2), (0 \to 0 \to 2 \to 2), (0 \to 1 \to 1 \to 1), (0 \to 1 \to 1 \to 2), (0 \to 1 \to 2 \to 2), (0 \to 2 \to 2 \to 2), (1 \to 1 \to 1 \to 1), (1 \to 1 \to 1 \to 2), (1 \to 1 \to 2 \to 2), (1 \to 2 \to 2 \to 2), (2 \to 2 \to 2 \to 2) \} \)
+		
+		With an appropriate abuse of notation we see a much clearer picture of the subdivision \( \Delta[2]^e \)as such. Each chain \( (f_1,f_2,f_3,f_4) \) corresponds to \( (f_2,f_3) \to (f_1,f_4) \)
+	\[\begin{tikzcd}
+		&& {(1,1)} \\
+		& {(0,1)} && {(1,2)} \\
+		{(0,0)} && {(0,2)} && {(2,2)}
+		\arrow[from=1-3, to=2-2]
+		\arrow[from=1-3, to=2-4]
+		\arrow[from=1-3, to=3-3]
+		\arrow[from=2-2, to=3-3]
+		\arrow[from=2-4, to=3-3]
+		\arrow[from=3-1, to=2-2]
+		\arrow[from=3-1, to=3-3]
+		\arrow[from=3-5, to=2-4]
+		\arrow[from=3-5, to=3-3]
+	\end{tikzcd}\]
+	\end{example}
+	
+	
+	With this intuitive picture in mind the next theorem should come as no surprise. Recall the notion of a homotopy colimit (Definition \ref{def:homotopycolimit}).
+	\begin{theorem}[A simplicial set is weakly equivalent to its Segal subdivision]
+		The natural map \( \omega:X^e \to X \) is a weak equivalence.
+	\end{theorem}
+	\begin{proof}
+		Any simplicial set is weakly equivalent to the homotopy colimit of standard simplices indexed by its category of simplices.
+		This gives us the maps in the commutative diagram
+		\[
+		\begin{tikzcd}
+			\mathrm{holim}_{x\in X^e_n} \Delta^e[n] \arrow{r}{\sim} \arrow{d}{\omega_*} & X^e \arrow{d}{\omega} \\
+			\mathrm{holim}_{x \in X_n} \Delta[n] \arrow{r}{\sim} & X
+		\end{tikzcd}
+		\]
+		
+		By 2-out-of-3 property if we show \( \omega_* \) is a weak equivalence we are done. 
+		
+		The homotopy colimit functor preserves weak equivalences. Thus, \( \omega_* \) is a weak equivalence if each map \( \omega_n: \Delta[n]^e \to \Delta[n] \) is a weak equivalence for all \( n \ge 0 \).
+		
+		We show that \( \omega_n \) is a weak equivalence by demonstrating that both its domain and codomain are contractible.
+		The standard \(n\)-simplex, \( \Delta[n] \), is contractible.
+		The simplicial set \( \Delta[n]^e \) is the nerve of a poset \( P_n \). The objects of \( P_n \) are pairs \( (i,j) \) such that \( 0 \le i \le j \le n \). A morphism \( (a,b) \le_{P_n} (c,d) \) exists if and only if \( c \le a \) and \( b \le d \).
+		In this poset \( P_n \), the object \( (0,n) \) is a terminal object: for any object \( (i,j) \in P_n \), we have \( 0 \le i \) and \( j \le n \), ensuring a unique morphism \( (i,j) \to (0,n) \). The nerve of a poset with a terminal object is contractible. Therefore, \( \Delta[n]^e = B(P_n) \) is contractible for all \( n \ge 0 \).
+	\end{proof}
+	
+	\section{\( s_\bullet(\mathcal{E}) \cong BQ \mathcal{E} \)}
+	In this section we prove that the Waldhausen construction is weakly equivalent to Quillen's \( Q \)-construction. The goal with introducing the notion of edgewise subdivision will now become clear.
+	
+	We begin by defining a functor
+	
+	\begin{definition}[Simplicial exact category]
+		Define \( S_\bullet(\mathcal{E}) \) as a category whose objects are exact functors \( P:\mathrm{Arr} (\mathbf{n}) \to \mathcal{E}\) as previously defined. The morphisms in the category are natural transformations between functors.
+	\end{definition}
+	
 	\section{Additivity theorem}
 	\begin{theorem}[Additivity theorem]
 		The simplicial set map \( (t,s) : s_\bullet \mathrm{Ex}(\mathcal{E}) \to s_\bullet \mathcal{ E}  \times s_\bullet \mathcal{E}\) is a weak equivalence.
