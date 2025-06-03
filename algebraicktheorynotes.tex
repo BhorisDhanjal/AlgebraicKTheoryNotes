@@ -3300,7 +3300,7 @@ I am also thankful to my family and friends for their unwavering support and enc
 	
 	Note that this is weaker than requiring two model categories to be actually equivalent.
 	
-	\begin{definition}[Quillen adjunction]
+	\begin{definition}[Quillen adjunction]\index{Quillen adjunction}
 		A adjoint pair between two model categories \( L:\mathcal{C} \rightleftarrows \mathcal{D}: R \) such that any of the following equivalent conditions hold,
 		\begin{enumerate}
 			\item \( L \) preserves cofibrations and acyclic cofibrations.
@@ -4357,7 +4357,7 @@ I am also thankful to my family and friends for their unwavering support and enc
 		
 		are equivalent if the displayed isomorphism exists, making the diagram commute.
 		
-		The category \( Q\mathcal{E} \) has for objects all objects of \( \mathcal{E} \). The morphisms \( A \to B \) are the equivalence classes of the pictures above. Composition is defined by pullback:
+		The category \( Q\mathcal{E} \)\index{Q-construction} has for objects all objects of \( \mathcal{E} \). The morphisms \( A \to B \) are the equivalence classes of the pictures above. Composition is defined by pullback:
 		
 	\[\begin{tikzcd}
 		&& {Q\times_MP} \\
@@ -4603,7 +4603,7 @@ I am also thankful to my family and friends for their unwavering support and enc
 		(where the horizontal maps are induced by the projections $(c, \alpha) \mapsto c$ and $(\beta: x \to d) \mapsto x$, and the vertical maps are induced by $(c, \alpha) \mapsto (\alpha: f(c) \to d)$ and the functor $\mathcal{D}/d \to \mathcal{D}$) is homotopy Cartesian.
 	\end{theorem}
 	
-	Theorem B relates the ``homotopy fiber" $B(f/d)$ over a point $d$ (represented by $B(\mathcal{D}/d)$ which is contractible) to the map $B(f)$. Theorem A is a direct consequence when the homotopy fibers are contractible.
+	Theorem B relates the homotopy fiber $B(f/d)$ over a point $d$ (represented by $B(\mathcal{D}/d)$ which is contractible) to the map $B(f)$. Theorem A is a direct consequence when the homotopy fibers are contractible.
 	
 	\begin{theorem}[Quillen's Theorem A]
 		\label{thm:quillen_A}
@@ -4611,6 +4611,9 @@ I am also thankful to my family and friends for their unwavering support and enc
 		\[ B(f): B\mathcal{C} \xrightarrow{\sim} B\mathcal{D} \]
 		is a weak equivalence.
 	\end{theorem}
+	
+	
+	
 	
 	
 	\chapter{Waldhausen \( s_\bullet \) construction}
@@ -4925,96 +4928,177 @@ I am also thankful to my family and friends for their unwavering support and enc
 	\end{proof}
 	
 	\section{Additivity theorem}
-	The additivty theorem is the most critical theorem of \( K \)-theory it is used in proving all of the ``Fundamental'' theorems of \( K \)-theory like Resolution and D\'evissage.
+	The additivity theorem is the most critical theorem of \( K \)-theory it is used in proving all of the ``Fundamental'' theorems of \( K \)-theory like Resolution and D\'evissage.
 	
-	In the below theorems note that \( \mathrm{Ex}(\mathcal{E}) \) refers to the exact category of exact sequence in \( \mathcal{E} \) with natural maps between them. Note this is not the same as the Kan \( \mathrm{Ex} \) functor.
+	Note that in the below results \( \mathrm{Ex}(\mathcal{E}) \) refers to the exact category of exact sequences in \( \mathcal{E} \) with natural maps between them. This is not the same as the Kan \( \mathrm{Ex} \) functor.
 	
-	\begin{theorem}[Additivity theorem]
-		The simplicial set map \( (t,s) : s_\bullet \mathrm{Ex}(\mathcal{E}) \to s_\bullet \mathcal{ E}  \times s_\bullet \mathcal{E}\) is a weak equivalence.
-	\end{theorem}
-	
-	\begin{lemma}\label{lem:foradditivity}
-		The functor $\mathcal{F}: \Delta/s_\bullet\mathcal{E} \to \mathrm{sSet}$ defined by $(P: \Delta^n \to s_\bullet\mathcal{E}) \mapsto s_*^{-1}(P)$ (the homotopy fiber of $s_*: s_\bullet\mathrm{Ex}(\mathcal{E}) \to s_\bullet\mathcal{E}$ over $P$) is a diagram of weak equivalences in simplicial sets.
-	\end{lemma}
-	\begin{proof}
-		It is enough to show that the composite map
-		\[ s_*^{-1}(P) \to s_\bullet\mathrm{Ex}(\mathcal{E}) \xrightarrow{t_*} s_\bullet\mathcal{E} \]
-		is a weak equivalence for each simplex $P: \Delta^n \to s_\bullet\mathcal{E}$.
-		Consider the composite map $\psi : s_*^{-1}(P) \to s_*^{-1}(P)$ defined by the sequence of maps:
-		\[ s_*^{-1}(P) \xrightarrow{\text{incl}} s_\bullet\mathrm{Ex}(\mathcal{E}) \xrightarrow{t_*} s_\bullet\mathcal{E} \xrightarrow{g_*} s_*^{-1}(0_*) \xrightarrow{(n_P)_*} s_*^{-1}(P). \]
-		Here $0_*$ represents the constant simplex to the zero object of $\mathcal{E}$. The map $g_*$ sends a simplex $Q \in s_\bullet\mathcal{E}$ to the simplex in $s_\bullet\mathrm{Ex}(\mathcal{E})$ representing $0 \to 0 \to Q \xrightarrow{\mathrm{id}} Q \to 0$, which lies in $s_*^{-1}(0_*)$ (as $s(g_*(Q))=0_*$). The map $(n_P)_*$ is induced by the map from the basepoint $0_*$ to $P$ in $s_\bullet\mathcal{E}$.
-		The composite $s_*^{-1}(0_*) \xrightarrow{(n_P)_*} s_*^{-1}(P) \xrightarrow{\text{incl}} s_\bullet\mathrm{Ex}(\mathcal{E}) \xrightarrow{t_*} s_\bullet\mathcal{E}$ is the map $f_0 : s_*^{-1}(0_*) \to s_\bullet\mathcal{E}$. This $f_0$ is a weak equivalence because $t: \mathrm{Ex}_0(\mathcal{E}) \to \mathcal{E}$ (where $\mathrm{Ex}_0(\mathcal{E})$ consists of sequences $0 \to 0 \to A \xrightarrow{\cong} B \to 0$) is an exact equivalence.
-		
-		We define a homotopy $H : s_*^{-1}(P) \times \Delta^1 \to s_*^{-1}(P)$ from the identity map $\mathrm{id}_{s_*^{-1}(P)}$ to $\psi$.
-		An $m$-simplex of $s_*^{-1}(P)$ is a pair $(\theta: \mathbf{m} \to \mathbf{n}, E)$, where $E$ is an exact sequence $0 \to X \to Y \to \theta^*P \to 0$ in $S_m\mathcal{E}$ (so $s_*(E) = \theta^*P$).
-		Let $h: \Delta^n \times \Delta^1 \to \Delta^n$ be a homotopy contracting $\Delta^n$ to its terminal vertex, say $\underline{n}_{\text{vtx}}$.
-		For $\tau: \mathbf{m} \to \mathbf{1}$ and $\theta: \mathbf{m} \to \mathbf{n}$, let $h_\tau(\theta)$ be the composite $\mathbf{m} \xrightarrow{(\theta,\tau)} \mathbf{n} \times \mathbf{1} \xrightarrow{h|_{\mathbf{n} \times \mathbf{1}}} \mathbf{n}$.
-		The $m$-simplex $H_\tau(\theta, E)$ is $(h_\tau(\theta), E_\tau)$, where $E_\tau$ is the exact sequence $0 \to (h_\tau(\theta))^*P \to Y_\tau \to s_*(E) \to 0$.
-		The middle term $Y_\tau$ and the map $(h_\tau(\theta))^*P \to Y_\tau$ are obtained from a pushout diagram in $S_m\mathcal{E}$:
-		\[
-		\begin{tikzcd}
-			\theta^*P \arrow[r] \arrow[d] & Y \arrow[d] \\
-			(h_\tau(\theta))^*P \arrow[r] & Y_\tau
-		\end{tikzcd}
-		\]
-		where $\theta^*P \to (h_\tau(\theta))^*P$ is induced by the natural transformation $\theta \to h_\tau(\theta)$.
-		If $\tau$ corresponds to $0 \in \Delta^1$, $h_0(\theta) = \theta$, so $H_0 = \mathrm{id}$.
-		If $\tau$ corresponds to $1 \in \Delta^1$, $h_1(\theta)$ is the constant map $\underline{n}_{\text{map}}: \mathbf{m} \to \underline{n}_{\text{vtx}}$. Then $(h_1(\theta))^*P \cong 0$ (assuming $P$ is normalized or $P(\underline{n}_{\text{vtx}},\underline{n}_{\text{vtx}}) \cong 0$). The pushout yields $Y_1 \cong s_*(E)$, so $E_1$ is $0 \to 0 \to s_*(E) \xrightarrow{\mathrm{id}} s_*(E) \to 0$.
-		This $H_1$ corresponds to $\psi$.
-		Thus, $\psi$ is homotopic to the identity. This implies that $s_*^{-1}(P) \to s_\bullet\mathrm{Ex}(\mathcal{E}) \xrightarrow{t_*} s_\bullet\mathcal{E}$ is a homotopy equivalence, hence a weak equivalence.
-	\end{proof}
-	
-	\begin{theorem}[Additivity Theorem, Theorem 6.1]
-		The simplicial set map
-		\[ (t,s) : s_\bullet\mathrm{Ex}(\mathcal{E}) \to s_\bullet\mathcal{E} \times s_\bullet\mathcal{E} \]
-		is a weak equivalence.
-	\end{theorem}
-	\begin{proof}
-		Consider the square:
-		\[
-		\begin{tikzcd}
-			s_\bullet\mathcal{E} \arrow[r, "c_*"] \arrow[d, "\text{incl}_*" swap] & s_\bullet\mathrm{Ex}(\mathcal{E}) \arrow[d, "s_*"] \\
-			\ast \arrow[r, "0_*"] & s_\bullet\mathcal{E}
-		\end{tikzcd}
-		\quad (3)
-		\]
-		where $c: \mathcal{E} \to \mathrm{Ex}(\mathcal{E})$ sends $P \mapsto (0 \to 0 \to P \xrightarrow{\mathrm{id}} P \to 0)$.
-		By Lemma \ref{lem:foradditivity}, the functor $(P: \Delta^n \to s_\bullet\mathcal{E}) \mapsto s_*^{-1}(P)$ is a diagram of weak equivalences.
-		By Quillen's Theorem B (Theorem 1.11 of the notes), the square formed by applying $s_*^{-1}(-)$ to the bottom row of (3) and taking the map to the homotopy colimit of the fibers is homotopy cartesian:
-		\[
-		\begin{tikzcd}
-			s_*^{-1}(0_*) \arrow[r] \arrow[d] & \holim_{P \in \Delta/s_\bullet\mathcal{E}} s_*^{-1}(P) \arrow[d] \\
-			\ast \arrow[r, "0_*"] & s_\bullet\mathcal{E}
-		\end{tikzcd}
-		\]
-		We have weak equivalences $s_*^{-1}(0_*) \simeq s_\bullet\mathcal{E}$ (induced by $t: \mathrm{Ex}_0(\mathcal{E}) \to \mathcal{E}$) and $\holim_{P} s_*^{-1}(P) \simeq s_\bullet\mathrm{Ex}(\mathcal{E})$ (as $s_\bullet\mathrm{Ex}(\mathcal{E})$ is the total space for the fibration $s_*$).
-		Substituting these into the Quillen Theorem B square, we find that square (3) is homotopy cartesian.
-		The map $(t,s)$ being a weak equivalence follows by considering the long exact sequences of homotopy groups associated with the (homotopy) fibrations related by square (3) being homotopy cartesian. Specifically, the map from the homotopy fiber of $s_* \circ c_*$ (which is $s_\bullet\mathcal{E}$) to the homotopy fiber of $s_*$ (which is $s_\bullet\mathcal{E}$ via $t_*$) is a weak equivalence. This implies $(t,s)$ is a weak equivalence when comparing the total spaces in the implied map of fibrations.
-	\end{proof}
+	We begin by defining two natural functors from \( \mathrm{Ex}(\mathcal{E}) \to \mathcal{E} \). For an object \( 0 \to A \to B \to C \to 0 \) in \( \mathrm{Ex}(\mathcal{E}) \) consider \( s,t: \mathrm{Ex}(\mathcal{E})  \to \mathcal{E}\) as the functors which sends the sequence to \( A \) and \( C\) respectively. This induces a natural map \( s_*: s_\bullet (\mathrm{Ex}(\mathcal{E})) \to s_\bullet (\mathcal{E}) \).
 	
 
+\begin{lemma}
+	\label{lem-foradditivity}
+	Let $\mathcal{E}$ be an exact category. The functor $\Delta/s_{\bullet}\mathcal{E} \to \mathrm{sSet}$ defined by $P \mapsto s^{-1}(P)$ is a diagram of equivalences in simplicial sets.
+\end{lemma}
+
+\begin{proof}
+	It is enough to show that for each $n$-simplex $P: \mathrm{Ar}(\mathbf{n}) \to \mathcal{E}$ of $s_{\bullet}\mathcal{E}$, the composite map
+	\[ s^{-1}(P) \longrightarrow s_{\bullet}\mathrm{Ex}(\mathcal{E}) \xrightarrow{t_*} s_{\bullet}\mathcal{E} \]
+	is a weak equivalence.
 	
+	If $P = 0_*$ (the $0$-simplex for the zero object in $\mathcal{E}$), then $s^{-1}(0_*) = s_{\bullet}\mathrm{Ex}_0(\mathcal{E})$, where $\mathrm{Ex}_0(\mathcal{E})$ is the category of exact sequences $0 \to A \to B \to 0 \to 0$. The functor $t: \mathrm{Ex}_0(\mathcal{E}) \to \mathcal{E}$ (sending to $A$) is an equivalence. Thus, the map $f : s^{-1}(0_*) \to s_{\bullet}\mathcal{E}$ is a weak equivalence. This map $f$ has a section $g: s_{\bullet}\mathcal{E} \to s^{-1}(0_*)$ defined by $Q \mapsto (0 \to 0 \to Q \xrightarrow{1} Q \to 0)$.
+	
+	Consider the diagram:
+\[\begin{tikzcd}
+	{s_\bullet \mathcal{E}} & {s^{-1}(0_*)} & {s^{-1}P} & {s_\bullet\mathrm{Ex}(\mathcal{E})} \\
+	& {\Delta[0]} & {\Delta[n]} & {s_\bullet \mathcal E}
+	\arrow["g", from=1-1, to=1-2]
+	\arrow["\cong"', from=1-1, to=1-2]
+	\arrow["{n_*}"', from=1-2, to=1-3]
+	\arrow[from=1-2, to=2-2]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-3, to=2-3]
+	\arrow["{s_*}", curve={height=-6pt}, from=1-4, to=2-4]
+	\arrow["{t_*}"', curve={height=6pt}, from=1-4, to=2-4]
+	\arrow["{0_*}", from=2-2, to=1-1]
+	\arrow["n"', from=2-2, to=2-3]
+	\arrow["P"', from=2-3, to=2-4]
+\end{tikzcd}\]
+	The composite $s^{-1}(0_*) \xrightarrow{n_*} s^{-1}(P) \to s_{\bullet}\mathrm{Ex}(\mathcal{E}) \xrightarrow{t_*} s_{\bullet}\mathcal{E}$ is $f$. It suffices to show that $\psi : s^{-1}(P) \xrightarrow{t_*} s_{\bullet}\mathcal{E} \xrightarrow{g} s^{-1}(0_*) \xrightarrow{n_*} s^{-1}(P)$ is homotopic to the identity.
+	
+	An $m$-simplex of $s^{-1}(P)$ is a pair $(\theta: \mathbf{m} \to \mathbf{n}, \text{seq})$, where $\text{seq}$ denotes the data for an exact sequence of $S_m\mathcal{E}$ of the form $0 \to \theta^*(P) \to A \to B \to 0$.
+	$\psi$ maps this to $(\mathbf{n}_{\text{const}}: \mathbf{m} \to \mathbf{n}, \text{seq}')$ where $\text{seq}'$ is $0 \to 0 \to B \xrightarrow{1} B \to 0$.
+	
+	We now define a homotopy $H : s^{-1}(P) \times \Delta[1] \to s^{-1}(P)$.
+	For an $m$-simplex given by $(\theta, A, B)$ and $\tau: \mathbf{m} \to \mathbf{1}$, $H$ maps this to $(h_\tau(\theta), A_\tau, B)$.
+	The map $h_\tau(\theta)$ is the composite $\mathbf{m} \xrightarrow{(\theta,\tau)} \mathbf{n} \times \mathbf{1} \xrightarrow{h} \mathbf{n}$.
+	The term $A_\tau$ is constructed via pushouts. For each component, corresponding to a map $\alpha_{obj}: (i,j) \to (k,l)$ in $\mathrm{Ar}(\mathbf{m})$, the pushout diagram defining the new middle term (let's call it $A_{\tau, obj}$) from the original middle term ($A_{obj}$) is,
+\[\begin{tikzcd}
+	{(\theta^*P)(i,j)} & {A_{obj}} \\
+	{(h_\tau(\theta)^*P)(i,j)} & {A_{\tau,obj}}
+	\arrow[tail, from=1-1, to=1-2]
+	\arrow[from=1-1, to=2-1]
+	\arrow[from=1-2, to=2-2]
+	\arrow[tail, from=2-1, to=2-2]
+\end{tikzcd}\]
+	The object $B$ (the cokernel part) is unchanged in this step.
+	The sequence $0 \to (h_\tau(\theta)^*P)(i,j) \to A_{\tau, obj} \to B_{obj} \to 0$ is exact.
+	These diagrams are themselves induced by pushouts at the level of $\mathcal{E}$, as shown in diagram,
+\[\begin{tikzcd}
+	{P_{\text{orig}}(i',j')} & {A'_{\mathrm{orig}}} \\
+	{P_{\text{orig}}(k',l')} & {\overline{A'}}
+	\arrow["i", tail, from=1-1, to=1-2]
+	\arrow["{\alpha_*}", from=1-1, to=2-1]
+	\arrow["\gamma", from=1-2, to=2-2]
+	\arrow[tail, from=2-1, to=2-2]
+\end{tikzcd}\]
+	where $0 \to P_{\text{orig}}(i',j') \to A'_{\text{orig}} \to B'_{\text{orig}} \to 0$ is an exact sequence in $\mathcal{E}$ corresponding to a part of $\theta^*(P)$, and $\alpha: (i',j') \to (k',l')$ is a morphism in $\mathrm{Ar}(\mathbf{n})$.
+	The functions $h_\tau : (s^{-1}(P))_m \to (s^{-1}(P))_m$ given by $h_\tau(\theta, A, B) = (h_\tau(\theta), A_\tau, B)$ must satisfy:
+	\[
+	\begin{tikzcd}
+		(s^{-1}(P))_m \arrow[r, "h_\tau"] \arrow[d, "\gamma_*"'] & (s^{-1}(P))_m \arrow[d, "\gamma_*"] \\
+		(s^{-1}(P))_k \arrow[r, "h_{\tau\gamma}"'] & (s^{-1}(P))_k
+	\end{tikzcd}
+	\]
+	These $h_\tau$ define the homotopy from the identity map on $s^{-1}(P)$ to $\psi$.
+	If $\tau$ corresponds to $0$, $h_0(\theta) = \theta$, $A_\tau = A$, so $H$ starts at the identity.
+	If $\tau$ corresponds to $1$, $h_1(\theta) = \mathbf{n}_{\text{const}}$. Then $(h_1(\theta)^*P)=0$. The pushout makes $A_\tau \cong A$. The exact sequence becomes $0 \to 0 \to A \to B \to 0$. This is incorrect according to the definition of $\psi$.
+	
+	Revisiting the definition of $\psi$ and the effect of $H_1$:
+	$\psi(\theta, A, B) = (\mathbf{n}_{\text{const}}, 0 \to B \to B)$.
+	For $H_1$, the kernel $h_1(\theta)^*(P)$ is $0$. The pushout
+\[\begin{tikzcd}
+	{\theta^*(P)} & A \\
+	0 & {A_\tau}
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-1, to=2-1]
+	\arrow[from=1-2, to=2-2]
+	\arrow[from=2-1, to=2-2]
+\end{tikzcd}\]
+	and the sequence $0 \to 0 \to A_\tau \to B \to 0$ implies $A_\tau \cong B$.
+	So $H_1(\theta, A, B) = (\mathbf{n}_{\text{const}}, 0 \to B \to B) = \psi(\theta, A, B)$.
+	Thus, $\mathrm{id} \simeq \psi$. Since $\psi$ factors through $s^{-1}(0_*)$ and $f: s^{-1}(0_*) \to s_{\bullet}\mathcal{E}$ is a weak equivalence, the original map $s^{-1}(P) \to s_{\bullet}\mathcal{E}$ is a homotopy equivalence, and thus a weak equivalence.
+\end{proof}
+
+
+\begin{theorem}[Additivity Theorem]
+	\label{thm:Additivity_manual_proper_no_id_cmd_generic_label_v2}
+	Let $\mathcal{E}$ be an exact category. The simplicial set map
+	\[ (t_*, s_*) : s_{\bullet}\mathrm{Ex}(\mathcal{E}) \to s_{\bullet}\mathcal{E} \times s_{\bullet}\mathcal{E} \]
+	is a weak equivalence.
+\end{theorem}
+
+\begin{proof}
+	Consider the square of simplicial sets
+	\[
+	\begin{tikzcd}
+		{s_{\bullet}\mathcal{E}} & {s_{\bullet}\mathrm{Ex}(\mathcal{E})} \\
+		\ast & {s_{\bullet}\mathcal{E}}
+		\arrow["{c_*}", from=1-1, to=1-2]
+		\arrow["{\text{incl}}"', from=1-1, to=2-1]
+		\arrow["{s_*}", from=1-2, to=2-2]
+		\arrow["{0_*}"', from=2-1, to=2-2]
+	\end{tikzcd}
+	\quad (*)
+	\]
+	Here $\ast = \Delta[0]$, $0_*: \ast \to s_{\bullet}\mathcal{E}$ picks out the zero object, and $c: \mathcal{E} \to \mathrm{Ex}(\mathcal{E})$ sends $Q \mapsto (0 \to 0 \to Q \xrightarrow{\mathrm{id}} Q \to 0)$.
+	By Lemma \ref{lem-foradditivity}, the map $t_*: s^{-1}(0_*) \to s_{\bullet}\mathcal{E}$ is a weak equivalence (where $s^{-1}(0_*)$ is the homotopy pullback of the right column and bottom row of $(*)$ over $0_*$). This condition implies that the square $(*)$ is homotopy cartesian.
+	
+	Since square $(*)$ is homotopy cartesian, we can compare the homotopy fiber sequences associated with the horizontal maps.
+	Consider the diagram:
+\[\begin{tikzcd}
+	& {s_\bullet \mathrm{Ex}(\mathcal{E})} \\
+	{s_\bullet \mathcal{E}} && {s_\bullet \mathcal{E}} \\
+	& {s_\bullet \mathcal E \times s_\bullet \mathcal E}
+	\arrow["s", from=1-2, to=2-3]
+	\arrow["{(t_*,s_*)}", from=1-2, to=3-2]
+	\arrow["c", from=2-1, to=1-2]
+	\arrow["{in_L}"', from=2-1, to=3-2]
+	\arrow["{pr_R}"', from=3-2, to=2-3]
+\end{tikzcd}\]
+	where $\mathrm{in}_L(P) = (P, 0_*)$ and $pr_R$ is the projection onto the right factor.
+	The map $s_* \circ c_* = \mathrm{id}_{s_{\bullet}\mathcal{E}}$, and $pr_R \circ \mathrm{in}_L$ sends $P$ to $0_*$.
+	The fact that $(*)$ is a homotopy cartesian square implies that $s_{\bullet}\mathcal{E}$ (top-left of $(*)$) is weakly equivalent to the homotopy pullback of $s_{\bullet}\mathrm{Ex}(\mathcal{E}) \xrightarrow{s_*} s_{\bullet}\mathcal{E} \xleftarrow{0_*} \ast$. This homotopy pullback is $s^{-1}(0_*)$.
+	The map $s_{\bullet}\mathcal{E} \xrightarrow{c_*} s_{\bullet}\mathrm{Ex}(\mathcal{E})$ followed by $t_*: s_{\bullet}\mathrm{Ex}(\mathcal{E}) \to s_{\bullet}\mathcal{E}$ gives $t_*(c_*(P)) = t_*(0 \to 0 \to P \to P \to 0) = 0_*$.
+	The map of fibrations (where the base map is $s_*: s_{\bullet}\mathrm{Ex}(\mathcal{E}) \to s_{\bullet}\mathcal{E}$ and $s_{\bullet}\mathcal{E} \times s_{\bullet}\mathcal{E} \xrightarrow{pr_R} s_{\bullet}\mathcal{E}$) induced by $(t_*, s_*)$ must be a weak equivalence on total spaces because it is a weak equivalence on the base ($s_*$ vs $pr_R$ composed with $s_*$) and on the fibers.
+	The fiber of $s_*: s_{\bullet}\mathrm{Ex}(\mathcal{E}) \to s_{\bullet}\mathcal{E}$ over $P'' \in s_{\bullet}\mathcal{E}$ is $s^{-1}(P'')$.
+	The fiber of $pr_R: s_{\bullet}\mathcal{E} \times s_{\bullet}\mathcal{E} \to s_{\bullet}\mathcal{E}$ over $P'' \in s_{\bullet}\mathcal{E}$ is $s_{\bullet}\mathcal{E} \times \{P''\}$.
+	The map $t_*: s^{-1}(P'') \to s_{\bullet}\mathcal{E}$ (which maps to the first component of $s_{\bullet}\mathcal{E} \times \{P''\}$) is a weak equivalence by Lemma \ref{lem-foradditivity}.
+	Therefore, the map $(t_*,s_*)$ is a weak equivalence.
+\end{proof}
 	
 	
 	\section{Spectra and Fundamental theorems of K theory}
-	We list here a few important theorems in \( K \) theory which are direct consequences of the additivity theorem and Quillen's Theorem A and B. We omit proofs for succinctness. the
+	We list here a few important theorems in \( K \)-theory which are direct consequences of the additivity theorem and Quillen's Theorem A and B. We omit proofs for succinctness. the
 	
 	\begin{definition}[Symmetric Spectrum]\index{Symmetric spectrum}
-		A {symmetric spectrum} $K(\mathcal{E})$ (such as the K-theory spectrum of a pointed exact category $\mathcal{E}$) consists of:
+		A {symmetric spectrum} consists of the following data for \( n  \geq 0 \).
 		\begin{enumerate}
-			\item A sequence of pointed simplicial sets $\{K(\mathcal{E})^k\}_{k \ge 0}$, where $K(\mathcal{E})^k = d(s^k_\bullet(\mathcal{E}) / s^k_\bullet(0))$ is the $k$-th space. Here $d$ is the multisimplicial diagonal functor, $s^k_\bullet(\mathcal{E})$ is the $k$-fold simplicial set of objects for the $k$-fold iterated simplicial exact category $S^k_\bullet(\mathcal{E})$, and $s^k_\bullet(0)$ is its subcomplex of functors taking values in zero objects.
-			\item For each $k \ge 0$, a natural pointed left action of the symmetric group $\Sigma_k$ on $K(\mathcal{E})^k$. This action is derived from the permutation action of $\Sigma_k$ on the factors of $\mathrm{Ar}(\mathbf{n})^{\times k}$ in the domain of the functors $P: \mathrm{Ar}(\mathbf{n})^{\times k} \to \mathcal{E}$ that define the simplices of $d(s^k_\bullet(\mathcal{E}))$.
-			\item A sequence of pointed simplicial maps, called bonding maps,
-			\[ \sigma_K : S^1 \wedge K(\mathcal{E})^k \to K(\mathcal{E})^{k+1} \]
-			for each $k \ge 0$. These are induced by a $(k+1)$-fold simplicial set map $h : \Delta^1 \times s^k_\bullet(\mathcal{E}) \to s^{k+1}_\bullet(\mathcal{E})_n$, constructed via functors involving $\mathrm{Ar}(\mathbf{n})$ and $\mathrm{Ar}(\mathbf{1})$.
+			\item A sequence of pointed simplicial sets \( X_n \).
+			\item A continuous left action from the symmetric group \( \Sigma_n \to X_n \) preserving the base point.
+			\item A sequence of based maps \( \sigma_n: X \wedge S^1 \to X_{n+1} \).
 		\end{enumerate}
-		These components satisfy coherence conditions, including $(\Sigma_r \times \Sigma_k)$-equivariance for iterated bonding maps $S^r \wedge K(\mathcal{E})^k \to K(\mathcal{E})^{r+k}$.
+		These components satisfy a coherence condition. Namely that for all \( n,m \geq 0 \) the composite map 
+		\[ X_n \wedge S^{k} \stackrel{\sigma_n \wedge id}{\longrightarrow} X_{n+1} \wedge S^{k-1} \stackrel{\sigma_{n+1}\wedge id}{\longrightarrow} \cdots \stackrel{\sigma_{n+k-1}}{\longrightarrow} X_{n+k} \] intertwines the action induced by \( \Sigma_n \times \Sigma_k. \)
 	\end{definition}
 	
-	\begin{definition}[K-theory Spectrum of an Exact Category]
-		Let $\mathcal{E}$ be an exact category, pointed by a choice of zero object $0$. The {K-theory spectrum of $\mathcal{E}$}, denoted $K(\mathcal{E})$, is the symmetric spectrum whose $k$-th space is
-		\[ K(\mathcal{E})^k = d(s^k_\bullet(\mathcal{E}) / s^k_\bullet(0)). \]
-		In this definition, $s^k_\bullet(\mathcal{E})$ is the $k$-fold simplicial set of objects associated with the $k$-fold iterated simplicial exact category $S^k_\bullet(\mathcal{E})$. The multisimplicies of $S^k_\bullet(\mathcal{E})$ are functors $P : \mathrm{Ar}(\mathbf{n}_1) \times \dots \times \mathrm{Ar}(\mathbf{n}_k) \to \mathcal{E}$ which are exact in each variable. $s^k_\bullet(0)$ is the subcomplex of $s^k_\bullet(\mathcal{E})$ consisting of such functors that take values only in zero objects of $\mathcal{E}$. The functor $d$ is the multisimplicial diagonal map. The bonding maps $\sigma : (s^k_\bullet(\mathcal{E})/s^k_\bullet(0)) \wedge S^1 \to (s^{k+1}_\bullet(\mathcal{E})/s^{k+1}_\bullet(0))$ (prior to applying $d$) are constructed via specific homotopies involving the $Es_\bullet$ construction and path objects. The assignment $\mathcal{E} \mapsto K(\mathcal{E})$ is natural with respect to pointed exact functors.
+	Here \( \wedge \) denotes the smash product.	
+	
+	\begin{definition}[K-theory Spectrum of an Exact Category \(\mathcal{E}\)]\index{K-Theory spectrum}
+		Let $\mathcal{E}$ be an exact category, pointed by a choice of zero object $0$.
+		\begin{enumerate}
+			\item For $k \ge 0$, let $S_{\bullet}^k(\mathcal{E})$ be the $k$-fold simplicial exact category whose objects are functors $P: \mathrm{Ar}(\mathbf{n}_1) \times \dots \times \mathrm{Ar}(\mathbf{n}_k) \to \mathcal{E}$ which are exact in each variable. Let $s_{\bullet}^k(\mathcal{E})$ denote the $k$-fold simplicial set of objects of $S_{\bullet}^k(\mathcal{E})$.
+			
+			\item Let $s_{\bullet}^k(0)$ be the subcomplex of $s_{\bullet}^k(\mathcal{E})$ consisting of all such functors $P$ that take values only in zero objects of $\mathcal{E}$. This is a contractible subcomplex.
+			
+			\item The {$k$-th space of the K-theory spectrum} $\mathcal{K}(\mathcal{E})$ is defined as the pointed simplicial set:
+			\[ \mathcal{K}(\mathcal{E})^k = d\left(s_{\bullet}^k(\mathcal{E}) / s_{\bullet}^k(0)\right) \]
+			where $d$ is the multisimplicial diagonal functor. This functor takes a $k$-fold simplicial set $X$ to a simplicial set $d(X)$ where $d(X)_n = X_{n,\dots,n}$.
+			
+			\item There are canonical pointed simplicial set maps (referred to as $\sigma$ maps in the context from which this is drawn):
+			\[ \sigma_k : \left(s_{\bullet}^k(\mathcal{E})/s_{\bullet}^k(0)\right) \wedge S^1 \to s_{\bullet}^{k+1}(\mathcal{E})/s_{\bullet}^{k+1}(0) \]
+			for each $k \ge 0$. The {bonding maps} for the spectrum $\mathcal{K}(\mathcal{E})$, denoted $\sigma_{\mathcal{E}}^k : S^1 \wedge \mathcal{K}(\mathcal{E})^k \to \mathcal{K}(\mathcal{E})^{k+1}$, are induced by these maps $\sigma_k$ after applying the diagonal functor $d$.
+		\end{enumerate}
+		The collection of spaces $\{\mathcal{K}(\mathcal{E})^k\}_{k \ge 0}$ together with the bonding maps $\{\sigma_{\mathcal{E}}^k\}$ defines the K-theory spectrum $\mathcal{K}(\mathcal{E})$ of the exact category $\mathcal{E}$. This construction yields a symmetric spectrum, and this structure is natural with respect to pointed exact categories $\mathcal{E}$.
 	\end{definition}
 	
 	\begin{definition}[Stable Equivalence of K-theory Spectra]
