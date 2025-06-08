@@ -261,9 +261,9 @@ I am also thankful to my family and friends for their unwavering support and enc
 	\begin{example}\label{expreabnotab}
 		
 		\begin{enumerate}Some non examples are:
-			\item The category of Hausdorff topological abelian groups is pre-abelian but not abelian. Since not every morphism which is a monomorphism+epimorphism is necessarily a isomorphism. 
+			\item The category of Hausdorff topological abelian groups is pre-abelian but not abelian. Since not every morphism which is a monomorphism + epimorphism is necessarily a isomorphism. 
 			
-			Consider a Hausdorff abelian topological group $G$ with a non discrete topology and consider $G'$ it's discretization. The inclusion map $G' \to G$ is a monomorphism+epimorphism but not isomorphism (bijective continuous group isomorphism). 
+			Consider a Hausdorff abelian topological group $G$ with a non discrete topology and consider $G'$ it's discretization. The inclusion map $G' \to G$ is a monomorphism + epimorphism but not isomorphism (bijective continuous group isomorphism). 
 			\item The category of torsion free abelian groups $\mathbf{TFAb}$ is pre-abelian but not abelian as the mono $f: \Z \xrightarrow{z\mapsto 2z} \Z $ is not a kernel of some morphism. Say it were and there exists $ A \in \mathbf{TFAb}$ such that $f$ is the kernel to $ g: \Z \to A$, i.e.
 			\[\begin{tikzcd}
 				Z & 0 \\
@@ -1192,7 +1192,7 @@ I am also thankful to my family and friends for their unwavering support and enc
 	\begin{example}[Tangent bundle on $S^2$]
 		Let $S^2$ be the unit sphere in $\R^3$ associate to each point $x \in S^2$ the plane tangent to $S^2$ at $x$, label this $T_xS^2$ (this is the tangent space at point $x$) then the disjoint union of all the tangent spaces form a vector bundle $T S^2 = \sqcup_{x \in S^2} T_x S^2.$ 
 	\end{example}
-	We don't use the concept of a tangent bundle proper so we refrain from defining it in its entirety.
+%	We don't use the concept of a tangent bundle proper so we refrain from defining it in its entirety.
 	\begin{definition}[Vector bundle morphisms]\index{Vector bundle! Morphism}
 		Two vector bundles $(E_1,p, X)$ and $(E_2,p_2, X) $ are considered isomorphic if there exists a continuous map between their total spaces $g$ such that the below diagram commutes
 		\[\begin{tikzcd}
@@ -1213,7 +1213,7 @@ I am also thankful to my family and friends for their unwavering support and enc
 	\begin{definition}[Whitney sums]
 		For $(E_1,p_1, X), (E_2,p_2,X)$ their Whitney sum denoted as $E_1 \oplus E_2$ consists of total space as $E_1 \oplus E_2$ with fibrewise direct sums of vector spaces.
 	\end{definition}
-	A Whitney sum is a biproduct of vector bundles in $\mathrm{VB}(X)$. Which makes the category of vector bundles into an additive category, but not abelian. Since the kernel of a morphism of vector bundles need not be a vector bundle. 
+	A Whitney sum is a biproduct of vector bundles in $\mathrm{VB}(X)$, which makes the category of vector bundles into an additive category, but not abelian. Since the kernel of a morphism of vector bundles need not be a vector bundle. 
 	
 	Along with a Whitney sum there also exists the expected notion of a tensor product of vector bundles this in turn allows us to view $\mathrm{VB}(X)$ as a symmetric monoidal category in the natural way.
 	
@@ -1234,11 +1234,11 @@ I am also thankful to my family and friends for their unwavering support and enc
 		
 		If $h$ is continuous. Once again composing a sequence of continuous maps we obtain the required morphism of vector bundles.
 		\[ X \times k^n \xrightarrow{(x,v)\mapsto (x,h(x),v)} X \times \text{Hom}_k(k^n, k^m) \times k^n \xrightarrow{(x,f,v)\mapsto (x,f(v))} X \times k^m \]
-		where $h(x)=f.$.
+		where $h(x)=f.$
 	\end{proof}
 	
 	\begin{proposition}[Sufficient condition for vector bundle isomorphism]\label{propsciso}
-		Let $E$ and $F$ be two vector bundles over $X$, and let $g: E \to F$ be a morphism of vector bundles which are fibrewise bijective then \(g\) is an isomorphism of vector bundles.
+		Let $E$ and $F$ be two vector bundles over $X$, and let $g: E \to F$ be a morphism of vector bundles which are fibrewise bijective. Then \(g\) is an isomorphism of vector bundles.
 	\end{proposition}
 	
 	\begin{proof}
@@ -1319,8 +1319,8 @@ I am also thankful to my family and friends for their unwavering support and enc
 		
 		Varying the point $x$ enables us to construct a locally finite open cover $\{V_i\}$ of $X$ obeying the following properties, all morphisms $\beta_i: F_{V_i} \to E_{V_i}$ are right inverses of $\alpha_{V_i}$ as seen.
 		
-		Now consider a `partition of unity' $\{ \eta_i\}$ associated with the cover \footnote{A sequence of non negative real valued functions $\{\eta_i \}$ whose sum evaluated for every point $x \in X$ is $1$. And such that every point $x\in X$ has an open neighbourhood not intersecting the support of $\eta_i $ for all but finitely many $i$. Which implies the sums are finite and therefore well defined.} and $\beta:F \to E$ is defined using it as $\sum_{i} \eta_i(x)\beta_i(e)$ for $e\in E_x$. Continuity is maintained due to the fact that these sums are necessarily finite (see footnote). This gives us \[ \alpha \beta (e)= \sum_i \eta_i(x) (\alpha \beta_i) (e) = \left(\sum_i \eta_i(x)\right) (\alpha \beta_i (e)) = e \]
-		Which completes the proof.
+		Now consider a `partition of unity' $\{ \eta_i\}$ associated with the cover \footnote{A sequence of non negative real valued functions $\{\eta_i \}$ whose sum evaluated for every point $x \in X$ is $1$, and such that every point $x\in X$ has an open neighbourhood not intersecting the support of $\eta_i $ for all but finitely many $i$. This implies the sums are finite and therefore well defined.} and $\beta:F \to E$ is defined using it as $\sum_{i} \eta_i(x)\beta_i(e)$ for $e\in E_x$. Continuity is maintained due to the fact that these sums are necessarily finite (see footnote). This gives us \[ \alpha \beta (e)= \sum_i \eta_i(x) (\alpha \beta_i) (e) = \left(\sum_i \eta_i(x)\right) (\alpha \beta_i (e)) = e, \]
+		which completes the proof.
 	\end{proof}
 	
 	\begin{theorem}\label{stablytrivialcompact}
@@ -1376,7 +1376,7 @@ I am also thankful to my family and friends for their unwavering support and enc
 		
 		It remains to be verified that it is indeed Karoubian which is the main concern. Let $f$ be an idempotent endomorphism of the object $(E,p) $ in $\widetilde{\mathcal{C}}$ we wish to show that $f$ indeed has a kernel. 
 		
-		Examining the below commutative diagram will help us conclude. The elements $F, g, q, h$ are defined directly as seen below. Note that the condition $fp=pf=f$ is present in the righthand square
+		Examining the below commutative diagram will help us conclude. The elements $F, g, q, h$ are defined directly as seen below. Note that the condition $fp=pf=f$ is present in the righthand square.
 		
 		\[\begin{tikzcd}
 			& F \\
@@ -1456,7 +1456,7 @@ I am also thankful to my family and friends for their unwavering support and enc
 		By the hypothesis we have that for $G \in \mathcal{D}$, there exists $E \in \mathcal{C}$ and $G' \in \mathcal{D}$ with $\psi(E) \cong G \oplus G'$.
 		Due to this we can choose an idempotent endomorphism $q: \psi(E) \to \psi(E)$ such that $\text{Ker}(q) \cong G$ we are in a pseudo-abelian category.
 		
-		Now as $\psi$ is fully faithful, there's a idempotent $p: E \to E$ in $\mathcal{C}$ with $\psi(p) = q$. Then by the formulas in the end of Theorem \ref{thm:pseudoabelian} we have $G \cong \varphi' (E,1-p).$ This proves essential surjectivity.
+		Now as $\psi$ is fully faithful, there is an idempotent $p: E \to E$ in $\mathcal{C}$ with $\psi(p) = q$. Then by the formulas in the end of Theorem \ref{thm:pseudoabelian} we have $G \cong \varphi' (E,1-p).$ This proves essential surjectivity.
 		
 		Lastly to prove $\varphi'$ is fully faithful consider two objects $H, H' \in \widetilde{\mathcal{C}}$ direct factors of $\varphi(E), \varphi(E')$. Then the following diagram shows that $\psi'_{H,H'} $ is an isomorphic function,
 		\[\begin{tikzcd}
@@ -2731,7 +2731,7 @@ I am also thankful to my family and friends for their unwavering support and enc
 	
 	
 	\begin{definition}[(Closed) Model category]\index{Category!Closed model}
-		A category $\mathcal{C}$ with 3 distinguished classes of morphisms $(\mathcal{W, F ,C})$. Satisfying the following conditions:
+		A category $\mathcal{C}$ with 3 distinguished classes of morphisms $(\mathcal{W, F ,C})$, and satisfying the following conditions:
 		\begin{enumerate}
 			\item $\mathcal{C}$ has all finite limits and colimits, (i.e. it is bicomplete).
 			\item $\mathcal{W}$ has the `2-out-of-3' property. If two out of $f, g, fg \in \mathcal{W}$ then so does the third.
@@ -2809,7 +2809,7 @@ I am also thankful to my family and friends for their unwavering support and enc
 	\end{proposition}
 	\begin{proof}
 	\begin{enumerate}
-		\item (Isomorphisms )Given an arbitrary commutative diagram of the sort, where $i$ is an isomorphism.
+		\item (Isomorphisms) Given an arbitrary commutative diagram of the sort, where $i$ is an isomorphism.
 		\[\begin{tikzcd}
 			\bullet & \bullet \\
 			\bullet & \bullet
@@ -2819,7 +2819,7 @@ I am also thankful to my family and friends for their unwavering support and enc
 			\arrow[dashed, from=2-1, to=1-2]
 			\arrow[from=2-1, to=2-2]
 		\end{tikzcd}\]
-		A lift of the form $f i^{-1}$ always exists, therefore it exists when $g \in \mathcal{R} \implies i \in \mathcal{L}$. Dually we also have when $g$ is an isomorphism and $i \in \mathcal{L} \implies g \in \mathcal{R}$.
+		A lift of the form $f i^{-1}$ always exists, therefore it exists when $g \in \mathcal{R} $ this implies $i \in \mathcal{L}$. Dually we also have when $g$ is an isomorphism and $i \in \mathcal{L}$ this implies $g \in \mathcal{R}$.
 		\item (Compositions) Suppose $\rho_1, \rho_2 \in \mathcal{R}$ and $\lambda \in \mathcal{L}$ as in the below diagram. We wish to show there exists a lift $h:C \to X$.
 		\[\begin{tikzcd}
 			A & X \\
@@ -3122,7 +3122,7 @@ I am also thankful to my family and friends for their unwavering support and enc
 		
 		If we have \( f, g: X \to Y \) then a left homotopy if it exists is a diagram of the following sort 
 		
-		\( H_l: f \Rightarrow g \) is a morphism \( H_l: \mathrm{Cyl}(X) \to Y \) making the below diagram commute.
+		\( H_l: f \rightarrow g \) is a morphism \( H_l: \mathrm{Cyl}(X) \to Y \) making the below diagram commute.
 		\[\begin{tikzcd}
 			X \\
 			{\mathrm{Cyl}(X)} && Y \\
@@ -3140,7 +3140,7 @@ I am also thankful to my family and friends for their unwavering support and enc
 		
 		If we have \( f, g: X \to Y \) then a right homotopy if it exists is a diagram of the following sort 
 		
-		\( H_r: f \Rightarrow g \) is a morphism, \( H_r: X \to \mathrm{Path}(Y) \) making the below diagram commute.
+		\( H_r: f \rightarrow g \) is a morphism, \( H_r: X \to \mathrm{Path}(Y) \) making the below diagram commute.
 	
 		\[\begin{tikzcd}
 			&& Y \\
@@ -3349,13 +3349,14 @@ I am also thankful to my family and friends for their unwavering support and enc
 	
 	
 	\begin{example}
+		\( f:[1]\to[5] \), defined by \( f(0 \to 1)= 2 \to 4 \)
 		$f:[2] \to [5]$, defined by $f(0 \to 1 \to 2) = 2 \to 3 \to 4$.
-		
+		\( f:[3] \to [5] \), defined by \( f(0 \to 1 \to 2 \to 3)=3 \to 4 \to 4 \to 5 \).
 	
 	\end{example}	
 	\begin{example}
 		
-		$g:[4] \to [2]$ defined by $g[0 \to 1 \to 2\to 3 \to 4] = 0\to 0 \to 1 \to 1 \to 1.$		
+		$g:[4] \to [2]$ defined by $g(0 \to 1 \to 2\to 3 \to 4) = 0\to 0 \to 1 \to 1 \to 1.$		
 	\end{example}
 	
 	Note that all morphisms in $\Delta$ are generated by a natural family of functions called coface and degeneracy maps defined as below.
@@ -3403,7 +3404,7 @@ I am also thankful to my family and friends for their unwavering support and enc
 	
 	Furthermore corresponding to coface maps from $[n-1] \to [n]$ in $\Delta$ we get a family of face maps between simplices $d_i:X_n \to X_{n-1}$, $0\leq i \leq n$.
 	
-	And degeneracy maps corresponding to codegeneracy maps $ [n+1] \to n$ as a family of maps $s_i: X_n \to X_{n+1}$.
+	The degeneracy maps corresponding to codegeneracy maps $ [n+1] \to n$ as a family of maps $s_i: X_n \to X_{n+1}$.
 	
 	Defined as such,
 	\begin{align*}
@@ -3547,7 +3548,7 @@ I am also thankful to my family and friends for their unwavering support and enc
 	\end{theorem}
 	
 		\begin{proposition}
-		Any simplicial set can be expressed as a colimit of standard n simplicies. Where the indexing category is the category of simplices. In particular for $X \in \mathbf{sSet}$ we have, \[ \colim_{x \in X_n}\Delta[n] \cong X. \]
+		Any simplicial set can be expressed as a colimit of standard n simplicies, where the indexing category is the category of simplices. In particular for $X \in \mathbf{sSet}$ we have, \[ \colim_{x \in X_n}\Delta[n] \cong X. \]
 	\end{proposition}
 	
 	We can then define the geometric realization of a standard \(n\)-simplex as \(|\Delta[n]|=\Delta_n\) where \(\Delta_n\) the standard topological \(n\)-simplex.
@@ -5016,7 +5017,9 @@ I am also thankful to my family and friends for their unwavering support and enc
 \end{tikzcd}\]
 	and the sequence $0 \to 0 \to A_\tau \to B \to 0$ implies $A_\tau \cong B$.
 	So $H_1(\theta, A, B) = (\mathbf{n}_{\text{const}}, 0 \to B \to B) = \psi(\theta, A, B)$.
-	Thus, $\mathrm{id} \simeq \psi$. Since $\psi$ factors through $s^{-1}(0_*)$ and $f: s^{-1}(0_*) \to s_{\bullet}\mathcal{E}$ is a weak equivalence, the original map $s^{-1}(P) \to s_{\bullet}\mathcal{E}$ is a homotopy equivalence, and thus a weak equivalence.
+	Thus, $\mathrm{id} \simeq \psi$. Since $\psi$ factors through $s^{-1}(0_*)$ and $f: s^{-1}(0_*) \to s_{\bullet}\mathcal{E}$ is a weak equivalence. 
+	
+	The original map $s^{-1}(P) \to s_{\bullet}\mathcal{E}$ is a homotopy equivalence, and thus a weak equivalence.
 \end{proof}
 
 
@@ -5081,7 +5084,10 @@ I am also thankful to my family and friends for their unwavering support and enc
 		\[ X_n \wedge S^{k} \stackrel{\sigma_n \wedge id}{\longrightarrow} X_{n+1} \wedge S^{k-1} \stackrel{\sigma_{n+1}\wedge id}{\longrightarrow} \cdots \stackrel{\sigma_{n+k-1}}{\longrightarrow} X_{n+k} \] intertwines the action induced by \( \Sigma_n \times \Sigma_k. \)
 	\end{definition}
 	
-	Here \( \wedge \) denotes the smash product.	
+	Here \( \wedge \) denotes the standard smash product of pointed simplicial sets (smash product of levelwise pointed sets)	\(
+		X\wedge Y &:= \frac{X\times Y}{\,X\vee Y\,}\,.
+	\)
+	
 	
 	\begin{definition}[K-theory Spectrum of an Exact Category \(\mathcal{E}\)]\index{K-Theory spectrum}
 		Let $\mathcal{E}$ be an exact category, pointed by a choice of zero object $0$.
