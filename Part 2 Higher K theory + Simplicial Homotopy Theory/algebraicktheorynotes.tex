@@ -1481,7 +1481,7 @@ I am also thankful to my family and friends for their unwavering support and enc
 	
 	We can now prove the celebrated Swan's theorem with the results we've built up so far.
 	\begin{theorem}[Swan's theorem]\label{thm:serreswan}\index{Swan's theorem}
-		Let $X$ be a compact Hausdorff space, and let $A = C(X)$. Then the section functor $\Gamma$ induces an equivalence of categories $\mathrm{VB}(X) \simeq \mathrm{Proj}(C(X))$.
+		Let $X$ be a compact Hausdorff space. Then the section functor $\Gamma$ induces an equivalence of categories $\mathrm{VB}(X) \simeq \mathrm{Proj}(C(X))$.
 	\end{theorem}
 	
 	\begin{proof}
@@ -3060,7 +3060,7 @@ I am also thankful to my family and friends for their unwavering support and enc
 	\end{definition}
 	Note that such a factorization always exists due to the factorization system $(\mathcal{C} \cap \mathcal{W}, \mathcal{F})$. However, the additional assumption that the weak equivalence is an acyclic cofibration is often dropped, as it is not necessary for the construction of homotopy. To be more permissive, we only require that $x \to \mathrm{Path}(X)$ be a weak equivalence.
 	
-	In topological setting the path space is the set of all based continuous functions $\gamma:[0,1]\to X$.
+	In a topological setting the path space is the set of all based continuous functions $\gamma:[0,1]\to X$.
 	
 	\begin{definition}[Cylinder object]\index{Cylinder object}
 		Let $\mathcal{C}$ be a model category with the distinguished class of maps $(\mathcal{W,F,C})$. Then define the cylinder object for $X \in \mathcal{C}$ as the object obtained from the factorization of the codiagonal ``folding'' morphism $\nabla: X \sqcup X \xrightarrow{[1_X,1_X]} X$.
@@ -3073,7 +3073,7 @@ I am also thankful to my family and friends for their unwavering support and enc
 	\end{tikzcd}\]
 	\end{definition}
 	
-	Compare these to the definitions of cylinder objects discussed in Chapter 1, and the cones and cylinders of topology. In fact these are the same thing as we shall see when discussing examples of model structures.
+	Compare these to the definitions of cylinder objects seen in homological algebra, and the cones and cylinders of topology. In fact these are the same thing as we shall see when discussing examples of model structures.
 	
 	
 	\begin{definition}[Fibrant objects]\index{(Co)Fibrant objects}
@@ -5108,7 +5108,7 @@ I am also thankful to my family and friends for their unwavering support and enc
 	\end{definition}
 	
 	\begin{definition}[Stable Equivalence of K-theory Spectra]
-		A map $\phi_*: K(\mathcal{E}_1) \to K(\mathcal{E}_2)$ of symmetric spectra, typically induced by an exact functor $f: \mathcal{E}_1 \to \mathcal{E}_2$, is a {stable equivalence} if it induces isomorphisms on all stable homotopy groups:
+		A map $\phi_*: K(\mathcal{E}_1) \to K(\mathcal{E}_2)$ of symmetric spectra, induced by an exact functor $f: \mathcal{E}_1 \to \mathcal{E}_2$, is a {stable equivalence} if it induces isomorphisms on all stable homotopy groups:
 		\[ \pi_n(\phi_*): \pi_n(K(\mathcal{E}_1)) \xrightarrow{\cong} \pi_n(K(\mathcal{E}_2)) \quad \text{for all } n \in \mathbb{Z}. \]
 		The stable homotopy groups $\pi_n(K(\mathcal{E}))$ are defined as $\mathrm{colim}_k \pi_{n+k}(K(\mathcal{E})^k)$. A map of symmetric spectra is a stable equivalence if it is an isomorphism in the stable homotopy category. For K-theory spectra, $\pi_n K(\mathcal{E})$ often corresponds to the classical $K_n$-groups of $\mathcal{E}$ for $n \ge 0$ and are zero for $n < 0$.
 	\end{definition}
