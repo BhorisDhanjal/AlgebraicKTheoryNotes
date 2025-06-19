@@ -17,7 +17,7 @@
 		induce stable equivalences
 		\[ K(\mathcal{P}) \simeq K(\mathcal{P}_1) \simeq K(\mathcal{P}_2) \simeq \dots \simeq K(\mathcal{P}_\infty). \]
 
-	\framebreak
+	\pagebreak
 	\begin{theorem}[D\'evissage Theorem]
 		Suppose that $\mathcal{B}$ is a non-empty subcategory of a small abelian category $\mathcal{A}$ which is closed under taking finite direct sums, subobjects and quotients in $\mathcal{A}$. Suppose that every object $Q$ of $\mathcal{A}$ has a finite filtration
 		\[ 0 = F_{-1} \rightarrowtail F_0 \rightarrowtail F_1 \rightarrowtail \dots \rightarrowtail F_n = Q \]

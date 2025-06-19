@@ -121,12 +121,12 @@
 	\tableofcontents
 \end{frame}
 
-\section{Motivation}
+\section{Background/Motivation}
 \begin{frame}{Abelian categories}
 	\[ \textbf{Abelian} \subseteq \textbf{Karoubian} \subseteq \textbf{Pre-Abelian} \subseteq \textbf{Additive} \subseteq \textbf{Ab-Enriched}\]
 \note{The category of projective modules over any ring is the Karoubi envelope of its full subcategory of free modules.
 
-	An additive category is an Ab-Enriched category which has all finite coproducts.
+	An additive category is an Ab-Enriched category which has all finite biproducts.
 
 A kernel is a pullback of a morphism $f:A \to B$ and the unique morphism from $0 \to B$. Provided initials and pullbacks exist.
 
@@ -134,7 +134,7 @@ A pre-abelian category is an additive category with all morphism having kernels 
 
 An abelian category is a pre-abelian categories for which each mono is a kernel and each epic is a cokernel.}
 \end{frame}
-\begin{frame}[fragile,allowframebreaks]{Riemann–Roch}
+%\begin{frame}[fragile,allowframebreaks]{Riemann–Roch}
 %	\begin{theorem}[Classical Riemann–Roch]
 %		Let $X$ be a connected compact Riemann surface of genus $g$, and let $D$ be a divisor on $X$. Then
 %		\[
@@ -160,9 +160,9 @@ An abelian category is a pre-abelian categories for which each mono is a kernel 
 %	\begin{definition}[$\ell(D)$]
 %		$\ell(D)$ denotes $\dim_{\Bbb C} H^{0}(X,\mathcal O_X(D))$.
 %	\end{definition}
-\end{frame}
+%\end{frame}
 
-\begin{frame}[allowframebreaks, fragile]{Grothendieck–Riemann–Roch}
+%\begin{frame}[allowframebreaks, fragile]{Grothendieck–Riemann–Roch}
 %	\begin{theorem}[Grothendieck–Riemann–Roch]
 %		Let $f\colon X\to Y$ be a proper morphism between smooth quasi-projective varieties over a field of characteristic $0$,
 %		and let $E$ be a vector bundle on $X$.  In the rational Chow ring $A^{*}(Y)\otimes\Bbb Q$,
@@ -193,14 +193,14 @@ An abelian category is a pre-abelian categories for which each mono is a kernel 
 %		Grothendieck needed a functorial target for the push-forward $f_{!}$ that is additive in
 %		exact sequences; $K_0$ achieves this, whereas classical Chow and Picard groups do not.
 %	\end{block}
-\end{frame}
+%\end{frame}
 
 
 \section{Geometry \( \to \) Algebra }
 
 \begin{frame}{Swan's theorem}
 	\begin{theorem}
-		Let $X$ be a compact Hausdorff space. Then the section functor $\Gamma$ induces an equivalence of categories $\mathrm{VB}(X) \simeq \mathrm{Proj}(C(X))$.
+		Let $X$ be a compact Hausdorff space. Then the section functor $\Gamma$ induces an equivalence of categories $\mathcal{VB}(X) \simeq \mathrm{Proj}(C(X))$.
 	\end{theorem}
 	\note{	\begin{definition}[Equivalence of categories]\index{Equivalence of categories}
 			Two categories $\mathcal{C},\mathcal{D}$ are said to be equivalent if there exist functors $E:\mathcal{C}\rightleftarrows \mathcal{D}:F$ and a pair of natural \textit{isomorphisms} $\alpha: 1_\mathbf{C} \to F \circ E$ and $\beta: 1_\mathbf{D} \to E \circ F$. 
@@ -215,9 +215,9 @@ An abelian category is a pre-abelian categories for which each mono is a kernel 
 		\[ E \oplus E' \simeq X \times \mathbf{k}^n \]
 		\item The section functor $\Gamma$ is additive, so it turns Whitney sums into direct sums of modules:
 		\[ \Gamma(E) \oplus \Gamma(E') \simeq \Gamma(X \times \mathbf{k}^n) \simeq C(X)^n \]
-		\item \textbf{Conclusion:} Since $\Gamma(E)$ is a direct summand of a free module ($C(X)^n$), it is, by definition, a finitely generated projective $C(X)$-module. This confirms the functor $\Gamma$ maps into the correct target category.
+		\item Since $\Gamma(E)$ is a direct summand of a free module ($C(X)^n$), it is, by definition, a finitely generated projective $C(X)$-module. This confirms the functor $\Gamma$ maps into the correct target category.
 	\end{itemize}
-	\framebreak
+	\pagebreak
 	\begin{itemize}
 		\item $\mathcal{VB}_T(X)$: The full subcategory of \textbf{trivial} vector bundles.
 		\item $\mathrm{Free}(C(X))$: The full subcategory of finitely generated \textbf{free} $C(X)$-modules.
@@ -225,7 +225,7 @@ An abelian category is a pre-abelian categories for which each mono is a kernel 
 	The section functor provides a straightforward equivalence between these two simple categories:
 	\[ \Gamma_T: \mathcal{VB}_T(X) \stackrel{\simeq}{\longrightarrow} \mathrm{Free}(C(X)) \]
 	
-	\framebreak
+	\pagebreak
 	
 	\textbf{The Main Idea: The Karoubian Envelope.}
 	A category is \textbf{Karoubian} if all its idempotent morphisms split. Both $\mathcal{VB}(X)$ and $\mathrm{Proj}(C(X))$ are Karoubian. The Karoubian envelope is a universal way to "complete" an additive category by formally adding objects that split idempotents.
@@ -253,7 +253,7 @@ An abelian category is a pre-abelian categories for which each mono is a kernel 
 \section{Simplicial Homotopy theory}
 
 \begin{frame}[fragile]{Model categories}
-		\begin{definition}[(Closed) Model category]
+		\begin{definition}[Model category]
 		$\mathcal{C}$ with 3 distinguished classes of morphisms $(\mathcal{W, F ,C})$:
 		\begin{itemize}
 			\item $\mathcal{C}$ is bicomplete.
@@ -286,7 +286,7 @@ An abelian category is a pre-abelian categories for which each mono is a kernel 
 			\arrow["{\Delta}", from=2-1, to=2-3]
 		\end{tikzcd}\]
 	\end{definition}
-	\framebreak
+	\pagebreak
 	\begin{definition}[Cylinder object]\index{Cylinder object}
 		Let $\mathcal{C}$ be a model category with the distinguished class of maps $(\mathcal{W,F,C})$. Then define the cylinder object for $X \in \mathcal{C}$ as the object obtained from the factorization of the codiagonal ``folding'' morphism $\nabla: X \sqcup X \xrightarrow{[1_X,1_X]} X$.
 		\[\begin{tikzcd}
@@ -297,32 +297,31 @@ An abelian category is a pre-abelian categories for which each mono is a kernel 
 			\arrow["\nabla"', from=2-1, to=2-3]
 		\end{tikzcd}\]
 	\end{definition}
-	\framebreak
+	\pagebreak
 	\begin{definition}[Fibrant objects]\index{(Co)Fibrant objects}
 		Let $\mathcal{C}$ be a model category with distinguished classes of maps $(\mathcal{W,F,C})$. An object $A \in \mathcal{C}$ is said to be fibrant if the unique mapping into the terminal object $(f: A \to 1) \in \mathcal{F}$.
 	\end{definition}
-	Dually we have the notion of a cofibrant object.
+
 	\begin{definition}[Cofibrant objects]
 		As defined above, an object $B \in \mathcal{C}$ is said to be cofibrant if the unique mapping from the initial object $(g:0 \to B) \in \mathcal{C}$.
 	\end{definition}
 	
 	
 		\begin{example}
-		We shall see examples in more detail when we discuss examples of model categories. 
 		\begin{enumerate}
-			\item The canonical example is that Kan complexes in the classical model structure of simplicial sets are fibrant. 
+			\item The canonical example is that Kan complexes in the classical model structure of simplicial sets are fibrant. All simplicial sets are cofibrant in the standard model structure on the category of simplicial sets.
 			\item All topological spaces in the classical model structure of topological spaces are fibrant.
-			\item In the projective model category of chain complexes the complexes with injective objects are cofibrant and the complexes with projective objects are fibrant.
+			\item In the projective model category of chain complexes the complexes with projective objects are cofibrant and the complexes with injective objects are fibrant.
 		\end{enumerate}
 		
 	\end{example}
 	
-	\begin{proposition}\label{prop-fib-acycfib}
-		If $X \in \mathcal{C}$ a model category is fibrant then the map $\rho=(\rho_0, \rho_1): \mathrm{Path}(X) \to X \times X$ is a fibration and also the induced maps  $\rho_0, \rho_1$ are individually acyclic fibrations into $X$.
-		
-		Dually we have the map from $X \sqcup X \to \mathrm{Cyl}(X)$ is a cofibration and the individual maps from $X \to \mathrm{Cyl}(X)$ are acyclic cofibrations provided $X$ is a cofibrant object.
-	\end{proposition}
-	
+%	\begin{proposition}\label{prop-fib-acycfib}
+%		If $X \in \mathcal{C}$ a model category is fibrant then the map $\rho=(\rho_0, \rho_1): \mathrm{Path}(X) \to X \times X$ is a fibration and also the induced maps  $\rho_0, \rho_1$ are individually acyclic fibrations into $X$.
+%		
+%		Dually we have the map from $X \sqcup X \to \mathrm{Cyl}(X)$ is a cofibration and the individual maps from $X \to \mathrm{Cyl}(X)$ are acyclic cofibrations provided $X$ is a cofibrant object.
+%	\end{proposition}
+%	
 		\begin{definition}[Left homotopy in a model category]\index{Homotopy}
 		Let $\mathcal{C}$ be a model category and objects $X,Y \in \mathcal{C}$.
 		
@@ -335,7 +334,7 @@ An abelian category is a pre-abelian categories for which each mono is a kernel 
 			X
 			\arrow["{l_1}", from=1-1, to=2-1]
 			\arrow["f", from=1-1, to=2-3]
-			\arrow["{H_l}"{description}, from=2-1, to=2-3]
+			\arrow["{H_l}", from=2-1, to=2-3]
 			\arrow["{l_0}"', from=3-1, to=2-1]
 			\arrow["g"', from=3-1, to=2-3]
 		\end{tikzcd}\]
@@ -354,7 +353,7 @@ An abelian category is a pre-abelian categories for which each mono is a kernel 
 			&& Y
 			\arrow["{r_1}"', from=2-3, to=1-3]
 			\arrow["f", from=2-1, to=1-3]
-			\arrow["{H_r}"{description}, from=2-1, to=2-3]
+			\arrow["{H_r}", from=2-1, to=2-3]
 			\arrow["g"', from=2-1, to=3-3]
 			\arrow["{r_0}", from=2-3, to=3-3]
 		\end{tikzcd}\]
@@ -378,7 +377,7 @@ An abelian category is a pre-abelian categories for which each mono is a kernel 
 		
 		The category formed by all such finite non empty, totally ordered sets and all the mappings between them is referred to as the simplex category $\Delta$.
 	\end{definition}
-	
+	\pagebreak
 		\begin{example}
 		\( f:[1]\to[5] \), defined by \( f(0 \to 1)= 2 \to 4 \)
 		$f:[2] \to [5]$, defined by $f(0 \to 1 \to 2) = 2 \to 3 \to 4$.
@@ -389,7 +388,7 @@ An abelian category is a pre-abelian categories for which each mono is a kernel 
 		
 		$g:[4] \to [2]$ defined by $g(0 \to 1 \to 2\to 3 \to 4) = 0\to 0 \to 1 \to 1 \to 1.$		
 	\end{example}
-	
+		\pagebreak
 	Note that all morphisms in $\Delta$ are generated by a natural family of functions called coface and degeneracy maps defined as below.
 	\begin{definition}[Coface maps]
 		$d^i:[n-1] \to [n]$ the injection which misses the $i^\mathrm{th}$ element in $[n]$.
@@ -422,7 +421,7 @@ An abelian category is a pre-abelian categories for which each mono is a kernel 
 		s^j d^i &= d^i s^{j-1}, & i < j \\
 		s^j d^i &= d^{i-1} s^j, & i > j+1.
 	\end{align*}
-	
+\pagebreak
 	\begin{definition}[Simplicial set]
 		A simplicial set is a functor $X: \Delta^\mathrm{op} \to \mathbf{Set}$, i.e. presheaves on $\Delta$. It comprises of a collection of sets $X_n =X([n])$ which we to call the set of $n-$simplices of $X$ with maps between them corresponding naturally with maps in $\Delta$.
 	\end{definition}
@@ -453,7 +452,7 @@ An abelian category is a pre-abelian categories for which each mono is a kernel 
 	
 	Similarly for degeneracy maps $s_i$ we can understand it as mapping $x \in X_n $ to $n+1$ many $n+1$ simplicies in $X_{n+1} $ and $s_i(x)$ has $x$ as its $i^{\mathrm{th}} $ and $i+1^{\mathrm{th}}$ face. 
 	
-	\framebreak
+	\pagebreak
 
 
 \begin{proposition}
@@ -466,14 +465,20 @@ An abelian category is a pre-abelian categories for which each mono is a kernel 
 \note{\begin{theorem}[Density theorem]
 		Let $\mathcal{C}$ be a small category, every object $X \in \mathbf{Sets}^{\mathcal{C}^{\mathrm{op}}}$ is a colimit of representable functors for a index category $J$ the category of elements of $X$,
 		\[ \colim_{j \in J} y C_j \cong X .\]
-\end{theorem}}
-\framebreak
+\end{theorem}
+
+\begin{lemma}[Yoneda]\index{Yoneda lemma}
+	For a locally small category\index{Category!Locally small} $\mathcal{C}$ \footnote{Locally small implies each homset is indeed a small set (i.e. not a proper class). This is a weaker condition than just the category being small which means the collection of objects is a small set \index{Category! Small}.}, an object $A \in \mathcal{C}$ and a functor $F$  in the functor category $\mathbf{Sets}^{\mathcal{C}^\mathrm{op}}$ there exists an isomorphism,\[ \Hom_{\mathbf{Sets}^{\mathcal{C}^\mathrm{op}}}(yA, F) \cong FA.\]
+	
+	Where $y: \mathcal{C} \to \mathbf{Sets}^{\mathcal{C}^\mathrm{op}}$ is the Yoneda embedding defined as, $$y(A):\Hom_\mathcal{C}(-, A).$$ For $A$ an object of $\mathcal{C}$ and, $$y(f:A \to B):\Hom_\mathcal{C}(-,f): \Hom_\mathcal{C}(-,A) \to \Hom_\mathcal{C}(-,B).$$
+	\end{lemma}}
+\pagebreak
 \begin{definition}[Geometric realization of a standard $n$-simplical set]
 	We define a functor $|.|:\mathbf{sSet} \to \mathbf{Top}$ as such. Send each standard $n$ simplex $\Delta[n]$ to the standard $n$-toplogical simplex. In particular,
 	\[ |\Delta[n]|=\{ (x_0,\dots,x_{n+1}) | 0 \leq x_i \leq 1, \sum x_i=1 \} \subset \R^{n+1}. \]
 \end{definition}
 	We can then define the geometric realization of a standard \(n\)-simplex as \(|\Delta[n]|=\Delta_n\) where \(\Delta_n\) the standard topological \(n\)-simplex.
-\framebreak
+\pagebreak
 	\begin{figure}[!htb]
 	\centering
 	\[\begin{tikzcd}
@@ -815,18 +820,21 @@ An abelian category is a pre-abelian categories for which each mono is a kernel 
 	\begin{definition}[Exact category]\label{defexactcat}
 		An exact category (sometimes referred to as a Quillen exact category) is a pair $\mathcal{(E},E)$ for $\mathcal{E}$ an additive category which is a full subcategory of some abelian category $\mathcal{A}$. Along with a family of sequences $E$ of the form, \[ 0 \to A \to B \to C \to 0. \] Which are short exact sequences in $\mathcal{A}$ and if in a sequence of the above form $A, C \in \mathcal{E}$ then $B $ is isomorphic to some element which is in $\mathrm{Ob}(C)$, (i.e. it is closed under extensions).
 	\end{definition}
+	\pagebreak
 	\begin{example}
-		For \(A\) a commutative ring with unity, the collection of finitely generated projective \( A \) modules forms an exact category. 
+		\begin{itemize}
+			\item 	For \(A\) a commutative ring with unity, the collection of finitely generated projective \( A \) modules forms an exact category. 
+			\item Every abelian category is trivially exact over itself.
+			\item Torsion free abelian groups over the category of abelian groups is exact but not abelian.
+		\end{itemize}
 	\end{example}
-	\begin{example}
-		Every abelian category is trivially exact over itself.
-	\end{example}
-	\begin{example}Torsion free abelian groups over the category of abelian groups is exact but not abelian.
-	\end{example}
+	\pagebreak
 	
 	\begin{definition}[$K_0$ for an exact category $\mathcal{E}$]\label{def:k0exact}
 		$K_0(\mathcal E)$ is generated by the isomorphism classes $[B]$ for each $B \in \mathrm{Ob}(\mathcal{E})$ and a relation of $[B]=[A]+[C]$ for all short exact sequences, \[ 0 \to A \to B \to C \to 0.\]
 	\end{definition}
+	\note{{Why \([B] = [A] + [C]\) is Natural}
+		Short exact sequences describe how objects are built. The relation \([B] = [A] + [C]\) reflects that \(B\) is an extension of \(C\) by \(A\). In the split case, \(B \cong A \oplus C\), so additivity becomes obvious. Doubly so when split}
 \end{frame}
 \begin{frame}[allowframebreaks,fragile]{\( Q \) construction of an exact category}
 	Suppose that \(\mathcal{E}\) is an exact category. Define an equivalence relation on all diagrams
@@ -874,7 +882,7 @@ An abelian category is a pre-abelian categories for which each mono is a kernel 
 	\begin{theorem}
 		There is an equivalence of groupoids $GQ\mathcal{E} \cong K_0(\mathcal{E})$.
 	\end{theorem}	
-	\framebreak
+	\pagebreak
 	
 	\begin{alertblock}{Proof Strategy}
 		We construct functors in both directions and show they are mutually inverse.
@@ -1080,7 +1088,7 @@ An abelian category is a pre-abelian categories for which each mono is a kernel 
 		For an exact category \( \mathcal{E} \), there exist weak equivalences \( s_\bullet(\mathcal{E}) \simeq s_\bullet(\mathcal{E})^e \simeq BQ \mathcal{E}\).
 	\end{theorem}
 	
-	\framebreak
+	\pagebreak
 	\begin{alertblock}{Proof Strategy}
 		The proof establishes the two weak equivalences in the chain separately.
 		\begin{enumerate}
@@ -1089,7 +1097,7 @@ An abelian category is a pre-abelian categories for which each mono is a kernel 
 		\end{enumerate}
 	\end{alertblock}
 	
-	\framebreak
+	\pagebreak
 	
 	\textbf{Part 1: Equivalence via Edgewise Subdivision}
 	
@@ -1200,7 +1208,7 @@ An abelian category is a pre-abelian categories for which each mono is a kernel 
 		induce stable equivalences
 		\[ K(\mathcal{P}) \simeq K(\mathcal{P}_1) \simeq K(\mathcal{P}_2) \simeq \dots \simeq K(\mathcal{P}_\infty). \]
 
-	\framebreak
+	\pagebreak
 	\begin{theorem}[D\'evissage Theorem]
 		Suppose that $\mathcal{B}$ is a non-empty subcategory of a small abelian category $\mathcal{A}$ which is closed under taking finite direct sums, subobjects and quotients in $\mathcal{A}$. Suppose that every object $Q$ of $\mathcal{A}$ has a finite filtration
 		\[ 0 = F_{-1} \rightarrowtail F_0 \rightarrowtail F_1 \rightarrowtail \dots \rightarrowtail F_n = Q \]
@@ -1222,7 +1230,7 @@ An abelian category is a pre-abelian categories for which each mono is a kernel 
 \end{frame}
 %------------------------------------------------
 \begin{frame}
-    \textbf{\Huge{Thanks for listening}}
+    \textbf{\Huge{Thank you}}
 \end{frame}
 %------------------------------------------------
 
